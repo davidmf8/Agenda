@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+  
+    <item
+        android:id="@+id/menu_new"
+        android:showAsAction="ifRoom"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="Nuevo">
+        
+        <menu>
+            <item android:id="@+id/foto"
+                  android:title="Foto"/>
+            <item android:id="@+id/Video"
+                  android:title="Video" />
+            <item android:id="@+id/Audio"
+                  android:title="Audio" />
+        </menu>
+    </item>
+
+</menu>
