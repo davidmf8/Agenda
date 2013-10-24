@@ -43,7 +43,7 @@ public class MainActivity extends Activity implements OnClickListener{
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-				 	
+	
 
 	@Override
 	public void onClick(View v) {
@@ -59,10 +59,12 @@ public class MainActivity extends Activity implements OnClickListener{
 	
 	@Override
 	 public boolean onOptionsItemSelected(MenuItem item) {
+		Intent cambio_actividad = new Intent();
 		//Para los botonesde crear un archivo: foto, video o grabación.
 	     switch (item.getItemId()) {
 	         case R.id.foto:
-	             Toast.makeText(this, "asodnasd", 5).show();
+	        	 cambio_actividad.setClass(this, Camara.class);
+				 startActivity(cambio_actividad);
 	             break;
 	         case R.id.Video:
 	        	 break;
