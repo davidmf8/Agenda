@@ -10,17 +10,17 @@ import android.view.SurfaceView;
 
 @SuppressLint("ViewConstructor")
 public class CamaraSurfaceView extends SurfaceView implements SurfaceHolder.Callback{
-    SurfaceHolder holder;
+    SurfaceHolder miholder;
     Camera miCamara;
 	
 	
 	@SuppressWarnings("deprecation")
 	public CamaraSurfaceView(Context context, Camera miCamara) {
 		super(context);
-		holder = this.getHolder();
-		holder.addCallback(this);
 		this.miCamara = miCamara;
-		holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+		miholder = this.getHolder();
+		miholder.addCallback(this);
+		miholder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
 	}
 
