@@ -1,97 +1,88 @@
 package com.example.agendauca;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 
-import com.example.multimedia.CamaraSurfaceView;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import android.app.Activity;
-import android.hardware.Camera;
-import android.hardware.Camera.PictureCallback;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
-import android.view.View;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 public class Camara extends Activity{
-    private CamaraSurfaceView surface;
-    private Camera miCamara;
-    
-    @Override
-    public void onCreate(Bundle savedInstanceState){
-    	super.onCreate(savedInstanceState);
-    	//Para que no salga la barra del titulo y así se ve mejor la imagen en la previsualización
-    	 requestWindowFeature(Window.FEATURE_NO_TITLE);
-    	
-    	//Nuestra "pantalla dinamica", que loque nos permitirá ver lo que la cámaraesta visualizando
-    	//Pre-visualización
-    	
-    	setContentView(R.layout.activity_camara);
-    	miCamara = getCameraInstance();
-    	surface = new CamaraSurfaceView(this, miCamara);
-    	
-    	FrameLayout preview = (FrameLayout) findViewById(R.id.previsualizacion);
-        preview.addView(surface);
-
-        Button captureButton = (Button) findViewById(R.id.captura);
-        captureButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                miCamara.takePicture(null, null, mPicture);
-            }
-        });
-    }
-        
-    
-    private static Camera getCameraInstance() {
-        Camera camara = null;
-        try {
-            camara = Camera.open();
-        } catch (Exception e) {}
-        return camara;
-    }
-    
-    PictureCallback mPicture = new PictureCallback() {
-        public void onPictureTaken(byte[] data, Camera camera) {
-            File pictureFile = getOutputMediaFile();
-            if (pictureFile == null) {
-                return;
-            }
-            try {
-                FileOutputStream fos = new FileOutputStream(pictureFile);
-                fos.write(data);
-                fos.close();
-            } catch (FileNotFoundException e) {
-
-            } catch (IOException e) {
-            }
-        }
-    };
-
-    private static File getOutputMediaFile() {
-        File mediaStorageDir = new File(
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                "MyCameraApp");
-        if (!mediaStorageDir.exists()) {
-            if (!mediaStorageDir.mkdirs()) {
-                Log.d("MyCameraApp", "failed to create directory");
-                return null;
-            }
-        }
-        // Create a media file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
-                .format(new Date(0));
-        File mediaFile;
-        mediaFile = new File(mediaStorageDir.getPath() + File.separator
-                + "IMG_" + timeStamp + ".jpg");
-
-        return mediaFile;
-    }
+	private static final int CAPTURE_IMAGE_ACTIVITY_REQ = 0;
+		
+	Uri fileUri = null;
+	ImageView fotoImagen = null;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		fileUri = Uri.fromFile(getOutputPhotoFile());
+		i.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+		startActivityForResult(i, CAPTURE_IMAGE_ACTIVITY_REQ );
+	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		  if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQ) {
+		    if (resultCode == RESULT_OK) {
+		      Uri photoUri = null;
+		      if (data == null) {
+		        // A known bug here! The image should have saved in fileUri
+		        Toast.makeText(this, "Image saved successfully", 
+		                       Toast.LENGTH_LONG).show();
+		        photoUri = fileUri;
+		      } else {
+		        photoUri = data.getData();
+		        Toast.makeText(this, "Image saved successfully in: " + data.getData(), 
+		                       Toast.LENGTH_LONG).show();
+		      }
+		      showPhoto(photoUri.getPath());
+		    } else if (resultCode == RESULT_CANCELED) {
+		      Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
+		    } else {
+		      Toast.makeText(this, "Callout for image capture failed!", 
+		                     Toast.LENGTH_LONG).show();
+		    }
+		  }
+	}
+	
+	private File getOutputPhotoFile() {
+		
+		  File directory = new File(Environment.getExternalStoragePublicDirectory(
+		                Environment.DIRECTORY_PICTURES), getPackageName());
+		  
+		  if (!directory.exists()) {
+		    if (!directory.mkdirs()) {
+		      return null;
+		    }
+		  }
+		  
+		  String timeStamp = new SimpleDateFormat("yyyMMdd_HHmmss", Locale.US).format(new Date());
+		  
+		  return new File(directory.getPath() + File.separator + "IMG_"  
+		                    + timeStamp + ".jpg");
+	}
+	
+	private void showPhoto(String photoUri) {
+		  File imageFile = new File (photoUri);
+		  if (imageFile.exists()){
+		     Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+		     BitmapDrawable drawable = new BitmapDrawable(this.getResources(), bitmap);
+		     fotoImagen.setScaleType(ImageView.ScaleType.FIT_CENTER);
+		     fotoImagen.setImageDrawable(drawable);
+		  }       
+	}
 }
