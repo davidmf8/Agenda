@@ -1,4 +1,6 @@
-package com.example.agendauca;
+package Agenda.funcionalidades;
+
+import com.example.agendauca.R;
 
 import android.os.Bundle;
 import android.app.Activity;

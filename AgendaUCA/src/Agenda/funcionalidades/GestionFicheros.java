@@ -1,9 +1,10 @@
-package com.example.agendauca;
+package Agenda.funcionalidades;
+
+import com.example.agendauca.R;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.view.View;
-import android.view.View.OnClickListener;
+
 
 public class GestionFicheros extends Activity{
 	@Override
