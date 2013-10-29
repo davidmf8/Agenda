@@ -20,7 +20,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="Agenda.funcionalidades.MainActivity"
+            android:name="com.example.agendauca.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,11 +29,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="Agenda.funcionalidades.GestionFicheros"
+            android:name="com.example.agendauca.GestionFicheros"
             android:label="@string/app_name" >       
         </activity>
         <activity 
-          android:name="Agenda.funcionalidades.Camara"
+          android:name="com.example.agendauca.Camara"
           android:label="@string/app_name">
         </activity>
 

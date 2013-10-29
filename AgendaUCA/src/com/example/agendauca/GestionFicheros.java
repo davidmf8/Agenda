@@ -1,4 +1,4 @@
-package Agenda.funcionalidades;
+package com.example.agendauca;
 
 import com.example.agendauca.R;
 
