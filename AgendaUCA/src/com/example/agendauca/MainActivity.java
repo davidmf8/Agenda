@@ -66,6 +66,8 @@ public class MainActivity extends Activity implements OnClickListener{
 				 startActivity(cambio_actividad);
 	             break;
 	         case R.id.Video:
+	        	 cambio_actividad.setClass(this, Video.class);
+				 startActivity(cambio_actividad);
 	        	 break;
 	         case R.id.Audio:
 	        	 break;
