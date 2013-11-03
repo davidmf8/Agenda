@@ -19,7 +19,6 @@ public class Camara extends Activity{
 	private static final int IMAGEN_CAPTURADA = 1;
 		
 	Uri fileUri = null;
-	//ImageView fotoImagen = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +37,7 @@ public class Camara extends Activity{
 		  if (requestCode == IMAGEN_CAPTURADA) {
 		    if (resultCode == RESULT_OK) {
 		        Toast.makeText(this, "Foto guardada con éxito", 
-		                       Toast.LENGTH_LONG).show();
+		                       Toast.LENGTH_SHORT).show();
 		        cambio_actividad.setClass(this, Camara.class);
 			    startActivity(cambio_actividad);
 		    } 
@@ -55,7 +54,7 @@ public class Camara extends Activity{
 	
 	private File ficheroFoto() {
 		  //Creamos directorio foto
-		File dir = new File(this.getExternalFilesDir(Environment.DIRECTORY_DCIM),  "FotosAgenda");
+		File dir = new File(this.getExternalFilesDir(Environment.DIRECTORY_DCIM),  "AgendaFotos");
 		if(!dir.exists()){
 			dir.mkdir();
 		}

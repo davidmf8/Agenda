@@ -33,7 +33,7 @@ public class Video extends Activity{
 		   Intent cambio_actividad = new Intent();
 		   if (resultCode == RESULT_OK) {
 		        Toast.makeText(this, "Video guardado con éxito", 
-		                       Toast.LENGTH_LONG).show();
+		                       Toast.LENGTH_SHORT).show();
 		        cambio_actividad.setClass(this, Video.class);
 			    startActivity(cambio_actividad);
 		    } 
