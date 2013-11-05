@@ -18,17 +18,27 @@ import android.widget.Toast;
 public class Camara extends Activity{
 	private static final int IMAGEN_CAPTURADA = 1;
 		
-	Uri fileUri = null;
+	private Uri fileUri = null;
+	private File miFoto;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		//Intent camara. Se le indica que la accion del intent será capturar una imagen
 		Intent camara = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		fileUri = Uri.fromFile(ficheroFoto());
-		//Idicamos al intent de captura donde se guardará la foto en caso de confirmarlo
-		camara.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-		startActivityForResult(camara, IMAGEN_CAPTURADA );
+		miFoto = ficheroFoto();
+		if(miFoto.getName() == "Error"){
+			Toast.makeText(this, "Memoria externa no disponible", Toast.LENGTH_SHORT).show();
+			Intent cambio_actividad = new Intent();
+            cambio_actividad.setClass(this, MainActivity.class);
+	        startActivity(cambio_actividad);
+		}
+		else{
+		  fileUri = Uri.fromFile(miFoto);
+		  //Idicamos al intent de captura donde se guardará la foto en caso de confirmarlo
+		  camara.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+		  startActivityForResult(camara, IMAGEN_CAPTURADA );
+		}
 	}
 	
 	//Sobreescribimos este metodo para lo que necesitamos
@@ -54,14 +64,16 @@ public class Camara extends Activity{
 	
 	private File ficheroFoto() {
 		  //Creamos directorio foto
-		File dir = new File(this.getExternalFilesDir(Environment.DIRECTORY_DCIM),  "AgendaFotos");
-		if(!dir.exists()){
+		if(FuncionesUtiles.estadoEscritura()){
+		  File dir = new File(this.getExternalFilesDir(Environment.DIRECTORY_DCIM),  "AgendaFotos");
+		  if(!dir.exists()){
 			dir.mkdir();
-		}
+		  }
 		
-        String horaLocal = new SimpleDateFormat("yyyMMdd_HHmmss", Locale.ROOT).format(new Date());
-        File foto = new File(dir, "IMG_" + horaLocal + ".jpg");
-		return foto;
+          String horaLocal = new SimpleDateFormat("yyyMMdd_HHmmss", Locale.ROOT).format(new Date());
+          File foto = new File(dir, "IMG_" + horaLocal + ".jpg");
+		  return foto;
+		}
+	    return new File("Error");
 	}
-
 }
