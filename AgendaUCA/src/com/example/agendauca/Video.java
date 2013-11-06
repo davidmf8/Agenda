@@ -17,15 +17,25 @@ public class Video extends Activity{
 	private static final int CAPTURA_VIDEO = 200;
 
 	Uri fileUri = null;
+	File miVideo;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Intent video = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-		fileUri = Uri.fromFile(ficheroVideo());
-		video.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-		video.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-		startActivityForResult(video, CAPTURA_VIDEO);
+		miVideo = ficheroVideo();
+		if(miVideo.getName() == "Error"){
+			Toast.makeText(this, "Memoria externa no disponible", Toast.LENGTH_SHORT).show();
+			Intent cambio_actividad = new Intent();
+            cambio_actividad.setClass(this, MainActivity.class);
+	        startActivity(cambio_actividad);
+		}
+		else{
+		  fileUri = Uri.fromFile(miVideo);
+		  video.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+		  video.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+		  startActivityForResult(video, CAPTURA_VIDEO);
+		}
 	}
 	
 	
@@ -45,13 +55,17 @@ public class Video extends Activity{
     }
 	
 	private File ficheroVideo() {
-		File dir = new File(this.getExternalFilesDir(Environment.DIRECTORY_DCIM),  "AgendaVideos");
-		if(!dir.exists()){
+		if(FuncionesUtiles.estadoEscritura()){
+		  File dir = new File(this.getExternalFilesDir(Environment.DIRECTORY_DCIM),  "AgendaVideos");
+		  if(!dir.exists()){
 			dir.mkdir();
+		  }
+		
+          String horaLocal = new SimpleDateFormat("yyyMMdd_HHmmss", Locale.ROOT).format(new Date());
+          File video = new File(dir, "VID_" + horaLocal + ".mp4");
+		  return video;
 		}
 		
-        String horaLocal = new SimpleDateFormat("yyyMMdd_HHmmss", Locale.ROOT).format(new Date());
-        File video = new File(dir, "VID_" + horaLocal + ".mp4");
-		return video;
+		return new File("Error");
 	}
 }
