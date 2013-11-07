@@ -26,17 +26,17 @@ public final class R {
     public static final class id {
         public static final int Audio=0x7f080009;
         public static final int Video=0x7f080008;
-        public static final int captura=0x7f080001;
+        public static final int button1=0x7f080000;
+        public static final int button2=0x7f080001;
         public static final int foto=0x7f080007;
         public static final int imageButton2=0x7f080005;
         public static final int imageButton3=0x7f080002;
         public static final int imageButton4=0x7f080004;
         public static final int imageButton5=0x7f080003;
         public static final int menu_new=0x7f080006;
-        public static final int previsualizacion=0x7f080000;
     }
     public static final class layout {
-        public static final int activity_camara=0x7f030000;
+        public static final int activity_audio=0x7f030000;
         public static final int activity_gestionficheros=0x7f030001;
         public static final int activity_main=0x7f030002;
     }

@@ -57,9 +57,6 @@ public class Camara extends Activity{
 		      startActivity(cambio_actividad);
 		    } 
 		  }
-		  
-		  
-	      
 	}
 	
 	private File ficheroFoto() {

@@ -70,6 +70,8 @@ public class MainActivity extends Activity implements OnClickListener{
 				 startActivity(cambio_actividad);
 	        	 break;
 	         case R.id.Audio:
+	        	 cambio_actividad.setClass(this, Audio.class);
+				 startActivity(cambio_actividad);
 	        	 break;
 	     } 
 	  return false;
