@@ -15,16 +15,15 @@ import android.widget.Button;
 
 public class Audio extends Activity {
 	MediaRecorder recorder;
-	File archivo;
-	Button b1, b2;
+	Button grabar, parar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_audio);
 
-		b1 = (Button) findViewById(R.id.button1);
-		b2 = (Button) findViewById(R.id.button2);
+		grabar = (Button) findViewById(R.id.button1);
+		parar = (Button) findViewById(R.id.button2);
 	}
 
 	public void grabar(View v) {
@@ -33,26 +32,27 @@ public class Audio extends Activity {
 		recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
 		recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 		
-		archivo = ficheroAudio();
+		String archivo = ficheroAudio();
 
-		recorder.setOutputFile(archivo.getAbsolutePath());
+		recorder.setOutputFile(archivo);
+		
 		try {
 			recorder.prepare();
 		} catch (IOException e) {}
 		recorder.start();
-		b1.setEnabled(false);
-		b2.setEnabled(true);
+		grabar.setEnabled(false);
+		parar.setEnabled(true);
 	}
 
 	public void detener(View v) {
 		recorder.stop();
 		recorder.release();
 
-		b1.setEnabled(true);
-		b2.setEnabled(false);
+		grabar.setEnabled(true);
+		parar.setEnabled(false);
 	}
 
-	private File ficheroAudio() {
+	private String ficheroAudio() {
 		  //Creamos directorio de musica
 		if(FuncionesUtiles.estadoEscritura()){
 		  File dir = new File(this.getExternalFilesDir(Environment.DIRECTORY_MUSIC),  "AgendaAudio");
@@ -60,11 +60,11 @@ public class Audio extends Activity {
 			dir.mkdir();
 		  }
 		
-        String horaLocal = new SimpleDateFormat("yyyMMdd_HHmmss", Locale.ROOT).format(new Date());
-        File foto = new File(dir, "AUD_" + horaLocal + ".3gp");
+          String horaLocal = new SimpleDateFormat("yyyMMdd_HHmmss", Locale.ROOT).format(new Date());
+          String foto = dir.getAbsolutePath() + "/" + "AUD_" + horaLocal + ".3gp";
 		  return foto;
 		}
-	    return new File("Error");
+	    return ("Error");
 	}
 
 }
