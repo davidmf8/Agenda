@@ -7,46 +7,50 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
+    
+        <ImageButton
+        android:id="@+id/Directorios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="57dp"
+        android:layout_toRightOf="@+id/Evento"
+        android:onClick="onClick"
+        android:src="@drawable/ic_launcher" />
 
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/Evento"
         android:layout_width="wrap_content"
         android:onClick="onClick"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:src="@drawable/ic_launcher" />
 
+    
+        <ImageButton
+        android:id="@+id/Notificacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/Evento"
+        android:layout_marginRight="32dp"
+        android:onClick="onClick"
+        android:src="@drawable/ic_launcher" />
 
     <ImageButton
-        android:id="@+id/imageButton5"
+        android:id="@+id/Calificaciones"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="57dp"
         android:layout_marginRight="18dp"
-        android:layout_toLeftOf="@+id/imageButton4"
+        android:layout_toLeftOf="@+id/Notificacion"
         android:onClick="onClick"
         android:src="@drawable/ic_launcher" />
 
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="22dp"
-        android:layout_marginTop="57dp"
-        android:layout_toRightOf="@+id/imageButton3"
-        android:onClick="onClick"
-        android:src="@drawable/ic_launcher" />
 
-    <ImageButton
-        android:id="@+id/imageButton4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/imageButton3"
-        android:layout_marginRight="32dp"
-        android:onClick="onClick"
-        android:src="@drawable/ic_launcher" />
+
+
 
 </RelativeLayout>

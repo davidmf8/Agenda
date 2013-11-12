@@ -23,16 +23,16 @@ public class MainActivity extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		gestion_archivo = (ImageButton)findViewById(R.id.imageButton2);
+		gestion_archivo = (ImageButton)findViewById(R.id.Directorios);
 		gestion_archivo.setOnClickListener(this);
 
-		eventos = (ImageButton)findViewById(R.id.imageButton3);
+		eventos = (ImageButton)findViewById(R.id.Evento);
 		eventos.setOnClickListener(this);
 		
-		notificaciones = (ImageButton)findViewById(R.id.imageButton4);
+		notificaciones = (ImageButton)findViewById(R.id.Notificacion);
 		notificaciones.setOnClickListener(this);
 		
-		calificaciones = (ImageButton)findViewById(R.id.imageButton5);
+		calificaciones = (ImageButton)findViewById(R.id.Calificaciones);
 		calificaciones.setOnClickListener(this);
 	}
 	
@@ -49,7 +49,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		//Dependiendo del boton que se pulse, nos llevará a una funcionalidad u otra
 		Intent cambio_actividad = new Intent();
 		switch(v.getId()){
-		   case R.id.imageButton2:
+		   case R.id.Directorios:
 			   cambio_actividad.setClass(this, GestionFicheros.class);
 			   startActivity(cambio_actividad);
 		       break;
