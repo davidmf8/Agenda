@@ -50,7 +50,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		Intent cambio_actividad = new Intent();
 		switch(v.getId()){
 		   case R.id.Directorios:
-			   cambio_actividad.setClass(this, GestionFicheros.class);
+			   cambio_actividad.setClass(this, ListarDirectorios.class);
 			   startActivity(cambio_actividad);
 		       break;
 		}

@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import com.example.agendauca.R;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaRecorder;

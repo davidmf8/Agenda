@@ -1,5 +1,7 @@
 package com.example.agendauca;
 
+import java.io.File;
+import android.content.Context;
 import android.os.Environment;
 
 public class FuncionesUtiles {
@@ -18,6 +20,17 @@ public class FuncionesUtiles {
 		   return true;
 	   }
 	   return false;
+   }
+   
+   public static File[] getDir() throws NullPointerException{
+	   if(estadoLectura()){
+	     Context context = null;
+	     File directorioPrincipal = context.getExternalFilesDir(null);
+	     File[] misCarpetas = directorioPrincipal.listFiles();
+	     return misCarpetas;
+	   }
+	   	   
+	   return new File[0];
    }
    
 
