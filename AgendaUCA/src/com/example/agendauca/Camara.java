@@ -11,7 +11,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 //import android.widget.ImageView;
 import android.widget.Toast;
@@ -63,7 +62,7 @@ public class Camara extends Activity{
 	private File ficheroFoto() {
 		  //Creamos directorio foto
 		if(FuncionesUtiles.estadoEscritura()){
-		  File dir = new File(this.getExternalFilesDir(Environment.DIRECTORY_DCIM),  "AgendaFotos");
+		  File dir = new File(this.getExternalFilesDir(null),  "AgendaFotos");
 		  if(!dir.exists()){
 			dir.mkdir();
 		  }

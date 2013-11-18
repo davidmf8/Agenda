@@ -12,7 +12,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaRecorder;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -67,7 +66,7 @@ public class Audio extends Activity {
 	private String ficheroAudio() {
 		  //Creamos directorio de musica
 		if(FuncionesUtiles.estadoEscritura()){
-		  File dir = new File(this.getExternalFilesDir(Environment.DIRECTORY_MUSIC),  "AgendaAudio");
+		  File dir = new File(this.getExternalFilesDir(null),  "AgendaAudio");
 		  if(!dir.exists()){
 			dir.mkdir();
 		  }
