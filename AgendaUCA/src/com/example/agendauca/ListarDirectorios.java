@@ -6,6 +6,9 @@ import com.example.agendauca.R;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -13,7 +16,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 
-public class ListarDirectorios extends Activity{
+public class ListarDirectorios extends Activity implements OnItemClickListener{
 	ListView miListaDirectorios;
 	String[] nombreDirectorios;
 	
@@ -33,14 +36,6 @@ public class ListarDirectorios extends Activity{
 		}
 	}
 	
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		File[] seleccionDirectorio = getDirectorioRaiz();
-		Intent cambio_actividad = new Intent();
-		String ruta = seleccionDirectorio[position].getAbsolutePath();
-		cambio_actividad.putExtra("Subdirectorio", ruta);
-		cambio_actividad.setClass(this, ListarFicheros.class);
-		startActivity(cambio_actividad);
-	} 
 	
 	public String[] getNombreDirectorios(){
 		File[] dir = getDirectorioRaiz();
@@ -61,5 +56,16 @@ public class ListarDirectorios extends Activity{
 		   return misCarpetas;
 		}
 		return new File[0];
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> adapter, View view, int posicion, long id) {
+		File[] seleccionDirectorio = getDirectorioRaiz();
+		Intent cambio_actividad = new Intent();
+		String ruta = seleccionDirectorio[posicion].getAbsolutePath();
+		cambio_actividad.putExtra("Subdirectorio", ruta);
+		cambio_actividad.setClass(this, ListarFicheros.class);
+		startActivity(cambio_actividad);
+		
 	}
 }
