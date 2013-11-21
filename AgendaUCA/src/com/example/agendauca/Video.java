@@ -56,7 +56,7 @@ public class Video extends Activity{
 	
 	private File ficheroVideo() {
 		if(FuncionesUtiles.estadoEscritura()){
-		  File dir = new File(this.getExternalFilesDir(null),  "AgendaVideos");
+		  File dir = new File(this.getExternalFilesDir(null),  ".AgendaVideos");
 		  if(!dir.exists()){
 			dir.mkdir();
 		  }

@@ -62,7 +62,7 @@ public class Camara extends Activity{
 	private File ficheroFoto() {
 		  //Creamos directorio foto
 		if(FuncionesUtiles.estadoEscritura()){
-		  File dir = new File(this.getExternalFilesDir(null),  "AgendaFotos");
+		  File dir = new File(this.getExternalFilesDir(null),  ".AgendaFotos");
 		  if(!dir.exists()){
 			dir.mkdir();
 		  }

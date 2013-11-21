@@ -66,7 +66,7 @@ public class Audio extends Activity {
 	private String ficheroAudio() {
 		  //Creamos directorio de musica
 		if(FuncionesUtiles.estadoEscritura()){
-		  File dir = new File(this.getExternalFilesDir(null),  "AgendaAudio");
+		  File dir = new File(this.getExternalFilesDir(null),  ".AgendaAudio");
 		  if(!dir.exists()){
 			dir.mkdir();
 		  }
