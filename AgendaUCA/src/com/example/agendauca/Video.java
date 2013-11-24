@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.Toast;
 
+//Clase para grabar video
 public class Video extends Activity{
 	private static final int CAPTURA_VIDEO = 200;
 
@@ -24,13 +25,13 @@ public class Video extends Activity{
 		super.onCreate(savedInstanceState);
 		Intent video = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
 		miVideo = ficheroVideo();
-		if(miVideo.getName() == "Error"){
+		if(miVideo.getName() == "Error"){ //Si no se ha creado el archivo por memoria
 			Toast.makeText(this, "Memoria externa no disponible", Toast.LENGTH_SHORT).show();
 			Intent cambio_actividad = new Intent();
             cambio_actividad.setClass(this, MainActivity.class);
 	        startActivity(cambio_actividad);
 		}
-		else{
+		else{ //Se graba
 		  fileUri = Uri.fromFile(miVideo);
 		  video.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 		  video.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
@@ -39,7 +40,7 @@ public class Video extends Activity{
 	}
 	
 	
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) { //Para verificar que se ha grabado bien
 		   Intent cambio_actividad = new Intent();
 		   if (resultCode == RESULT_OK) {
 		        Toast.makeText(this, "Video guardado con éxito", 
@@ -54,7 +55,7 @@ public class Video extends Activity{
 		    } 
     }
 	
-	private File ficheroVideo() {
+	private File ficheroVideo() { //Te crea el fichero de video con respondiente para grabar
 		if(FuncionesUtiles.estadoEscritura()){
 		  File dir = new File(this.getExternalFilesDir(null),  ".AgendaVideos");
 		  if(!dir.exists()){

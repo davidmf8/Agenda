@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+//Clase para grabar audio
 public class Audio extends Activity {
 	MediaRecorder audio;
 	Button grabar, parar;
@@ -29,7 +30,7 @@ public class Audio extends Activity {
 		parar = (Button) findViewById(R.id.Parar);
 	}
 
-	public void grabar(View v) {
+	public void grabar(View v) { //Grabar
 		audio = new MediaRecorder();
 		audio.setAudioSource(MediaRecorder.AudioSource.MIC);
 		audio.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
@@ -55,7 +56,7 @@ public class Audio extends Activity {
 		}
 	}
 
-	public void detener(View v) {
+	public void detener(View v) { //Detener grabación
 		audio.stop();
 		audio.release();
 
@@ -64,7 +65,7 @@ public class Audio extends Activity {
 	}
 
 	private String ficheroAudio() {
-		  //Creamos directorio de musica
+		  //Creamos directorio AgendaAudio si no estña creado, y se crea el archivo que almacenará el audio
 		if(FuncionesUtiles.estadoEscritura()){
 		  File dir = new File(this.getExternalFilesDir(null),  ".AgendaAudio");
 		  if(!dir.exists()){

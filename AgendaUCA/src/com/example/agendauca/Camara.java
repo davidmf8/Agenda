@@ -15,6 +15,7 @@ import android.provider.MediaStore;
 //import android.widget.ImageView;
 import android.widget.Toast;
 
+//Clase para realizar fotos
 public class Camara extends Activity{
 	private static final int IMAGEN_CAPTURADA = 1;
 		
@@ -27,13 +28,13 @@ public class Camara extends Activity{
 		//Intent camara. Se le indica que la accion del intent será capturar una imagen
 		Intent camara = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		miFoto = ficheroFoto();
-		if(miFoto.getName() == "Error"){
+		if(miFoto.getName() == "Error"){ //El fichero no se ha creado por problemas de memoria. Se regresa a la activity principal
 			Toast.makeText(this, "Memoria externa no disponible", Toast.LENGTH_SHORT).show();
 			Intent cambio_actividad = new Intent();
             cambio_actividad.setClass(this, MainActivity.class);
 	        startActivity(cambio_actividad);
 		}
-		else{
+		else{ //Se ha creado correctamente el fichero
 		  fileUri = Uri.fromFile(miFoto);
 		  //Idicamos al intent de captura donde se guardará la foto en caso de confirmarlo
 		  camara.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
@@ -41,7 +42,7 @@ public class Camara extends Activity{
 		}
 	}
 	
-	//Sobreescribimos este metodo para lo que necesitamos
+	//Sobreescribimos este metodo para lo que necesitamos, que es saber el resultado de la captura
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		   Intent cambio_actividad = new Intent();
 		  if (requestCode == IMAGEN_CAPTURADA) {
@@ -60,9 +61,9 @@ public class Camara extends Activity{
 	}
 	
 	private File ficheroFoto() {
-		  //Creamos directorio foto
+		  //Creamos directorio Agenda foto si no está creado, y se crea el archivo que se necesita para almacenar la foto
 		if(FuncionesUtiles.estadoEscritura()){
-		  File dir = new File(this.getExternalFilesDir(null),  ".AgendaFotos");
+		  File dir = new File(this.getExternalFilesDir(null),  ".AgendaFotos"); 
 		  if(!dir.exists()){
 			dir.mkdir();
 		  }

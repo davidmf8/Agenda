@@ -46,7 +46,7 @@ public class MainActivity extends Activity implements OnClickListener{
 
 	@Override
 	public void onClick(View v) {
-		//Dependiendo del boton que se pulse, nos llevará a una funcionalidad u otra
+		//Dependiendo del boton que se pulse, nos llevará a una funcionalidad u otra: ver directorios, eventos, calificaciones y notificaciones
 		Intent cambio_actividad = new Intent();
 		switch(v.getId()){
 		   case R.id.Directorios:
@@ -59,7 +59,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	@Override
 	 public boolean onOptionsItemSelected(MenuItem item) {
 		Intent cambio_actividad = new Intent();
-		//Para los botonesde crear un archivo: foto, video o grabación.
+		//Para los botones de crear un archivo: foto, video o grabación.
 	     switch (item.getItemId()) {
 	         case R.id.foto:
 	        	 cambio_actividad.setClass(this, Camara.class);

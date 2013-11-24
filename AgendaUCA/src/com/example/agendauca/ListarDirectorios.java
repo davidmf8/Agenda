@@ -15,8 +15,8 @@ import android.widget.Toast;
 import android.app.Activity;
 import android.content.Intent;
 
-
-public class ListarDirectorios extends Activity implements OnItemClickListener{
+//Lista los directorios principales de la aplicación
+public class ListarDirectorios extends Activity{
 	ListView miListaDirectorios;
 	String[] nombreDirectorios;
 	
@@ -25,10 +25,21 @@ public class ListarDirectorios extends Activity implements OnItemClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_gestionficheros);
 		miListaDirectorios = (ListView)findViewById(R.id.listaDir);
-		nombreDirectorios = getNombreDirectorios();
-		if(nombreDirectorios.length  != 0)
-		  miListaDirectorios.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nombreDirectorios));
-		else{
+		nombreDirectorios = getNombreDirectorios(); //Obtenemos los nombres de los directorios.
+		if(nombreDirectorios.length  != 0){	//Si se ha podido leer los directorios
+		   miListaDirectorios.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nombreDirectorios));
+		   miListaDirectorios.setOnItemClickListener(new OnItemClickListener(){
+				public void onItemClick(AdapterView<?> adapter, View view, int posicion, long id) {
+					File[] seleccionDirectorio = getDirectorioRaiz();
+					Intent cambio_actividad = new Intent();
+					String ruta = seleccionDirectorio[posicion].getAbsolutePath();
+					cambio_actividad.putExtra("Subdirectorio", ruta);
+					cambio_actividad.setClass(getApplicationContext(), ListarFicheros.class);
+					startActivity(cambio_actividad);	
+				}
+		   });
+	    }
+		else{ //Si no
 			Toast.makeText(this, "Memoria externa no disponible", Toast.LENGTH_SHORT).show();
 			Intent cambio_actividad = new Intent();
             cambio_actividad.setClass(this, MainActivity.class);
@@ -37,7 +48,7 @@ public class ListarDirectorios extends Activity implements OnItemClickListener{
 	}
 	
 	
-	public String[] getNombreDirectorios(){
+	public String[] getNombreDirectorios(){ //Obtiene los nombres de los directorios.
 		File[] dir = getDirectorioRaiz();
 		if(dir.length != 0){
 			String[] nombresDir = new String[dir.length];
@@ -49,7 +60,7 @@ public class ListarDirectorios extends Activity implements OnItemClickListener{
 		return new String[0];
 	}
 	
-	public File[] getDirectorioRaiz(){
+	public File[] getDirectorioRaiz(){ //Obtiene los directorios de la raiz de la aplicación
 		if(FuncionesUtiles.estadoLectura()){
 		   File directorioPrincipal = getExternalFilesDir(null);
 		   File[] misCarpetas = directorioPrincipal.listFiles();
@@ -58,14 +69,4 @@ public class ListarDirectorios extends Activity implements OnItemClickListener{
 		return new File[0];
 	}
 
-	@Override
-	public void onItemClick(AdapterView<?> adapter, View view, int posicion, long id) {
-		File[] seleccionDirectorio = getDirectorioRaiz();
-		Intent cambio_actividad = new Intent();
-		String ruta = seleccionDirectorio[posicion].getAbsolutePath();
-		cambio_actividad.putExtra("Subdirectorio", ruta);
-		cambio_actividad.setClass(this, ListarFicheros.class);
-		startActivity(cambio_actividad);
-		
-	}
 }
