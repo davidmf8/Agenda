@@ -42,7 +42,10 @@ public class ListarFicheros extends Activity{
 						File ficheroSeleccionado = ficheros[posicion];
 						String nombreFichero = ficheroSeleccionado.getName();
 						if(nombreFichero.indexOf(".jpg") != -1){
-							//Muestra foto
+							Intent mostrar_foto = new Intent();
+							mostrar_foto.putExtra("Imagen", nombreFichero);
+							mostrar_foto.setClass(getApplicationContext(), MostrarImagen.class);
+							startActivity(mostrar_foto);
 						}
 						if(nombreFichero.indexOf(".mp4") != -1){
 							//Muestra video
