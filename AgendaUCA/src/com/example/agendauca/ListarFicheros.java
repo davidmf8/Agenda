@@ -43,7 +43,7 @@ public class ListarFicheros extends Activity{
 						String nombreFichero = ficheroSeleccionado.getName();
 						if(nombreFichero.indexOf(".jpg") != -1){
 							Intent mostrar_foto = new Intent();
-							mostrar_foto.putExtra("Imagen", nombreFichero);
+							mostrar_foto.putExtra("Imagen", ficheros[posicion].getAbsolutePath());
 							mostrar_foto.setClass(getApplicationContext(), MostrarImagen.class);
 							startActivity(mostrar_foto);
 						}
