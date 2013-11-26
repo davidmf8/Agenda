@@ -3,6 +3,7 @@ package com.example.agendauca;
 import java.io.File;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -20,7 +21,8 @@ public class MostrarImagen extends Activity{
 		
 		miImagen = (ImageView)findViewById(R.id.ImgFoto);
 		miImagen.setImageBitmap(BitmapFactory.decodeFile(rutaImagen));
-		
+		miImagen.setScaleType(ImageView.ScaleType.FIT_XY); //Imagen a pantalla completa
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); //No gira la pantalla
 		
 		
 	}
