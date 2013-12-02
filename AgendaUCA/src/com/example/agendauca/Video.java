@@ -43,8 +43,7 @@ public class Video extends Activity{
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) { //Para verificar que se ha grabado bien
 		   Intent cambio_actividad = new Intent();
 		   if (resultCode == RESULT_OK) {
-		        Toast.makeText(this, "Video guardado con éxito", 
-		                       Toast.LENGTH_SHORT).show();
+		        Toast.makeText(this, "Video guardado con éxito", Toast.LENGTH_SHORT).show();
 		        cambio_actividad.setClass(this, Video.class);
 			    startActivity(cambio_actividad);
 		    } 
