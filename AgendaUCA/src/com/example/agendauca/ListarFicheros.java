@@ -47,15 +47,15 @@ public class ListarFicheros extends Activity{
 							mostrar_foto.setClass(getApplicationContext(), MostrarImagen.class);
 							startActivity(mostrar_foto);
 						}
-						if(nombreFichero.indexOf(".mp4") != -1){
+						if(nombreFichero.indexOf(".mp4") != -1 || nombreFichero.indexOf(".3gp") != -1){
 							Intent reproducir_video = new Intent();
-							reproducir_video.putExtra("Video", ficheros[posicion].getAbsolutePath());
+							reproducir_video.putExtra("AchivoReproducir", ficheros[posicion].getAbsolutePath());
 							reproducir_video.setClass(getApplicationContext(), ReproducirVideo.class);
 							startActivity(reproducir_video);
 						}
-						if(nombreFichero.indexOf(".3gp") != -1){
+						/*if(nombreFichero.indexOf(".3gp") != -1){
 							//Muestra audio
-						}
+						}*/
 					}
 
 				}
