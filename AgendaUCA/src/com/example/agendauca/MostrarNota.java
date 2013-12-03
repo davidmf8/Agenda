@@ -1,6 +1,8 @@
 package com.example.agendauca;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
 import android.app.Activity;
@@ -20,10 +22,10 @@ public class MostrarNota extends Activity{
 		
 		Bundle datosIntent = this.getIntent().getExtras();
 		String rutaNota = datosIntent.getString("LecturaNota");
-		
+		File nota = new File(rutaNota);
 		try{
-			BufferedReader fin = new BufferedReader(new InputStreamReader(openFileInput(rutaNota)));
-		    miNota.setText(fin.readLine());
+			InputStreamReader fin = new InputStreamReader(new FileInputStream(nota));
+		    miNota.setText(fin.read());
 		    fin.close();
 		} catch(Exception e){}
 			

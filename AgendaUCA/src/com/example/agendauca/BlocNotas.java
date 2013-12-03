@@ -11,14 +11,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 
 public class BlocNotas extends Activity{
 	EditText texto;
-	Button validar;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +46,8 @@ public class BlocNotas extends Activity{
 	          try {
 	        	  OutputStreamWriter archivo = new OutputStreamWriter(new FileOutputStream(miNota));
 	              archivo.write(texto.getText().toString());
-	              archivo.flush();
 	              archivo.close();
-	          } catch (IOException e) {
-	          }
+	          } catch (IOException e) {}
 		}
 		else{
 			Toast.makeText(this, "Memoria externa no disponible", Toast.LENGTH_SHORT).show();
