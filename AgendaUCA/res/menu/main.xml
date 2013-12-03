@@ -13,6 +13,8 @@
                   android:title="Video" />
             <item android:id="@+id/Audio"
                   android:title="Audio" />
+            <item android:id="@+id/Notas"
+                  android:title="Nota" />
         </menu>
     </item>
 

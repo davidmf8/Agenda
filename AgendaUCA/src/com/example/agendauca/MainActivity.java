@@ -73,6 +73,10 @@ public class MainActivity extends Activity implements OnClickListener{
 	        	 cambio_actividad.setClass(this, Audio.class);
 				 startActivity(cambio_actividad);
 	        	 break;
+	         case R.id.Notas:
+	        	 cambio_actividad.setClass(this, BlocNotas.class);
+				 startActivity(cambio_actividad);
+	        	 break;
 	     } 
 	  return false;
 	 }

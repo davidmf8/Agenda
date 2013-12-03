@@ -24,28 +24,32 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int Audio=0x7f08000d;
-        public static final int Calificaciones=0x7f080007;
-        public static final int Directorios=0x7f080004;
-        public static final int Evento=0x7f080005;
+        public static final int Audio=0x7f08000f;
+        public static final int Calificaciones=0x7f080009;
+        public static final int Directorios=0x7f080006;
+        public static final int Evento=0x7f080007;
         public static final int Grabar=0x7f080000;
-        public static final int ImgFoto=0x7f080008;
-        public static final int ListaFicheros=0x7f080002;
-        public static final int Notificacion=0x7f080006;
+        public static final int ImgFoto=0x7f08000a;
+        public static final int ListaFicheros=0x7f080004;
+        public static final int Notas=0x7f080010;
+        public static final int Notificacion=0x7f080008;
         public static final int Parar=0x7f080001;
-        public static final int ReproductorVideo=0x7f080009;
-        public static final int Video=0x7f08000c;
-        public static final int foto=0x7f08000b;
-        public static final int listaDir=0x7f080003;
-        public static final int menu_new=0x7f08000a;
+        public static final int ReproductorVideo=0x7f08000b;
+        public static final int Video=0x7f08000e;
+        public static final int blocNotas=0x7f080002;
+        public static final int foto=0x7f08000d;
+        public static final int guardarNota=0x7f080003;
+        public static final int listaDir=0x7f080005;
+        public static final int menu_new=0x7f08000c;
     }
     public static final class layout {
         public static final int activity_audio=0x7f030000;
-        public static final int activity_ficheros=0x7f030001;
-        public static final int activity_gestionficheros=0x7f030002;
-        public static final int activity_main=0x7f030003;
-        public static final int activity_mostrar_imagen=0x7f030004;
-        public static final int activity_reproduccion_video=0x7f030005;
+        public static final int activity_bloc_notas=0x7f030001;
+        public static final int activity_ficheros=0x7f030002;
+        public static final int activity_gestionficheros=0x7f030003;
+        public static final int activity_main=0x7f030004;
+        public static final int activity_mostrar_imagen=0x7f030005;
+        public static final int activity_reproduccion_video=0x7f030006;
     }
     public static final class menu {
         public static final int main=0x7f070000;

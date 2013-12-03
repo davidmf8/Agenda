@@ -59,6 +59,10 @@
           android:name="com.example.agendauca.ReproducirVideo"
           android:label="@string/app_name">
         </activity>
+        <activity 
+          android:name="com.example.agendauca.BlocNotas"
+          android:label="@string/app_name">
+        </activity>
 
     </application>
 
