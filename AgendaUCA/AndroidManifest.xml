@@ -63,6 +63,10 @@
           android:name="com.example.agendauca.BlocNotas"
           android:label="@string/app_name">
         </activity>
+        <activity 
+          android:name="com.example.agendauca.MostrarNota"
+          android:label="@string/app_name">
+        </activity>
 
     </application>
 

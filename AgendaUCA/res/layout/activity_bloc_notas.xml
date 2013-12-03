@@ -7,16 +7,15 @@
     <EditText
         android:id="@+id/blocNotas"
         android:layout_width="match_parent"
-        android:layout_height="407dp"
-        android:inputType="textMultiLine" >
-
-        <requestFocus />
-    </EditText>
+        android:layout_height="334dp"
+        android:ems="10"
+        android:inputType="textMultiLine" />
 
     <Button
         android:id="@+id/guardarNota"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0.55"
         android:onClick="onClick"
         android:text="Button" />
 

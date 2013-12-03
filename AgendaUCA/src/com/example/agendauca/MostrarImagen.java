@@ -1,7 +1,5 @@
 package com.example.agendauca;
 
-import java.io.File;
-
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.graphics.BitmapFactory;

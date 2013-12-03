@@ -41,21 +41,22 @@ public class ListarFicheros extends Activity{
 					else{
 						File ficheroSeleccionado = ficheros[posicion];
 						String nombreFichero = ficheroSeleccionado.getName();
+						Intent mostrarTipoFichero = new Intent();
 						if(nombreFichero.indexOf(".jpg") != -1){
-							Intent mostrar_foto = new Intent();
-							mostrar_foto.putExtra("Imagen", ficheros[posicion].getAbsolutePath());
-							mostrar_foto.setClass(getApplicationContext(), MostrarImagen.class);
-							startActivity(mostrar_foto);
+							mostrarTipoFichero.putExtra("Imagen", ficheros[posicion].getAbsolutePath());
+							mostrarTipoFichero.setClass(getApplicationContext(), MostrarImagen.class);
+							startActivity(mostrarTipoFichero);
 						}
 						if(nombreFichero.indexOf(".mp4") != -1 || nombreFichero.indexOf(".3gp") != -1){
-							Intent reproducir_video = new Intent();
-							reproducir_video.putExtra("AchivoReproducir", ficheros[posicion].getAbsolutePath());
-							reproducir_video.setClass(getApplicationContext(), ReproducirVideo.class);
-							startActivity(reproducir_video);
+							mostrarTipoFichero.putExtra("AchivoReproducir", ficheros[posicion].getAbsolutePath());
+							mostrarTipoFichero.setClass(getApplicationContext(), ReproducirVideo.class);
+							startActivity(mostrarTipoFichero);
 						}
-						/*if(nombreFichero.indexOf(".3gp") != -1){
-							//Muestra audio
-						}*/
+						if(nombreFichero.indexOf(".txt") != -1){
+							mostrarTipoFichero.putExtra("LecturaNota", ficheros[posicion].getAbsolutePath());
+							mostrarTipoFichero.setClass(getApplicationContext(), MostrarNota.class);
+							startActivity(mostrarTipoFichero);
+						}
 					}
 
 				}
