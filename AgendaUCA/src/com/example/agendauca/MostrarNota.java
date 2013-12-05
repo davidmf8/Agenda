@@ -1,6 +1,5 @@
 package com.example.agendauca;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
@@ -25,7 +24,10 @@ public class MostrarNota extends Activity{
 		File nota = new File(rutaNota);
 		try{
 			InputStreamReader fin = new InputStreamReader(new FileInputStream(nota));
-		    miNota.setText(fin.read());
+			char[] texto = new char[2000];
+			fin.read(texto);
+			String textoFinal = new String(texto);
+		    miNota.setText(textoFinal);
 		    fin.close();
 		} catch(Exception e){}
 			
