@@ -26,11 +26,13 @@ public class Audio extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_audio);
 
-		grabar = (Button) findViewById(R.id.Grabar);
+		grabar = (Button) findViewById(R.id.Grabar); 
 		parar = (Button) findViewById(R.id.Parar);
+		//Obtenemos los botones para habilitar/deshabilitar alguno de ellos mientras el otro está en uso
 	}
 
-	public void grabar(View v) { //Grabar
+	public void grabar(View v) { //Grabar audio
+		//Confifiguramos el formato del audio
 		audio = new MediaRecorder();
 		audio.setAudioSource(MediaRecorder.AudioSource.MIC);
 		audio.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
@@ -38,13 +40,13 @@ public class Audio extends Activity {
 		
 		String archivo = ficheroAudio();
 		
-		if(archivo == "ERROR"){
+		if(archivo == "ERROR"){ //Si la memoria no está disponible
 			Toast.makeText(this, "Memoria externa no disponible", Toast.LENGTH_SHORT).show();
 			Intent cambio_actividad = new Intent();
             cambio_actividad.setClass(this, MainActivity.class);
 	        startActivity(cambio_actividad);
 		}
-		else{
+		else{ //Si lo está, se procede a preparar el micro del telefono y a grabar
 		  audio.setOutputFile(archivo);
 		
 		  try {
@@ -60,12 +62,12 @@ public class Audio extends Activity {
 		audio.stop();
 		audio.release();
 
-		grabar.setEnabled(true);
+		grabar.setEnabled(true); 
 		parar.setEnabled(false);
 	}
 
 	private String ficheroAudio() {
-		  //Creamos directorio AgendaAudio si no estña creado, y se crea el archivo que almacenará el audio
+		  //Creamos directorio AgendaAudio si no está creado, y se crea el archivo que almacenará el audio
 		if(FuncionesUtiles.estadoEscritura()){
 		  File dir = new File(this.getExternalFilesDir(null),  ".AgendaAudio");
 		  if(!dir.exists()){

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
+//Reproductor video
 public class ReproducirVideo extends Activity{
 
 	VideoView miVideo;

@@ -59,7 +59,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	@Override
 	 public boolean onOptionsItemSelected(MenuItem item) {
 		Intent cambio_actividad = new Intent();
-		//Para los botones de crear un archivo: foto, video o grabación.
+		//Para los botones de crear un archivo: foto, video, grabación, nota.
 	     switch (item.getItemId()) {
 	         case R.id.foto:
 	        	 cambio_actividad.setClass(this, Camara.class);

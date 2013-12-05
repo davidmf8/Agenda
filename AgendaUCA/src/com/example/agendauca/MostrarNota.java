@@ -8,7 +8,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-
+//Muestra una nota guardada
 public class MostrarNota extends Activity{
 	TextView miNota;
 	
@@ -22,9 +22,9 @@ public class MostrarNota extends Activity{
 		Bundle datosIntent = this.getIntent().getExtras();
 		String rutaNota = datosIntent.getString("LecturaNota");
 		File nota = new File(rutaNota);
-		try{
+		try{//Se lee el fichero, se vuelva a un vector, que se transforma a String para mostrarlo por un textView
 			InputStreamReader fin = new InputStreamReader(new FileInputStream(nota));
-			char[] texto = new char[2000];
+			char[] texto = new char[1000];
 			fin.read(texto);
 			String textoFinal = new String(texto);
 		    miNota.setText(textoFinal);

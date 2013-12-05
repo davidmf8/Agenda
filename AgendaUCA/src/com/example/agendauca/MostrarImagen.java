@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+//Muestra la imagen seleccionada
 public class MostrarImagen extends Activity{
 	ImageView miImagen;
     
