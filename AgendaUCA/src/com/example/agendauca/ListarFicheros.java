@@ -5,8 +5,13 @@ import java.io.File;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -17,6 +22,7 @@ public class ListarFicheros extends Activity{
 	ListView miListaFicheros;
 	String[] datosFicheros;
 	File[] ficheros;
+	String rutaSubDirectorio;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +30,9 @@ public class ListarFicheros extends Activity{
 		setContentView(R.layout.activity_ficheros);
 		miListaFicheros = (ListView)findViewById(R.id.ListaFicheros);
 		Bundle rutaDeDirectorio = this.getIntent().getExtras();
-
-		File dir = new File(rutaDeDirectorio.getString("Subdirectorio"));
+		
+        rutaSubDirectorio = rutaDeDirectorio.getString("Subdirectorio");
+		File dir = new File(rutaSubDirectorio);
 		
 		if(FuncionesUtiles.estadoLectura()){
 		  ficheros = dir.listFiles();
@@ -34,6 +41,7 @@ public class ListarFicheros extends Activity{
 			  datosFicheros[i] = ficheros[i].getName();
 		  }
 		  miListaFicheros.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, datosFicheros));
+		  registerForContextMenu(miListaFicheros);
 		  miListaFicheros.setOnItemClickListener(new OnItemClickListener(){
 				public void onItemClick(AdapterView<?> adapter, View view, int posicion, long id) {
 					if(ficheros[posicion].isDirectory()){
@@ -70,5 +78,41 @@ public class ListarFicheros extends Activity{
             cambio_actividad.setClass(this, MainActivity.class);
 	        startActivity(cambio_actividad);
 		}
+	}
+	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo){
+	  super.onCreateContextMenu(menu, v, menuInfo);
+	  MenuInflater inflater = getMenuInflater();
+	  inflater.inflate(R.menu.menu_opciones_listas, menu);
+	}
+	
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		 AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+	    switch (item.getItemId()) {
+	        case R.id.Renombrar:
+	            return true;
+	        case R.id.Eliminar:
+	        	ficheros[info.position].delete();
+	        	File nuevos_archivos = new File (rutaSubDirectorio);
+	        	if(nuevos_archivos.listFiles().length != 0){
+	        	  Intent refrescar_lista = new Intent();
+	        	  refrescar_lista.putExtra("Subdirectorio", rutaSubDirectorio);
+	        	  refrescar_lista.setClass(getApplicationContext(), ListarFicheros.class);
+	        	  startActivity(refrescar_lista);
+	            }
+	        	else{
+	        		nuevos_archivos.delete();
+	        		Intent refrescar_lista = new Intent();
+		        	refrescar_lista.setClass(getApplicationContext(), ListarDirectorios.class);
+		            startActivity(refrescar_lista);
+	        	}
+	            return true;
+	        case R.id.Mover: 
+	        	return true;
+	        default:
+	            return super.onContextItemSelected(item);
+	    }
 	}
 }
