@@ -3,6 +3,9 @@ package com.example.agendauca;
 import java.io.File;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -13,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -23,6 +27,7 @@ public class ListarFicheros extends Activity{
 	String[] datosFicheros;
 	File[] ficheros;
 	String rutaSubDirectorio;
+	EditText et;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +97,7 @@ public class ListarFicheros extends Activity{
 		 AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 	    switch (item.getItemId()) {
 	        case R.id.Renombrar:
+	        	mostrarEditText(info.position);	
 	            return true;
 	        case R.id.Eliminar:
 	        	ficheros[info.position].delete();
@@ -114,5 +120,41 @@ public class ListarFicheros extends Activity{
 	        default:
 	            return super.onContextItemSelected(item);
 	    }
+	}
+	
+	
+	
+	private void mostrarEditText(final int posicionFichero){
+        // 1. Creamos el constructor del dialogo
+        AlertDialog.Builder dialogo = new Builder(this);
+
+        // 2. Creamos una vista de tipo EditText
+        et = new EditText(this);
+
+        // 3. Asignamos el icono, y titulo (opcional=
+        dialogo.setTitle("titulo");
+
+        // 4. Añadimos un elemento view al dialog (el edittext que hemos creado antes)
+        dialogo.setView(et);
+
+        // 5. Creamos los botones
+        dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+        	@Override
+        	public void onClick(DialogInterface dialog, int which) {
+                     // 5.1. Accion boton Aceptar
+        		File renombrado = new File(rutaSubDirectorio, et.getText().toString() + ".jpg");
+	        	ficheros[posicionFichero].renameTo(renombrado);
+        	}
+        });
+        dialogo.setNegativeButton("Cancelar",new DialogInterface.OnClickListener() {
+        	@Override
+        	public void onClick(DialogInterface dialog, int which) {
+                     // 5.2. Accion boton Cancelar
+        	}
+        });
+
+        // 6. Creamos y mostramos el dialgo
+        dialogo.create();
+        dialogo.show();
 	}
 }

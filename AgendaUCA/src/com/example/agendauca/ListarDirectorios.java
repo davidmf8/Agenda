@@ -38,7 +38,7 @@ public class ListarDirectorios extends Activity{
 				}
 		   });
 	    }
-		else{ //Si no
+		else{ //Si no, se podria poner que va a una activity donde pone No hay ficheros existentes
 			Toast.makeText(this, "No existen fichero o carpetas", Toast.LENGTH_SHORT).show();
 			Intent cambio_actividad = new Intent();
             cambio_actividad.setClass(this, MainActivity.class);
