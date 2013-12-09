@@ -152,6 +152,7 @@ public class ListarFicheros extends Activity{
 				if(renombrado != null){
 	        	  ficheros[posicionFichero].renameTo(renombrado);
 				}
+				
         	}
         });
         dialogo.setNegativeButton("Cancelar",new DialogInterface.OnClickListener() {
@@ -164,5 +165,6 @@ public class ListarFicheros extends Activity{
 
         dialogo.create();
         dialogo.show();
+
 	}
 }
