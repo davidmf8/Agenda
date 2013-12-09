@@ -95,22 +95,23 @@ public class ListarFicheros extends Activity{
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		 AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+		 Intent refrescar_lista = new Intent();
 	    switch (item.getItemId()) {
 	        case R.id.Renombrar:
 	        	mostrarEditText(info.position);	
+	        	refrescar_lista.putExtra("Subdirectorio", rutaSubDirectorio);
+	        	refrescar_lista.setClass(getApplicationContext(), ListarFicheros.class);
 	            return true;
 	        case R.id.Eliminar:
 	        	ficheros[info.position].delete();
 	        	File nuevos_archivos = new File (rutaSubDirectorio);
-	        	if(nuevos_archivos.listFiles().length != 0){
-	        	  Intent refrescar_lista = new Intent();
+	        	if(nuevos_archivos.listFiles().length != 0){ 
 	        	  refrescar_lista.putExtra("Subdirectorio", rutaSubDirectorio);
 	        	  refrescar_lista.setClass(getApplicationContext(), ListarFicheros.class);
 	        	  startActivity(refrescar_lista);
 	            }
 	        	else{
 	        		nuevos_archivos.delete();
-	        		Intent refrescar_lista = new Intent();
 		        	refrescar_lista.setClass(getApplicationContext(), ListarDirectorios.class);
 		            startActivity(refrescar_lista);
 	        	}
