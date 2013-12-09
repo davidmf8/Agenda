@@ -125,25 +125,32 @@ public class ListarFicheros extends Activity{
 	
 	
 	private void mostrarEditText(final int posicionFichero){
-        // 1. Creamos el constructor del dialogo
         AlertDialog.Builder dialogo = new Builder(this);
-
-        // 2. Creamos una vista de tipo EditText
         et = new EditText(this);
-
-        // 3. Asignamos el icono, y titulo (opcional=
         dialogo.setTitle("titulo");
-
-        // 4. Añadimos un elemento view al dialog (el edittext que hemos creado antes)
         dialogo.setView(et);
 
-        // 5. Creamos los botones
         dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
         	@Override
         	public void onClick(DialogInterface dialog, int which) {
-                     // 5.1. Accion boton Aceptar
-        		File renombrado = new File(rutaSubDirectorio, et.getText().toString() + ".jpg");
-	        	ficheros[posicionFichero].renameTo(renombrado);
+        		File renombrado = null;
+        		String nombreFichero = ficheros[posicionFichero].getName();
+        		if(nombreFichero.indexOf(".jpg") != -1){
+        			renombrado = new File(rutaSubDirectorio, et.getText().toString() + ".jpg");
+				}
+				if(nombreFichero.indexOf(".mp4") != -1){
+					renombrado = new File(rutaSubDirectorio, et.getText().toString() + ".mp4");
+				}
+				if( nombreFichero.indexOf(".3gp") != -1){
+					renombrado = new File(rutaSubDirectorio, et.getText().toString() + ".3gp");
+				}
+				if(nombreFichero.indexOf(".txt") != -1){
+					renombrado = new File(rutaSubDirectorio, et.getText().toString() + ".txt");
+				}
+				
+				if(renombrado != null){
+	        	  ficheros[posicionFichero].renameTo(renombrado);
+				}
         	}
         });
         dialogo.setNegativeButton("Cancelar",new DialogInterface.OnClickListener() {
@@ -153,7 +160,7 @@ public class ListarFicheros extends Activity{
         	}
         });
 
-        // 6. Creamos y mostramos el dialgo
+
         dialogo.create();
         dialogo.show();
 	}
