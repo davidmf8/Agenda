@@ -57,7 +57,7 @@ public class ListarDirectorios extends Activity{
 	public String[] getNombreDirectorios(){ //Obtiene los nombres de los directorios para mostrarlos.
 		File[] dir = getDirectorioRaiz();
 		if(dir.length != 0){
-			String[] nombresDir = new String[dir.length];
+			String[] nombresDir = new String[dir.length+1];
 			for(int i = 0; i < dir.length; i++){
 				nombresDir[i] = dir[i].getName();
 			}
