@@ -48,7 +48,7 @@
         android:layout_marginRight="18dp"
         android:layout_toLeftOf="@+id/Notificacion"
         android:onClick="onClick"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/miniexams" />
 
 
 
