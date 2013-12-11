@@ -128,7 +128,7 @@ public class ListarFicheros extends Activity{
 	private void mostrarEditText(final int posicionFichero){
         AlertDialog.Builder dialogo = new Builder(this);
         et = new EditText(this);
-        dialogo.setTitle("titulo");
+        dialogo.setTitle("Nuevo nombre");
         dialogo.setView(et);
 
         dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {

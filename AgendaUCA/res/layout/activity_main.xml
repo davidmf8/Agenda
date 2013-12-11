@@ -26,7 +26,7 @@
         android:onClick="onClick"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/minicalendar" />
 
     
         <ImageButton
@@ -37,7 +37,7 @@
         android:layout_alignTop="@+id/Evento"
         android:layout_marginRight="32dp"
         android:onClick="onClick"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/miniamiguetes" />
 
     <ImageButton
         android:id="@+id/Calificaciones"

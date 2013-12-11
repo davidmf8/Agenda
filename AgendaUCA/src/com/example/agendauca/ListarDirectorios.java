@@ -14,9 +14,13 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 import android.content.Intent;
 
 //Lista los directorios principales de la aplicación
@@ -36,12 +40,17 @@ public class ListarDirectorios extends Activity{
 		   registerForContextMenu(miListaDirectorios);
 		   miListaDirectorios.setOnItemClickListener(new OnItemClickListener(){ //Si hacemos click en un directorio, nos mostrará la lista de archivos dentro de él
 				public void onItemClick(AdapterView<?> adapter, View view, int posicion, long id) {
-					File[] seleccionDirectorio = getDirectorioRaiz();
-					Intent cambio_actividad = new Intent();
-					String ruta = seleccionDirectorio[posicion].getAbsolutePath();
-					cambio_actividad.putExtra("Subdirectorio", ruta);
-					cambio_actividad.setClass(getApplicationContext(), ListarFicheros.class);
-					startActivity(cambio_actividad);	
+					if(nombreDirectorios[posicion] == "Crear directorio..."){
+						 mostrarEditText();
+					}
+					else{
+					  File[] seleccionDirectorio = getDirectorioRaiz();
+					  Intent cambio_actividad = new Intent();
+					  String ruta = seleccionDirectorio[posicion].getAbsolutePath();
+					  cambio_actividad.putExtra("Subdirectorio", ruta);
+					  cambio_actividad.setClass(getApplicationContext(), ListarFicheros.class);
+					  startActivity(cambio_actividad);
+					}
 				}
 		   });
 	    }
@@ -103,6 +112,37 @@ public class ListarDirectorios extends Activity{
 	        default:
 	            return super.onContextItemSelected(item);
 	    }
+	}
+	
+	private void mostrarEditText(){
+        AlertDialog.Builder dialogo = new Builder(this);
+        final EditText et = new EditText(this);
+        dialogo.setTitle("Nueva Carpeta");
+        dialogo.setView(et);
+
+        dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+        	@Override
+        	public void onClick(DialogInterface dialog, int which) {
+        	  File dir = new File(getExternalFilesDir(null),  et.getText().toString()); 
+      		  if(!dir.exists()){
+      			dir.mkdir();
+      		  }
+			  Intent cambio_actividad = new Intent();
+			  cambio_actividad.setClass(getApplicationContext(), ListarDirectorios.class);
+			  startActivity(cambio_actividad);
+
+        	}
+        });
+        dialogo.setNegativeButton("Cancelar",new DialogInterface.OnClickListener() {
+        	@Override
+        	public void onClick(DialogInterface dialog, int which) {
+                     // 5.2. Accion boton Cancelar
+        	}
+        });
+
+
+        dialogo.create();
+        dialogo.show();
 	}
 
 }
