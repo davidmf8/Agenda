@@ -35,13 +35,12 @@ public class ListarDirectorios extends Activity{
 		miListaDirectorios = (ListView)findViewById(R.id.listaDir);
 		nombreDirectorios = getNombreDirectorios(); //Obtenemos los nombres de los directorios.
 		if(nombreDirectorios.length  != 0){	//Si se ha podido leer los directorios, se muestran
-		   
 		   miListaDirectorios.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nombreDirectorios));
 		   registerForContextMenu(miListaDirectorios);
 		   miListaDirectorios.setOnItemClickListener(new OnItemClickListener(){ //Si hacemos click en un directorio, nos mostrará la lista de archivos dentro de él
 				public void onItemClick(AdapterView<?> adapter, View view, int posicion, long id) {
-					if(nombreDirectorios[posicion] == "Crear directorio..."){
-						 mostrarEditText();
+					if(nombreDirectorios[posicion] == "Crear directorio..."){ //Si se ha elegido crear directorio, se muestra un editText para introducir su nombre
+						 crearCarpeta();
 					}
 					else{
 					  File[] seleccionDirectorio = getDirectorioRaiz();
@@ -73,7 +72,9 @@ public class ListarDirectorios extends Activity{
 			nombresDir[dir.length] = "Crear directorio...";
 			return nombresDir;
 		}	
-		return new String[0];
+		String noExistenDir[] = new String[1];
+		noExistenDir[0] =  "Crear directorio...";
+		return noExistenDir;
 	}
 	
 	public File[] getDirectorioRaiz(){ //Obtiene los directorios de la raiz de la aplicación
@@ -89,7 +90,7 @@ public class ListarDirectorios extends Activity{
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo){
 	  super.onCreateContextMenu(menu, v, menuInfo);
 	  MenuInflater inflater = getMenuInflater();
-	  inflater.inflate(R.menu.menu_opciones_directorios, menu);
+	  inflater.inflate(R.menu.menu_opciones_listas, menu);
 	}
 	
 	@Override
@@ -98,7 +99,7 @@ public class ListarDirectorios extends Activity{
 		Intent refrescar_lista = new Intent();
 		File[] directorios = getDirectorioRaiz();
 	    switch (item.getItemId()) {
-	        case R.id.EliminarDir:
+	        case R.id.Eliminar:
 	        	directorios[info.position].delete();
 	        	if(getDirectorioRaiz().length != 0){ 
 	        	  refrescar_lista.setClass(getApplicationContext(), ListarDirectorios.class);
@@ -109,12 +110,19 @@ public class ListarDirectorios extends Activity{
 		            startActivity(refrescar_lista);
 	        	}
 	            return true;
+	        case R.id.Renombrar:
+	        	crearCarpeta();
+	        	return true;
 	        default:
 	            return super.onContextItemSelected(item);
 	    }
 	}
 	
-	private void mostrarEditText(){
+	private void renombrar(){
+		
+	}
+	
+	private void crearCarpeta(){
         AlertDialog.Builder dialogo = new Builder(this);
         final EditText et = new EditText(this);
         dialogo.setTitle("Nueva Carpeta");

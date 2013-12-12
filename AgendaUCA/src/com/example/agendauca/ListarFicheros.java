@@ -40,19 +40,22 @@ public class ListarFicheros extends Activity{
 		File dir = new File(rutaSubDirectorio);
 		
 		if(FuncionesUtiles.estadoLectura()){
-		  ficheros = dir.listFiles();
-		  datosFicheros = new String[ficheros.length];
-		  for(int i = 0; i < ficheros.length; i++){
-			  datosFicheros[i] = ficheros[i].getName();
-		  }
+		  ficherosDir(dir);
 		  miListaFicheros.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, datosFicheros));
 		  registerForContextMenu(miListaFicheros);
 		  miListaFicheros.setOnItemClickListener(new OnItemClickListener(){
 				public void onItemClick(AdapterView<?> adapter, View view, int posicion, long id) {
-					if(ficheros[posicion].isDirectory()){
-						//Mas tarde, no se si se permitiran carpetas dentro de carpetas
+					if(datosFicheros[posicion] == "Crear directorio..."){ //Si se ha elegido crear directorio, se muestra un editText para introducir su nombre
+						crearCarpeta();
 					}
 					else{
+					  if(ficheros[posicion].isDirectory()){
+						  Intent cambio_actividad = new Intent();
+						  cambio_actividad.putExtra("Subdirectorio", ficheros[posicion].getAbsolutePath());
+						  cambio_actividad.setClass(getApplicationContext(), ListarFicheros.class);
+						  startActivity(cambio_actividad);
+					  }
+					  else{
 						File ficheroSeleccionado = ficheros[posicion];
 						String nombreFichero = ficheroSeleccionado.getName();
 						Intent mostrarTipoFichero = new Intent();
@@ -72,6 +75,7 @@ public class ListarFicheros extends Activity{
 							mostrarTipoFichero.setClass(getApplicationContext(), MostrarNota.class);
 							startActivity(mostrarTipoFichero);
 						}
+					  }
 					}
 
 				}
@@ -85,6 +89,15 @@ public class ListarFicheros extends Activity{
 		}
 	}
 	
+	private void ficherosDir(File dir) {
+		ficheros = dir.listFiles();
+		  datosFicheros = new String[ficheros.length+1];
+		  for(int i = 0; i < ficheros.length; i++){
+			  datosFicheros[i] = ficheros[i].getName();
+		  }
+		  datosFicheros[ficheros.length] = "Crear directorio...";
+	}
+
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo){
 	  super.onCreateContextMenu(menu, v, menuInfo);
@@ -103,18 +116,24 @@ public class ListarFicheros extends Activity{
 	        	refrescar_lista.setClass(getApplicationContext(), ListarFicheros.class);
 	            return true;
 	        case R.id.Eliminar:
-	        	ficheros[info.position].delete();
+	        	if(!ficheros[info.position].isDirectory()){ //Si no es un directorio, se borra el fichero
+	        		ficheros[info.position].delete();
+	        	}
+	        	else{ //Si es un directorio, se borra todo su contenido
+	        		borrarDirectorio(ficheros[info.position]);	
+	        	}
+	        	
 	        	File nuevos_archivos = new File (rutaSubDirectorio);
 	        	if(nuevos_archivos.listFiles().length != 0){ 
-	        	  refrescar_lista.putExtra("Subdirectorio", rutaSubDirectorio);
-	        	  refrescar_lista.setClass(getApplicationContext(), ListarFicheros.class);
-	        	  startActivity(refrescar_lista);
-	            }
+	        		refrescar_lista.putExtra("Subdirectorio", rutaSubDirectorio);
+	        		refrescar_lista.setClass(getApplicationContext(), ListarFicheros.class);
+	        		startActivity(refrescar_lista);
+	        	}
 	        	else{
 	        		nuevos_archivos.delete();
-		        	refrescar_lista.setClass(getApplicationContext(), ListarDirectorios.class);
-		            startActivity(refrescar_lista);
-	        	}
+	        		refrescar_lista.setClass(getApplicationContext(), ListarDirectorios.class);
+	        		startActivity(refrescar_lista);
+	        	}       	
 	            return true;
 	        case R.id.Mover: 
 	        	return true;
@@ -125,6 +144,18 @@ public class ListarFicheros extends Activity{
 	
 	
 	
+	private void borrarDirectorio(File directorioABorrar) {
+		File[] ficherosDir = directorioABorrar.listFiles();
+		for(int i = 0; i < ficherosDir.length; i++){
+			if(ficherosDir[i].isDirectory())
+				borrarDirectorio(ficherosDir[i]);
+			else
+				ficherosDir[i].delete();		
+		}
+		
+		directorioABorrar.delete();
+	}
+
 	private void mostrarEditText(final int posicionFichero){
         AlertDialog.Builder dialogo = new Builder(this);
         et = new EditText(this);
@@ -166,5 +197,36 @@ public class ListarFicheros extends Activity{
         dialogo.create();
         dialogo.show();
 
+	}
+	
+	private void crearCarpeta(){
+        AlertDialog.Builder dialogo = new Builder(this);
+        final EditText et = new EditText(this);
+        dialogo.setTitle("Nueva Carpeta");
+        dialogo.setView(et);
+
+        dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+        	@Override
+        	public void onClick(DialogInterface dialog, int which) {
+        	  File dir = new File(rutaSubDirectorio,  et.getText().toString()); 
+      		  if(!dir.exists()){
+      			dir.mkdir();
+      		  }
+			  Intent cambio_actividad = new Intent();
+			  cambio_actividad.setClass(getApplicationContext(), ListarFicheros.class);
+			  cambio_actividad.putExtra("Subdirectorio", rutaSubDirectorio);
+			  startActivity(cambio_actividad);
+
+        	}
+        });
+        dialogo.setNegativeButton("Cancelar",new DialogInterface.OnClickListener() {
+        	@Override
+        	public void onClick(DialogInterface dialog, int which) {
+                     // 5.2. Accion boton Cancelar
+        	}
+        });
+
+        dialogo.create();
+        dialogo.show();
 	}
 }

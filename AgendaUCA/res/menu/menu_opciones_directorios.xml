@@ -2,4 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item android:id="@+id/EliminarDir"
           android:title="Eliminar"/>
+    <item android:id="@+id/RenombrarDir"
+          android:title="Renombrar"/>
 </menu>
