@@ -22,12 +22,6 @@ public class MainActivity extends Activity implements OnClickListener{
 		//Primera pantalla y los botones están a la escucha de una acción
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		/*TabHost host = getTabHost();
-        //Añadimos cada tab, que al ser pulsadas abren sus respectivas Activities
-        host.addTab(host.newTabSpec("tab_1").setIndicator("TAB1").setContent(new Intent(this, ListarDirectorios.class)));
-        host.addTab(host.newTabSpec("tab_2").setIndicator("TAB2").setContent(new Intent(this, ListarDirectorios.class)));*/
-		
-		
 		
 		gestion_archivo = (ImageButton)findViewById(R.id.Directorios);
 		gestion_archivo.setOnClickListener(this);

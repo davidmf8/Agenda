@@ -97,10 +97,10 @@ public class ListarDirectorios extends Activity{
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		Intent refrescar_lista = new Intent();
-		File[] directorios = getDirectorioRaiz();
 	    switch (item.getItemId()) {
 	        case R.id.Eliminar:
-	        	directorios[info.position].delete();
+	        	File[] directorios = getDirectorioRaiz();
+	        	borrarDirectorio(directorios[info.position]);
 	        	if(getDirectorioRaiz().length != 0){ 
 	        	  refrescar_lista.setClass(getApplicationContext(), ListarDirectorios.class);
 	        	  startActivity(refrescar_lista);
@@ -111,15 +111,52 @@ public class ListarDirectorios extends Activity{
 	        	}
 	            return true;
 	        case R.id.Renombrar:
-	        	crearCarpeta();
+	        	renombrar(info.position);
 	        	return true;
 	        default:
 	            return super.onContextItemSelected(item);
 	    }
 	}
 	
-	private void renombrar(){
+	private void borrarDirectorio(File directorioABorrar) {
+		File[] ficherosDir = directorioABorrar.listFiles();
+		for(int i = 0; i < ficherosDir.length; i++){
+			if(ficherosDir[i].isDirectory())
+				borrarDirectorio(ficherosDir[i]);
+			else
+				ficherosDir[i].delete();		
+		}
 		
+		directorioABorrar.delete();
+	}
+	
+	private void renombrar(final int posicionFichero){
+        AlertDialog.Builder dialogo = new Builder(this);
+        final EditText et = new EditText(this);
+        dialogo.setTitle("Nuevo nombre");
+        dialogo.setView(et);
+
+        dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+        	@Override
+        	public void onClick(DialogInterface dialog, int which) {
+        		File[] directorios = getDirectorioRaiz();
+        		File renombrado = null;
+        		renombrado = new File(getExternalFilesDir(null) + et.getText().toString());
+	        	directorios[posicionFichero].renameTo(renombrado);
+				
+        	}
+        });
+        dialogo.setNegativeButton("Cancelar",new DialogInterface.OnClickListener() {
+        	@Override
+        	public void onClick(DialogInterface dialog, int which) {
+                     // 5.2. Accion boton Cancelar
+        	}
+        });
+
+
+        dialogo.create();
+        dialogo.show();
+
 	}
 	
 	private void crearCarpeta(){

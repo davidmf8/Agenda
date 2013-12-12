@@ -111,7 +111,7 @@ public class ListarFicheros extends Activity{
 		 Intent refrescar_lista = new Intent();
 	    switch (item.getItemId()) {
 	        case R.id.Renombrar:
-	        	mostrarEditText(info.position);	
+	        	renombrar(info.position);	
 	        	refrescar_lista.putExtra("Subdirectorio", rutaSubDirectorio);
 	        	refrescar_lista.setClass(getApplicationContext(), ListarFicheros.class);
 	            return true;
@@ -156,7 +156,7 @@ public class ListarFicheros extends Activity{
 		directorioABorrar.delete();
 	}
 
-	private void mostrarEditText(final int posicionFichero){
+	private void renombrar(final int posicionFichero){
         AlertDialog.Builder dialogo = new Builder(this);
         et = new EditText(this);
         dialogo.setTitle("Nuevo nombre");
@@ -182,6 +182,10 @@ public class ListarFicheros extends Activity{
 				
 				if(renombrado != null){
 	        	  ficheros[posicionFichero].renameTo(renombrado);
+				}
+				else{
+	        		renombrado = new File(rutaSubDirectorio, et.getText().toString());
+		        	ficheros[posicionFichero].renameTo(renombrado);
 				}
 				
         	}
