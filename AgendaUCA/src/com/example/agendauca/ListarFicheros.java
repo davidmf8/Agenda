@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.KeyEvent;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 //Lista los ficheros que hay dentro de los directorios principales
 public class ListarFicheros extends Activity{
+	static int dirPrincipal = 0;
 	ListView miListaFicheros;
 	String[] datosFicheros;
 	File[] ficheros;
@@ -52,6 +54,7 @@ public class ListarFicheros extends Activity{
 					  if(ficheros[posicion].isDirectory()){
 						  Intent cambio_actividad = new Intent();
 						  cambio_actividad.putExtra("Subdirectorio", ficheros[posicion].getAbsolutePath());
+						  dirPrincipal++;
 						  cambio_actividad.setClass(getApplicationContext(), ListarFicheros.class);
 						  startActivity(cambio_actividad);
 					  }
@@ -87,6 +90,27 @@ public class ListarFicheros extends Activity{
             cambio_actividad.setClass(this, MainActivity.class);
 	        startActivity(cambio_actividad);
 		}
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+			int pos = rutaSubDirectorio.lastIndexOf("/");
+			String rutaAnterior = rutaSubDirectorio.substring(0, pos);
+		    if(dirPrincipal == 0){
+		    	Intent cambio_actividad = new Intent();
+				cambio_actividad.setClass(getApplicationContext(), ListarDirectorios.class);
+				startActivity(cambio_actividad);
+		    }
+		    else{
+		      dirPrincipal--;
+			  Intent cambio_actividad = new Intent();
+			  cambio_actividad.putExtra("Subdirectorio", rutaAnterior);
+			  cambio_actividad.setClass(getApplicationContext(), ListarFicheros.class);
+			  startActivity(cambio_actividad);
+		    }
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 	
 	private void ficherosDir(File dir) {

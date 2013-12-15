@@ -6,6 +6,7 @@ import com.example.agendauca.R;
 
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.KeyEvent;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -59,6 +60,16 @@ public class ListarDirectorios extends Activity{
             cambio_actividad.setClass(this, MainActivity.class);
 	        startActivity(cambio_actividad);
 		}
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+			Intent cambio_actividad = new Intent();
+			cambio_actividad.setClass(getApplicationContext(), MainActivity.class);
+			startActivity(cambio_actividad);
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 	
 	
