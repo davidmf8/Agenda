@@ -124,6 +124,13 @@ public class ListarDirectorios extends Activity{
 	        case R.id.Renombrar:
 	        	renombrar(info.position);
 	        	return true;
+	        case R.id.Mover:
+	        	File[] raiz = getDirectorioRaiz(); 
+	        	Intent cambio_actividad = new Intent();
+				cambio_actividad.putExtra("Mover", raiz[info.position].getAbsolutePath());
+				cambio_actividad.setClass(getApplicationContext(), moverDirFich.class);
+				startActivity(cambio_actividad);
+	        	return true;
 	        default:
 	            return super.onContextItemSelected(item);
 	    }

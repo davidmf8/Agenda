@@ -160,6 +160,10 @@ public class ListarFicheros extends Activity{
 	        	}       	
 	            return true;
 	        case R.id.Mover: 
+	        	Intent cambio_actividad = new Intent();
+				cambio_actividad.putExtra("Mover", ficheros[info.position].getAbsolutePath());
+				cambio_actividad.setClass(getApplicationContext(), moverDirFich.class);
+				startActivity(cambio_actividad);
 	        	return true;
 	        default:
 	            return super.onContextItemSelected(item);

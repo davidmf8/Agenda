@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
 //Clase para grabar video
@@ -37,8 +38,7 @@ public class Video extends Activity{
 		  video.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
 		  startActivityForResult(video, CAPTURA_VIDEO);
 		}
-	}
-	
+	}	
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) { //Para verificar que se ha grabado bien
 		   Intent cambio_actividad = new Intent();
