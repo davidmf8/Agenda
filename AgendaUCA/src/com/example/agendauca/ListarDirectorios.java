@@ -43,7 +43,7 @@ public class ListarDirectorios extends Activity{
 					if(nombreDirectorios[posicion] == "Crear directorio..."){ //Si se ha elegido crear directorio, se muestra un editText para introducir su nombre
 						 crearCarpeta();
 					}
-					else{
+					else{ //Si haelegido un directorio pincipal
 					  File[] seleccionDirectorio = getDirectorioRaiz();
 					  Intent cambio_actividad = new Intent();
 					  String ruta = seleccionDirectorio[posicion].getAbsolutePath();

@@ -33,12 +33,10 @@ public class moverDirFich extends Activity{
 					if(nombreDirectorios[posicion] == "Mover a directorio actual..."){ //Si se ha elegido crear directorio, se muestra un editText para introducir su nombre
 						File dirMover = new File(rutaDirMover);
 						File nuevaRuta = new File(rutaSubDirectorio);
-						//if(dirMover.isDirectory()){
+						if(dirMover.isDirectory() || rutaSubDirectorio != getExternalFilesDir(null).getAbsolutePath()){
 						   dirMover.renameTo(new File(nuevaRuta, dirMover.getName()));
-						//}
-						//else{
-							
-						//}
+						}
+
 						profundidadDir = 0;
 						Intent cambio_actividad = new Intent();
 					    cambio_actividad.setClass(getApplicationContext(), ListarDirectorios.class);
