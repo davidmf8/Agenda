@@ -53,6 +53,10 @@ public class MainActivity extends Activity implements OnClickListener{
 			   cambio_actividad.setClass(this, ListarDirectorios.class);
 			   startActivity(cambio_actividad);
 		       break;
+		   case R.id.Notificacion:
+			   cambio_actividad.setClass(this, Login.class);
+			   startActivity(cambio_actividad);
+			   break;
 		}
 	}
 	
