@@ -1,8 +1,9 @@
-package com.example.agendauca;
+package variables.comunes;
 
 import android.os.Environment;
 
 public class FuncionesUtiles {
+   private static String IPServer = "http://192.168.1.33:81/AgendaUCA/index.php";
 	
    public static boolean estadoEscritura(){ //Funcion que devuelve si la memoria está preparada para escritura
 	   String estado = Environment.getExternalStorageState();
@@ -20,5 +21,7 @@ public class FuncionesUtiles {
 	   return false;
    }
    
-   
+   public static String getIPServer(){
+		return IPServer;
+	}
 }

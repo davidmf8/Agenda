@@ -8,7 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.agendauca.MainActivity;
+import variables.comunes.FuncionesUtiles;
 
 import android.os.AsyncTask;
 
@@ -22,10 +22,6 @@ public class LoginAsynTask extends AsyncTask<Void,Void,Boolean>{
 		this.gcmcode = gcmcode;
 	}
 
-	public boolean isResultado() {
-		return resultado;
-	}
-
 	@Override
 	protected Boolean doInBackground(Void... params) {
 		resultado = false;
@@ -34,16 +30,14 @@ public class LoginAsynTask extends AsyncTask<Void,Void,Boolean>{
         nameValuePairs.add(new BasicNameValuePair("username", name));
         nameValuePairs.add(new BasicNameValuePair("gcmcode", "54d"));
 		
-        JSONArray jdata = post.getserverdata(nameValuePairs, MainActivity.getIPServer());
-        
+        JSONArray jdata = post.getserverdata(nameValuePairs, FuncionesUtiles.getIPServer());
         if (jdata != null && jdata.length() > 0){
 
     		JSONObject json_data; //Creem un objecte JSON
 			try {
-				
 				json_data = jdata.getJSONObject(0); //Obtenim el primer valro retornat com será l'únic podem posar directament 0
 				int comprobacion = json_data.getInt("success"); //Accedem al valor 
-
+				//System.out.println(comprobacion);
 				if(comprobacion == 1){
 					resultado = true;
 				}
@@ -52,7 +46,10 @@ public class LoginAsynTask extends AsyncTask<Void,Void,Boolean>{
 				e.printStackTrace();
 			}		
         }
-        
+		return resultado;
+	}
+	
+	public boolean getResultado(){
 		return resultado;
 	}
 }

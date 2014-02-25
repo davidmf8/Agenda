@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import variables.comunes.FuncionesUtiles;
+
 
 import android.app.Activity;
 import android.content.Intent;

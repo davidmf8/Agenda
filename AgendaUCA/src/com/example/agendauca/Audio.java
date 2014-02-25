@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import variables.comunes.FuncionesUtiles;
+
 import com.example.agendauca.R;
 
 import android.app.Activity;

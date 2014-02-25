@@ -38,15 +38,15 @@ public final class R {
         public static final int ImgFoto=0x7f08000d;
         public static final int ListaFicheros=0x7f080004;
         public static final int Login=0x7f080008;
+        public static final int Mensaje=0x7f080006;
         public static final int Mover=0x7f080017;
         public static final int NotaMostrada=0x7f08000e;
         public static final int Notas=0x7f080014;
         public static final int Notificacion=0x7f08000b;
         public static final int Parar=0x7f080001;
-        public static final int Pass=0x7f080007;
         public static final int Renombrar=0x7f080015;
         public static final int ReproductorVideo=0x7f08000f;
-        public static final int UserName=0x7f080006;
+        public static final int UserName=0x7f080007;
         public static final int Video=0x7f080012;
         public static final int blocNotas=0x7f080002;
         public static final int foto=0x7f080011;

@@ -34,7 +34,7 @@ public class HttpJsonArray{
 		  
 	  if (is != null){//Si rebem resposta
 	  
-		  getpostresponse();
+		 getpostresponse();
 		  
 		 return getjsonarray();
 	  
@@ -58,7 +58,7 @@ public class HttpJsonArray{
   		 	HttpConnectionParams.setConnectionTimeout(httpParams, 60000);
   		 	
   	        HttpClient httpclient = new DefaultHttpClient(httpParams);
-  	        
+  	        	
   	        HttpPost httppost = new HttpPost(urlwebserver);
   	        
   	        httppost.setEntity(new UrlEncodedFormEntity(parametres));
@@ -66,7 +66,7 @@ public class HttpJsonArray{
   	        //Executem la petició enviant dades per el post
   	        HttpResponse response = httpclient.execute(httppost); 
   	        HttpEntity entity = response.getEntity();
-  	         is = entity.getContent();
+  	        is = entity.getContent();
   	         
   	}catch(Exception e){
   		e.printStackTrace();
@@ -79,7 +79,7 @@ public class HttpJsonArray{
   
 	//Converteix el Json a string
   	try{
-  	        BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
+  	        BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"));
   	        StringBuilder sb = new StringBuilder();
   	        String line = null;
   	        while ((line = reader.readLine()) != null) {
@@ -97,26 +97,22 @@ public class HttpJsonArray{
   
   public JSONArray getjsonarray(){
   	//parse json data
-  	try{
-  		
-  			JSONArray jArray;
+	JSONArray jArray = null;
+  	try{ 		 
   		 if(result.equals("false") || result.equals("null")){
   			 jArray = new JSONArray();
   		 }else{
   			 jArray = new JSONArray(result);
-          }
-  		return jArray;
+         }
+  		System.out.println("HOLA");
   	}
-  	catch(JSONException e){
-  		e.printStackTrace();
-  	        //Log.e("log_tag", "Error parsing data "+e.toString());
-  	        return null;
-  	}
-		
+  	catch(JSONException e){}
+  	
+  	return jArray;
   }
   	
   	
-  }	
+}	
   
 
 

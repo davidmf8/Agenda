@@ -1,20 +1,44 @@
-<?xml version="1.0" encoding="utf-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="vertical" >
-    
-    
-     <EditText android:id="@+id/UserName" android:layout_height="wrap_content" android:layout_width="fill_parent" 
-             android:hint="UserName" android:inputType="text" />
-             
-      <EditText android:id="@+id/Pass" android:layout_height="wrap_content" 
-             android:layout_width="fill_parent" android:hint="Password" android:inputType="textPassword"
-             android:layout_marginTop="15dip" android:layout_marginBottom="30dip" />
-         
-         
-       <Button android:id="@+id/Login" android:layout_height="wrap_content" 
-             android:layout_width="wrap_content" android:text="enviar"
-              android:layout_gravity="center_horizontal" android:paddingLeft="15dip" android:paddingRight="15dip" />
-         
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/Mensaje"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="108dp"
+        android:layout_weight="0.70"
+        android:gravity="center"
+        android:padding="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_vertical_margin"
+        android:text="Nuevo usuario"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/UserName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/Mensaje"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:hint="Nombre de usuario"
+        android:inputType="text"
+        android:padding="@dimen/activity_vertical_margin" />
+
+    <Button
+        android:id="@+id/Login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/UserName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="43dp"
+        android:paddingLeft="15dip"
+        android:paddingRight="15dip"
+        android:text="enviar" />
+
+</RelativeLayout>

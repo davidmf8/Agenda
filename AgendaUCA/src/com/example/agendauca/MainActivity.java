@@ -9,11 +9,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnClickListener{
-	private static String IPServer = "http://192.168.1.33:81/AgendaUCA/index.php";
     private Button logear;
+    private static boolean error = false;
     private EditText usuario;
+    private TextView mensajeInicial;
     private LoginAsynTask conexionLogin;
 
     
@@ -25,8 +27,12 @@ public class MainActivity extends Activity implements OnClickListener{
 		logear = (Button)findViewById(R.id.Login);
 		logear.setOnClickListener(this);
 		
+		mensajeInicial = (TextView)findViewById(R.id.Mensaje);
 		usuario = (EditText)findViewById(R.id.UserName);
-
+		
+		if(error){
+			mensajeInicial.setText("Usuario no válido. Inserte otro nombre de usuario");
+		}
 	}
 	
 	@Override
@@ -37,16 +43,17 @@ public class MainActivity extends Activity implements OnClickListener{
 			conexionLogin = new LoginAsynTask();
 			conexionLogin.inicilizarValores(name, "");
 			conexionLogin.execute();
-  
-		}
-		
-		Intent cambio_actividad = new Intent();
-		cambio_actividad.setClass(this, MenuInicial.class);
-		startActivity(cambio_actividad);
+			Intent cambio_actividad = new Intent();
+			if(!conexionLogin.getResultado()){
+				error = true;
+				cambio_actividad.setClass(this, MainActivity.class);
+		        startActivity(cambio_actividad);
+			}
+			else{
+				error = false;
+				cambio_actividad.setClass(this, MenuInicial.class);
+		        startActivity(cambio_actividad);
+			}
+		}	
 	}
-	
-	public static String getIPServer(){
-		return IPServer;
-	}
-
 }

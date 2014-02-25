@@ -2,6 +2,8 @@ package com.example.agendauca;
 
 import java.io.File;
 
+import variables.comunes.FuncionesUtiles;
+
 import com.example.agendauca.R;
 
 import android.os.Bundle;
