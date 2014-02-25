@@ -8,7 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.agendauca.Login;
+import com.example.agendauca.MainActivity;
 
 import android.os.AsyncTask;
 
@@ -34,7 +34,7 @@ public class LoginAsynTask extends AsyncTask<Void,Void,Boolean>{
         nameValuePairs.add(new BasicNameValuePair("username", name));
         nameValuePairs.add(new BasicNameValuePair("gcmcode", "54d"));
 		
-        JSONArray jdata = post.getserverdata(nameValuePairs, Login.getIPServer());
+        JSONArray jdata = post.getserverdata(nameValuePairs, MainActivity.getIPServer());
         
         if (jdata != null && jdata.length() > 0){
 
@@ -49,7 +49,6 @@ public class LoginAsynTask extends AsyncTask<Void,Void,Boolean>{
 				}
 
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}		
         }

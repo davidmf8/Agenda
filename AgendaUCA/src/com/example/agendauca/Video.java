@@ -29,7 +29,7 @@ public class Video extends Activity{
 		if(miVideo.getName() == "Error"){ //Si no se ha creado el archivo por memoria
 			Toast.makeText(this, "Memoria externa no disponible", Toast.LENGTH_SHORT).show();
 			Intent cambio_actividad = new Intent();
-            cambio_actividad.setClass(this, MainActivity.class);
+            cambio_actividad.setClass(this, MenuInicial.class);
 	        startActivity(cambio_actividad);
 		}
 		else{ //Se graba
@@ -49,7 +49,7 @@ public class Video extends Activity{
 		    } 
 		    else if (resultCode == RESULT_CANCELED) {
 		      Toast.makeText(this, "Cancelado", Toast.LENGTH_SHORT).show();
-		      cambio_actividad.setClass(this, MainActivity.class);
+		      cambio_actividad.setClass(this, MenuInicial.class);
 		      startActivity(cambio_actividad);
 		    } 
     }

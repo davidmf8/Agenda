@@ -87,7 +87,7 @@ public class ListarFicheros extends Activity{
 		else{
 			Toast.makeText(this, "Memoria externa no disponible", Toast.LENGTH_SHORT).show();
 			Intent cambio_actividad = new Intent();
-            cambio_actividad.setClass(this, MainActivity.class);
+            cambio_actividad.setClass(this, MenuInicial.class);
 	        startActivity(cambio_actividad);
 		}
 	}

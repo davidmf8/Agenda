@@ -31,7 +31,7 @@ public class Camara extends Activity{
 		if(miFoto.getName() == "Error"){ //El fichero no se ha creado por problemas de memoria. Se regresa a la activity principal
 			Toast.makeText(this, "Memoria externa no disponible", Toast.LENGTH_SHORT).show();
 			Intent cambio_actividad = new Intent();
-            cambio_actividad.setClass(this, MainActivity.class);
+            cambio_actividad.setClass(this, MenuInicial.class);
 	        startActivity(cambio_actividad);
 		}
 		else{ //Se ha creado correctamente el fichero
@@ -54,7 +54,7 @@ public class Camara extends Activity{
 		    } 
 		    else if (resultCode == RESULT_CANCELED) {
 		      Toast.makeText(this, "Cancelado", Toast.LENGTH_SHORT).show();
-		      cambio_actividad.setClass(this, MainActivity.class);
+		      cambio_actividad.setClass(this, MenuInicial.class);
 		      startActivity(cambio_actividad);
 		    } 
 		  }

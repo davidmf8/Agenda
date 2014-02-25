@@ -57,7 +57,7 @@ public class ListarDirectorios extends Activity{
 		else{ //Si no, se podria poner que va a una activity donde pone No hay ficheros existentes
 			Toast.makeText(this, "No existen fichero o carpetas", Toast.LENGTH_SHORT).show();
 			Intent cambio_actividad = new Intent();
-            cambio_actividad.setClass(this, MainActivity.class);
+            cambio_actividad.setClass(this, MenuInicial.class);
 	        startActivity(cambio_actividad);
 		}
 	}
@@ -66,7 +66,7 @@ public class ListarDirectorios extends Activity{
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK){
 			Intent cambio_actividad = new Intent();
-			cambio_actividad.setClass(getApplicationContext(), MainActivity.class);
+			cambio_actividad.setClass(getApplicationContext(), MenuInicial.class);
 			startActivity(cambio_actividad);
 		}
 		return super.onKeyDown(keyCode, event);
@@ -117,7 +117,7 @@ public class ListarDirectorios extends Activity{
 	        	  startActivity(refrescar_lista);
 	            }
 	        	else{
-		        	refrescar_lista.setClass(this, MainActivity.class);
+		        	refrescar_lista.setClass(this, MenuInicial.class);
 		            startActivity(refrescar_lista);
 	        	}
 	            return true;

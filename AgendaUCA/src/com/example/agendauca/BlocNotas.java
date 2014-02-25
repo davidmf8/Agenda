@@ -29,7 +29,7 @@ public class BlocNotas extends Activity{
 	public void onClick(View v) { //Cuando se pulsa guardar
 		guardarNota(); //Se guarda la nota y se carga el menu inicial
 		Intent cambio_actividad = new Intent();
-        cambio_actividad.setClass(this, MainActivity.class);
+        cambio_actividad.setClass(this, MenuInicial.class);
         startActivity(cambio_actividad);
 	}
 	

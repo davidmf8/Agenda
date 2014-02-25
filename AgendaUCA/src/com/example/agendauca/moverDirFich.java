@@ -60,7 +60,7 @@ public class moverDirFich extends Activity{
 		else{ //Si no, se podria poner que va a una activity donde pone No hay ficheros existentes
 			Toast.makeText(this, "No existen fichero o carpetas", Toast.LENGTH_SHORT).show();
 			Intent cambio_actividad = new Intent();
-            cambio_actividad.setClass(this, MainActivity.class);
+            cambio_actividad.setClass(this, MenuInicial.class);
 	        startActivity(cambio_actividad);
 		}
 	}
@@ -72,7 +72,7 @@ public class moverDirFich extends Activity{
 			String rutaAnterior = rutaSubDirectorio.substring(0, pos);
 		    if(profundidadDir == 0){
 		    	Intent cambio_actividad = new Intent();
-				cambio_actividad.setClass(getApplicationContext(), MainActivity.class);
+				cambio_actividad.setClass(getApplicationContext(), MenuInicial.class);
 				startActivity(cambio_actividad);
 		    }
 		    else{
