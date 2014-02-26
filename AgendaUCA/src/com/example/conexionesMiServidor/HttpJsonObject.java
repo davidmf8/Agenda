@@ -17,40 +17,25 @@ import org.apache.http.params.HttpParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
+//Clase encargada de la conexion con nuestro servidor para el registro de usuarios
 public class HttpJsonObject {
-
-	  InputStream is = null;
-	  String result = "";
+    private InputStream stream = null;
+	private String resultado = "";
 	  
-	  public JSONObject getserverdata(ArrayList<NameValuePair> parameters, String urlwebserver ){
-	
-		  //conecta via http i envia un post
-	  httppostconnect(parameters,urlwebserver);
-		  
-	  if (is != null){//Si rebem resposta
-	  
-		  getpostresponse();
-		  
-		 return getjsonarray();
-	  
-	  }else{
-		  
-	      return null;
-
-	  }
-		  
-	  }
+	public JSONObject getserverdata(ArrayList<NameValuePair> parametros, String urlwebserver){
+	    httppostconnect(parametros,urlwebserver); //conecta con la url especificada via http y envia una peticion POST  
+	    if (stream != null){
+	      getpostresponse();
+		  return getjsonarray();
+	    }
+	    else
+          return null;
+    }
 	  
 	   
-	  //Petició http
-  private void httppostconnect(ArrayList<NameValuePair> parametres, String urlwebserver){
- 	
-	//
-	try{
-		
-			/*Parametres de la conexio */
+	private void httppostconnect(ArrayList<NameValuePair> parametros, String urlwebserver){
+	    try{	
+			//Parametros para la conexion http
 		 	final HttpParams httpParams = new BasicHttpParams();
 		 	HttpConnectionParams.setConnectionTimeout(httpParams, 60000);
 		 	
@@ -58,56 +43,46 @@ public class HttpJsonObject {
 	        
 	        HttpPost httppost = new HttpPost(urlwebserver);
 	        
-	        httppost.setEntity(new UrlEncodedFormEntity(parametres));
+	        httppost.setEntity(new UrlEncodedFormEntity(parametros));
 	        
-	        //Executem la petició enviant dades per el post
+	        //Ejecutamos la tarea con elcliente http. Se espera que se devuelva un mensaje JSON
+	        //Para saber si se ha realizado con éxito la petición.
 	        HttpResponse response = httpclient.execute(httppost); 
 	        HttpEntity entity = response.getEntity();
-	         is = entity.getContent();
-	         
-	}catch(Exception e){
-		e.printStackTrace();
-	        //Log.e("log_tag", "Error in http connection "+e.toString());
+	        stream = entity.getContent();
+	        
+	    }catch(Exception e){}
 	}
 	
-}
 
-public void getpostresponse(){
 
-	//Converteix el Json a string
-	try{
-	        BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
+	public void getpostresponse(){ //Convierte de JSON a String
+		try{
+	        BufferedReader reader = new BufferedReader(new InputStreamReader(stream,"iso-8859-1"),8);
 	        StringBuilder sb = new StringBuilder();
 	        String line = null;
 	        while ((line = reader.readLine()) != null) {
 	                sb.append(line + "\n");
 	        }
-	        is.close();
-	 
-	        result = sb.toString();
-	        //Log.e("getpostresponse"," result = "+sb.toString());
-	}catch(Exception e){
-		e.printStackTrace();
-	        //Log.e("log_tag", "Error converting result "+e.toString());
+	        stream.close(); 
+	        resultado = sb.toString();
+		}catch(Exception e){}
 	}
-}
 
-public JSONObject getjsonarray(){
-	//parse json data
-	try{
-		 JSONObject jArray;
-		 if(result.equals("false") || result.equals("null")){
+
+	public JSONObject getjsonarray(){ //Obtenemos los resultados en formato JSONObject
+		try{
+		   JSONObject jArray;
+		   if(resultado.equals("false") || resultado.equals("null"))
 			 jArray = new JSONObject();
-		 }else{
-			 jArray = new JSONObject(result);
-        }
-		return jArray;
-	}
-	catch(JSONException e){
-		e.printStackTrace();
-	        //Log.e("log_tag", "Error parsing data "+e.toString());
+		   else
+			 jArray = new JSONObject(resultado);
+        
+		   return jArray;
+		}
+		catch(JSONException e){
 	        return null;
-	}
+	    }
 		
-}
+	}
 }

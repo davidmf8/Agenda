@@ -1,12 +1,9 @@
 package com.example.agendauca;
 
-import java.util.concurrent.ExecutionException;
-
 import com.example.conexionesMiServidor.LoginAsynTask;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,10 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+//Crea un usuario nuevo la primera vez que se inicia la aplicacion. Las demas veces no hara falta logearse
+//Se guardará el usuario establecido.
 public class MainActivity extends Activity implements OnClickListener{
-    private Button logear;
+    private Button registrar;
     private static boolean error = false;
-    public static boolean error1 = false;
     private EditText usuario;
     private TextView mensajeInicial;
     private LoginAsynTask conexionLogin;
@@ -28,8 +26,8 @@ public class MainActivity extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		
-		logear = (Button)findViewById(R.id.Login);
-		logear.setOnClickListener(this);
+		registrar = (Button)findViewById(R.id.Login);
+		registrar.setOnClickListener(this);
 		
 		mensajeInicial = (TextView)findViewById(R.id.Mensaje);
 		usuario = (EditText)findViewById(R.id.UserName);
@@ -41,16 +39,16 @@ public class MainActivity extends Activity implements OnClickListener{
 	
 	@Override
 	public void onClick(View v) {
-		if(v.getId() == R.id.Login){
+		if(v.getId() == R.id.Login){ //Lanzo un asyncTask con la peticion de registro.
 			String name = usuario.getText().toString();
-            //String password = contrasenia.getText().toString();
 			conexionLogin = new LoginAsynTask();
 			conexionLogin.inicilizarValores(name, "", this);
 			conexionLogin.execute();
 		}	
 	}
 	
-	public  void validacion(boolean result){;
+	//Validar el resultado cuando el hilo termina su ejecución.
+	public  void validacion(boolean result){
 		Intent cambio_actividad = new Intent();
 		if(result == false){
 			error = true;

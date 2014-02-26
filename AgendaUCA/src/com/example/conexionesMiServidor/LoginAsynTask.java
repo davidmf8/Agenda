@@ -14,50 +14,52 @@ import variables.comunes.FuncionesUtiles;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
+//Clase encargada de realizar el registro de usuario en segundo plano.
 public class LoginAsynTask extends AsyncTask<Void,Boolean,Boolean>{
-	private HttpJsonObject post = new HttpJsonObject();
-	private String name, gcmcode;
+	private HttpJsonObject peticionPostServidor = new HttpJsonObject();
+	private String usuario, gcmcode;
 	private boolean resultado;
-	private MainActivity main;
-	private ProgressDialog progDailog;
+	private MainActivity mainActivity;
+	private ProgressDialog dialogCarga; //Mientras seejecuta la peticion en el lado del servidor
+	//se mostrará un mensaje de cargando.
 	
+	//Inicializa las variables necesarias antes de ejecutar el hilo
 	public void inicilizarValores(String name, String gcmcode, MainActivity main){
-		this.name = name;
+		this.usuario = name;
 		this.gcmcode = gcmcode;
-		this.main = main;
-		progDailog = new ProgressDialog(this.main);
-        progDailog.setMessage("Loading...");
-        progDailog.setIndeterminate(false);
-        progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progDailog.setCancelable(true);
-        progDailog.show();
+		this.mainActivity = main;
+		dialogCarga = new ProgressDialog(this.mainActivity);
+        dialogCarga.setMessage("Loading...");
+        dialogCarga.setIndeterminate(false);
+        dialogCarga.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialogCarga.setCancelable(true);
+        dialogCarga.show();
 	}
 
+	//Ejecución del hilo. Se envia la petición al servidor y comprobamos, con JSONObject, si
+	//se ha realizado el registro correctamente
 	@Override
 	protected Boolean doInBackground(Void... params) {
 		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         nameValuePairs.add(new BasicNameValuePair("tag","usersave"));
-        nameValuePairs.add(new BasicNameValuePair("username", name));
+        nameValuePairs.add(new BasicNameValuePair("username", usuario));
         nameValuePairs.add(new BasicNameValuePair("gcmcode", "54d"));
 		
-        JSONObject jdata = post.getserverdata(nameValuePairs, FuncionesUtiles.getIPServer());
+        JSONObject jdata = peticionPostServidor.getserverdata(nameValuePairs, FuncionesUtiles.getIPServer());
         if (jdata != null && jdata.length() > 0){
 			try {
 				int comprobacion = jdata.getInt("success"); //Accedem al valor 
-				if(comprobacion == 1){
-					resultado = true;
-					
-				}
-				else{
+				if(comprobacion == 1)
+					resultado = true;			
+				else
 					resultado = false;
-				}
 
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}		
         }
-        progDailog.dismiss();
-        main.validacion(resultado);
+        dialogCarga.dismiss();
+        mainActivity.validacion(resultado);
         
 		return resultado;
 	}
