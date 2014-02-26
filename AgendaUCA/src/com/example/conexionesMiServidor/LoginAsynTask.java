@@ -4,52 +4,61 @@ import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.agendauca.MainActivity;
+
 import variables.comunes.FuncionesUtiles;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
-public class LoginAsynTask extends AsyncTask<Void,Void,Boolean>{
-	private HttpJsonArray post = new HttpJsonArray();
+public class LoginAsynTask extends AsyncTask<Void,Boolean,Boolean>{
+	private HttpJsonObject post = new HttpJsonObject();
 	private String name, gcmcode;
 	private boolean resultado;
+	private MainActivity main;
+	private ProgressDialog progDailog;
 	
-	public void inicilizarValores(String name, String gcmcode){
+	public void inicilizarValores(String name, String gcmcode, MainActivity main){
 		this.name = name;
 		this.gcmcode = gcmcode;
+		this.main = main;
+		progDailog = new ProgressDialog(this.main);
+        progDailog.setMessage("Loading...");
+        progDailog.setIndeterminate(false);
+        progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progDailog.setCancelable(true);
+        progDailog.show();
 	}
 
 	@Override
 	protected Boolean doInBackground(Void... params) {
-		resultado = false;
 		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         nameValuePairs.add(new BasicNameValuePair("tag","usersave"));
         nameValuePairs.add(new BasicNameValuePair("username", name));
         nameValuePairs.add(new BasicNameValuePair("gcmcode", "54d"));
 		
-        JSONArray jdata = post.getserverdata(nameValuePairs, FuncionesUtiles.getIPServer());
+        JSONObject jdata = post.getserverdata(nameValuePairs, FuncionesUtiles.getIPServer());
         if (jdata != null && jdata.length() > 0){
-
-    		JSONObject json_data; //Creem un objecte JSON
 			try {
-				json_data = jdata.getJSONObject(0); //Obtenim el primer valro retornat com será l'únic podem posar directament 0
-				int comprobacion = json_data.getInt("success"); //Accedem al valor 
-				//System.out.println(comprobacion);
+				int comprobacion = jdata.getInt("success"); //Accedem al valor 
 				if(comprobacion == 1){
 					resultado = true;
+					
+				}
+				else{
+					resultado = false;
 				}
 
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}		
         }
-		return resultado;
-	}
-	
-	public boolean getResultado(){
+        progDailog.dismiss();
+        main.validacion(resultado);
+        
 		return resultado;
 	}
 }
