@@ -59,6 +59,7 @@ public class ListarFicheros extends Activity{
 						  dirPrincipal++;
 						  cambio_actividad.setClass(getApplicationContext(), ListarFicheros.class);
 						  startActivity(cambio_actividad);
+						  finish();
 					  }
 					  else{
 						File ficheroSeleccionado = ficheros[posicion];
@@ -91,6 +92,7 @@ public class ListarFicheros extends Activity{
 			Intent cambio_actividad = new Intent();
             cambio_actividad.setClass(this, MenuInicial.class);
 	        startActivity(cambio_actividad);
+	        finish();
 		}
 	}
 	
@@ -103,6 +105,7 @@ public class ListarFicheros extends Activity{
 		    	Intent cambio_actividad = new Intent();
 				cambio_actividad.setClass(getApplicationContext(), ListarDirectorios.class);
 				startActivity(cambio_actividad);
+				finish();
 		    }
 		    else{
 		      dirPrincipal--;
@@ -110,6 +113,7 @@ public class ListarFicheros extends Activity{
 			  cambio_actividad.putExtra("Subdirectorio", rutaAnterior);
 			  cambio_actividad.setClass(getApplicationContext(), ListarFicheros.class);
 			  startActivity(cambio_actividad);
+			  finish();
 		    }
 		}
 		return super.onKeyDown(keyCode, event);

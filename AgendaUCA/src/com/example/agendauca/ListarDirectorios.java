@@ -52,6 +52,7 @@ public class ListarDirectorios extends Activity{
 					  cambio_actividad.putExtra("Subdirectorio", ruta);
 					  cambio_actividad.setClass(getApplicationContext(), ListarFicheros.class);
 					  startActivity(cambio_actividad);
+					  finish();
 					}
 				}
 		   });
@@ -61,6 +62,7 @@ public class ListarDirectorios extends Activity{
 			Intent cambio_actividad = new Intent();
             cambio_actividad.setClass(this, MenuInicial.class);
 	        startActivity(cambio_actividad);
+	        finish();
 		}
 	}
 	
@@ -70,6 +72,7 @@ public class ListarDirectorios extends Activity{
 			Intent cambio_actividad = new Intent();
 			cambio_actividad.setClass(getApplicationContext(), MenuInicial.class);
 			startActivity(cambio_actividad);
+			finish();
 		}
 		return super.onKeyDown(keyCode, event);
 	}

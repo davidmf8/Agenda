@@ -5,6 +5,7 @@ import com.example.agendauca.R;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View; 
@@ -58,6 +59,7 @@ public class MenuInicial extends Activity implements OnClickListener{
 			   startActivity(cambio_actividad);
 			   break;
 		}
+		finish();
 	}
 	
 	@Override
@@ -82,6 +84,15 @@ public class MenuInicial extends Activity implements OnClickListener{
 				 startActivity(cambio_actividad);
 	        	 break;
 	     } 
+	     finish();
 	  return false;
 	 }
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+			finish();
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 }
