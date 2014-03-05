@@ -31,17 +31,6 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         
-        <receiver android:name="com.google.android.gcm.GCMBroadcastReceiver"
-          android:permission="com.google.android.c2dm.permission.SEND" >
-          <intent-filter>
-             <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-             <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-             <category android:name="nombre.del.package.de.vuestra.app" />
-          </intent-filter>
-        </receiver>
-  
-        <service android:name=".GCMIntentService" />
-        
         <activity
             android:name="com.example.agendauca.MainActivity"
             android:label="@string/app_name" >
@@ -51,6 +40,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <receiver android:name="com.google.android.gcm.GCMBroadcastReceiver"
+          android:permission="com.google.android.c2dm.permission.SEND" >
+          <intent-filter>
+             <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+             <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+             <category android:name="com.example.agendauca" />
+          </intent-filter>
+        </receiver>
+  
+        <service android:name=".GCMIntentService" />
+        
         <activity
             android:name="com.example.agendauca.ListarDirectorios"
             android:label="@string/app_name" >       

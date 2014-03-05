@@ -48,7 +48,7 @@ public class LoginAsynTask extends AsyncTask<Void,Boolean,Boolean>{
         JSONObject jdata = peticionPostServidor.getserverdata(nameValuePairs, FuncionesUtiles.getIPServer());
         if (jdata != null && jdata.length() > 0){
 			try {
-				int comprobacion = jdata.getInt("success"); //Accedem al valor 
+				int comprobacion = jdata.getInt("success"); //Accedemos al valor 
 				if(comprobacion == 1)
 					resultado = true;			
 				else
