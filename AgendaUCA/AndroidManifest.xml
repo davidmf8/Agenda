@@ -39,7 +39,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity>   
         
         <receiver android:name="com.google.android.gcm.GCMBroadcastReceiver"
           android:permission="com.google.android.c2dm.permission.SEND" >
@@ -51,6 +51,9 @@
         </receiver>
   
         <service android:name=".GCMIntentService" />
+        
+        <meta-data android:name="com.google.android.gms.version"
+           android:value="@integer/google_play_services_version" />
         
         <activity
             android:name="com.example.agendauca.ListarDirectorios"
