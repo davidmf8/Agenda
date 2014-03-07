@@ -1,16 +1,12 @@
 package com.example.agendauca;
 
-import java.io.IOException;
-
 import variables.comunes.FuncionesUtiles;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.gcm.*;
 import com.example.conexionesMiServidor.LoginAsynTask;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -30,9 +26,6 @@ public class MainActivity extends Activity implements OnClickListener{
     private TextView mensajeInicial;
     private LoginAsynTask conexionLogin;
     private String name, gcm;
-    private Context context;
-    private GoogleCloudMessaging serverGCM;
-
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,21 +59,21 @@ public class MainActivity extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		if(v.getId() == R.id.Login){ //Lanzo un asyncTask con la peticion de registro.
 			name = usuario.getText().toString();
-			if(comprobarServiciosGoogle()){
+			/*if(comprobarServiciosGoogle()){
 			  context = getApplicationContext();
 			  serverGCM = GoogleCloudMessaging.getInstance(context);
 			  try {
 				gcm = serverGCM.register(FuncionesUtiles.getSenderID());
-			  } catch (IOException e) {}
+			  } catch (IOException e) {}*/
 			  
 			  conexionLogin = new LoginAsynTask();
 			  conexionLogin.inicilizarValores(name, gcm, this);
 			  conexionLogin.execute();
-			}
+			//}
 		}	
 	}
 	
-	private boolean comprobarServiciosGoogle(){
+	public boolean comprobarServiciosGoogle(){
 		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
         if (resultCode != ConnectionResult.SUCCESS) {
             if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
@@ -96,7 +89,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	}
 	
 	//Validar el resultado cuando el hilo termina su ejecución.
-	public  void validacion(boolean result){
+	public  void validacion(boolean result, String gcm){
 		Intent cambio_actividad = new Intent();
 		if(result == false){
 			error = true;
@@ -106,6 +99,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		else{
 			SharedPreferences.Editor misPreferenciasModificadas = misPreferencias.edit();
 			misPreferenciasModificadas.putString(FuncionesUtiles.getUsuario(), name);
+			misPreferenciasModificadas.putString(FuncionesUtiles.getGcm(), gcm);
 			misPreferenciasModificadas.commit();
 			error = false;
 			cambio_actividad.setClass(this, MenuInicial.class);

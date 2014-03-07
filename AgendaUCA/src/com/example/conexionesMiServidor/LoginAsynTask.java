@@ -1,5 +1,6 @@
 package com.example.conexionesMiServidor;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
@@ -8,10 +9,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.agendauca.MainActivity;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import variables.comunes.FuncionesUtiles;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 
 //Clase encargada de realizar el registro de usuario en segundo plano.
@@ -26,7 +29,7 @@ public class LoginAsynTask extends AsyncTask<Void,Boolean,Boolean>{
 	//Inicializa las variables necesarias antes de ejecutar el hilo
 	public void inicilizarValores(String name, String gcmcode, MainActivity main){
 		this.usuario = name;
-		this.gcmcode = gcmcode;
+		//this.gcmcode = gcmcode;
 		this.mainActivity = main;
 		dialogCarga = new ProgressDialog(this.mainActivity);
         dialogCarga.setMessage("Loading...");
@@ -39,12 +42,18 @@ public class LoginAsynTask extends AsyncTask<Void,Boolean,Boolean>{
 	//Ejecución del hilo. Se envia la petición al servidor y comprobamos, con JSONObject, si
 	//se ha realizado el registro correctamente
 	@Override
-	protected Boolean doInBackground(Void... params) {
-		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+	protected Boolean doInBackground(Void... params) { 
+        if(mainActivity.comprobarServiciosGoogle()){
+			  Context context = mainActivity.getApplicationContext();
+			  GoogleCloudMessaging serverGCM = GoogleCloudMessaging.getInstance(context);
+			  try {
+				gcmcode = serverGCM.register(FuncionesUtiles.getSenderID());
+			  } catch (IOException e) {}
+        }
+        ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         nameValuePairs.add(new BasicNameValuePair("tag","usersave"));
         nameValuePairs.add(new BasicNameValuePair("username", usuario));
-        nameValuePairs.add(new BasicNameValuePair("gcmcode", "54d"));
-		
+        nameValuePairs.add(new BasicNameValuePair("gcmcode", gcmcode));
         JSONObject jdata = peticionPostServidor.getserverdata(nameValuePairs, FuncionesUtiles.getIPServer());
         if (jdata != null && jdata.length() > 0){
 			try {
@@ -59,10 +68,12 @@ public class LoginAsynTask extends AsyncTask<Void,Boolean,Boolean>{
 			}		
         }
         dialogCarga.dismiss();
-        mainActivity.validacion(resultado);
+        mainActivity.validacion(resultado, gcmcode);
         
 		return resultado;
 	}
+	
+	
 }
 
 
