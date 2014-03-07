@@ -84,7 +84,6 @@ public class MenuInicial extends Activity implements OnClickListener{
 				 startActivity(cambio_actividad);
 	        	 break;
 	     } 
-	     finish();
 	  return false;
 	 }
 	
