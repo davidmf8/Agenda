@@ -1,4 +1,4 @@
-package com.example.conexionesMiServidor;
+package com.example.conexionesServidor;
 
 import java.io.IOException;
 import java.util.ArrayList;

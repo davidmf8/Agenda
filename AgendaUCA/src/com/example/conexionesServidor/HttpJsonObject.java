@@ -1,4 +1,4 @@
-package com.example.conexionesMiServidor;
+package com.example.conexionesServidor;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
