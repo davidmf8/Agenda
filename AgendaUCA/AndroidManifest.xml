@@ -99,6 +99,10 @@
           android:name="com.example.agendauca.MenuInicial"
           android:label="@string/app_name">
         </activity>
+        <activity 
+          android:name="com.example.chat.chatPrincipal"
+          android:label="@string/app_name">
+        </activity>
 
     </application>
 

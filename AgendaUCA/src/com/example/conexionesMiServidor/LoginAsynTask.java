@@ -9,9 +9,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.agendauca.MainActivity;
+import com.example.utilidades.FuncionesUtiles;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
-import variables.comunes.FuncionesUtiles;
 
 import android.app.ProgressDialog;
 import android.content.Context;

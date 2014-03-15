@@ -2,9 +2,9 @@ package com.example.agendauca;
 
 import java.io.File;
 
-import variables.comunes.FuncionesUtiles;
 
 import com.example.agendauca.R;
+import com.example.utilidades.FuncionesUtiles;
 
 import android.os.Bundle;
 import android.view.ContextMenu;

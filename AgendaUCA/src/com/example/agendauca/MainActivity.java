@@ -1,10 +1,10 @@
 package com.example.agendauca;
 
-import variables.comunes.FuncionesUtiles;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.example.conexionesMiServidor.LoginAsynTask;
+import com.example.utilidades.FuncionesUtiles;
 
 import android.app.Activity;
 import android.content.Intent;

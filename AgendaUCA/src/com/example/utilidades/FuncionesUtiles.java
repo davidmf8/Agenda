@@ -1,4 +1,4 @@
-package variables.comunes;
+package com.example.utilidades;
 
 import android.os.Environment;
 

@@ -1,6 +1,7 @@
 package com.example.agendauca;
 
 import com.example.agendauca.R;
+import com.example.chat.chatPrincipal;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -55,7 +56,7 @@ public class MenuInicial extends Activity implements OnClickListener{
 			   startActivity(cambio_actividad);
 		       break;
 		   case R.id.Notificacion:
-			   cambio_actividad.setClass(this, MainActivity.class);
+			   cambio_actividad.setClass(this, chatPrincipal.class);
 			   startActivity(cambio_actividad);
 			   break;
 		}
