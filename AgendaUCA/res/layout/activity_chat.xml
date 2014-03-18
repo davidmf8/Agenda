@@ -22,7 +22,7 @@
 					android:layout_width="fill_parent"
 					android:layout_height="fill_parent">
 					
-				    <TextView android:id="@+id/textView1"
+				    <ListView android:id="@+id/Amigos"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content" />
 				    

@@ -32,7 +32,7 @@ public class ListarFicheros extends Activity{
 	String[] datosFicheros;
 	File[] ficheros;
 	String rutaSubDirectorio;
-	EditText et;
+	EditText renombrar;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -193,9 +193,9 @@ public class ListarFicheros extends Activity{
 
 	private void renombrar(final int posicionFichero){
         AlertDialog.Builder dialogo = new Builder(this);
-        et = new EditText(this);
+        renombrar = new EditText(this);
         dialogo.setTitle("Nuevo nombre");
-        dialogo.setView(et);
+        dialogo.setView(renombrar);
 
         dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
         	@Override
@@ -203,23 +203,23 @@ public class ListarFicheros extends Activity{
         		File renombrado = null;
         		String nombreFichero = ficheros[posicionFichero].getName();
         		if(nombreFichero.indexOf(".jpg") != -1){
-        			renombrado = new File(rutaSubDirectorio, et.getText().toString() + ".jpg");
+        			renombrado = new File(rutaSubDirectorio, renombrar.getText().toString() + ".jpg");
 				}
 				if(nombreFichero.indexOf(".mp4") != -1){
-					renombrado = new File(rutaSubDirectorio, et.getText().toString() + ".mp4");
+					renombrado = new File(rutaSubDirectorio, renombrar.getText().toString() + ".mp4");
 				}
 				if( nombreFichero.indexOf(".3gp") != -1){
-					renombrado = new File(rutaSubDirectorio, et.getText().toString() + ".3gp");
+					renombrado = new File(rutaSubDirectorio, renombrar.getText().toString() + ".3gp");
 				}
 				if(nombreFichero.indexOf(".txt") != -1){
-					renombrado = new File(rutaSubDirectorio, et.getText().toString() + ".txt");
+					renombrado = new File(rutaSubDirectorio, renombrar.getText().toString() + ".txt");
 				}
 				
 				if(renombrado != null){
 	        	  ficheros[posicionFichero].renameTo(renombrado);
 				}
 				else{
-	        		renombrado = new File(rutaSubDirectorio, et.getText().toString());
+	        		renombrado = new File(rutaSubDirectorio, renombrar.getText().toString());
 		        	ficheros[posicionFichero].renameTo(renombrado);
 				}
 				

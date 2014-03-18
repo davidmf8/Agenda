@@ -226,10 +226,13 @@ containing a value of this type.
         public static final int miniexams=0x7f020021;
     }
     public static final class id {
+        public static final int AgregarAmigo=0x7f05001f;
+        public static final int Amigos=0x7f05000a;
         public static final int Audio=0x7f05001c;
         public static final int Calificaciones=0x7f050015;
         public static final int Directorios=0x7f050012;
-        public static final int Eliminar=0x7f05001f;
+        public static final int Eliminar=0x7f050022;
+        public static final int EliminarAmigo=0x7f050020;
         public static final int Evento=0x7f050013;
         public static final int Grabar=0x7f050005;
         public static final int ImgFoto=0x7f050016;
@@ -238,12 +241,13 @@ containing a value of this type.
         public static final int ListaFicheros=0x7f05000d;
         public static final int Login=0x7f050011;
         public static final int Mensaje=0x7f05000f;
-        public static final int Mover=0x7f050020;
+        public static final int MenuAmigos=0x7f05001e;
+        public static final int Mover=0x7f050023;
         public static final int NotaMostrada=0x7f050017;
         public static final int Notas=0x7f05001d;
         public static final int Notificacion=0x7f050014;
         public static final int Parar=0x7f050006;
-        public static final int Renombrar=0x7f05001e;
+        public static final int Renombrar=0x7f050021;
         public static final int ReproductorVideo=0x7f050018;
         public static final int UserName=0x7f050010;
         public static final int Video=0x7f05001b;
@@ -257,7 +261,6 @@ containing a value of this type.
         public static final int normal=0x7f050001;
         public static final int satellite=0x7f050002;
         public static final int terrain=0x7f050003;
-        public static final int textView1=0x7f05000a;
         public static final int textView2=0x7f05000c;
     }
     public static final class integer {
@@ -277,7 +280,8 @@ containing a value of this type.
     }
     public static final class menu {
         public static final int main=0x7f0a0000;
-        public static final int menu_opciones_listas=0x7f0a0001;
+        public static final int menu_amigos=0x7f0a0001;
+        public static final int menu_opciones_listas=0x7f0a0002;
     }
     public static final class string {
         public static final int action_settings=0x7f06001b;

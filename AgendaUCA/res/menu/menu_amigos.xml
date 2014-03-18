@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/MenuAmigos"
+        android:showAsAction="ifRoom"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="Opciones">
+    	<menu>
+    		<item android:id="@+id/AgregarAmigo"
+        	 	 android:title="Añadir Amigo" />
+    		<item android:id="@+id/EliminarAmigo"
+        	 	 android:title="Eliminar Amigo"/>
+    	</menu>
+    </item>
+</menu>

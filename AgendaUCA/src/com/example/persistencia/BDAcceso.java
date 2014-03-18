@@ -1,5 +1,7 @@
 package com.example.persistencia;
 
+import java.util.ArrayList;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -46,5 +48,17 @@ public class BDAcceso {
 			resGCM = cursor.getString(0);
 		}
 		return resGCM;
+	}
+	
+	public ArrayList<String> getUsuarios(){
+		ArrayList<String> usuarios = new ArrayList<String>();
+		String sql = "SELECT * FROM AMIGOS";
+		Cursor cursor = database.rawQuery(sql, null);
+		if(cursor.moveToFirst()){
+			do {
+		          usuarios.add(cursor.getString(0));
+		     } while(cursor.moveToNext());
+		}
+		return usuarios;
 	}
 }

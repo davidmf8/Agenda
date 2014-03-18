@@ -1,17 +1,34 @@
 package com.example.chat;
 
+import java.io.File;
+import java.util.ArrayList;
+
+import com.example.agendauca.Audio;
+import com.example.agendauca.BlocNotas;
+import com.example.agendauca.Camara;
 import com.example.agendauca.R;
+import com.example.agendauca.Video;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TabHost;
-import android.widget.TextView;
 import com.example.persistencia.*;
 
 public class chatPrincipal extends Activity{
 	private TabHost  tabHostChat;
-	private String prueba;
+	private ArrayList<String> amigos;
+	private ListView miListaAmigos;
+	private EditText nuevoAmigo;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,18 +54,70 @@ public class chatPrincipal extends Activity{
 		tabHostChat.addTab(spec);
 		 
 		tabHostChat.setCurrentTab(0);
-		prueba();
-		TextView tab1 = (TextView)this.findViewById(R.id.textView1);
-		tab1.setText(prueba);
+		listadoAmigos();
+		miListaAmigos = (ListView)findViewById(R.id.Amigos);
+        miListaAmigos.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, amigos));
 	}
 
-	private void prueba() {
-		// TODO Auto-generated method stub
-		BDAcceso pr = new BDAcceso(getApplicationContext());
-		pr = pr.BDopen();
-		pr.insertarUsuario("prueba1","OK");
-		prueba = pr.getGCM("prueba1");
-		pr.BDclose();
+	private void listadoAmigos() {
+		BDAcceso BDAmigos = new BDAcceso(getApplicationContext());
+		BDAmigos = BDAmigos.BDopen();
+		/*BDAmigos.insertarUsuario("prueba1","OK");
+		BDAmigos.insertarUsuario("prueba2","OK");
+		BDAmigos.insertarUsuario("prueba3","OK");
+		BDAmigos.insertarUsuario("prueba4","OK");
+		BDAmigos.insertarUsuario("prueba5","OK");*/
+		amigos = BDAmigos.getUsuarios();
+		BDAmigos.BDclose();
+	}
+	
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Carga el action bar, para el "menu" de la creacion de fotos videos...
+        getMenuInflater().inflate(R.menu.menu_amigos, menu);
+        return true;
+    }
+	
+	@Override
+	 public boolean onOptionsItemSelected(MenuItem item) {
+	     switch (item.getItemId()) {
+	         case R.id.AgregarAmigo:
+	        	 agregarAmigo();
+	             break;
+	         case R.id.EliminarAmigo:
+	        	 eliminarAmigo();
+	        	 break;
+	     } 
+	  return false;
+	 }
+
+
+	private void agregarAmigo() {
+		AlertDialog.Builder dialogo = new Builder(this);
+        nuevoAmigo = new EditText(this);
+        dialogo.setTitle("Agregar Amigo");
+        dialogo.setView(nuevoAmigo);
+
+        dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+        	@Override
+        	public void onClick(DialogInterface dialog, int which) {
+				
+        	}
+        });
+        dialogo.setNegativeButton("Cancelar",new DialogInterface.OnClickListener() {
+        	@Override
+        	public void onClick(DialogInterface dialog, int which) {
+                     // 5.2. Accion boton Cancelar
+        	}
+        });
+
+
+        dialogo.create();
+        dialogo.show();
+	}
+	
+	private void eliminarAmigo() {
+		
 	}
 
 }
