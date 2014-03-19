@@ -8,6 +8,9 @@ public class FuncionesUtiles {
    private static String preferencias = "MisPreferencias";
    private static String usuario = "usuario";
    private static String gcm = "gcm";
+   public static final String TAG = "tag";
+   public static final String USERNAME = "username";
+   public static final String GCM = "gcm";
 	
    public static boolean estadoEscritura(){ //Funcion que devuelve si la memoria está preparada para escritura
 	   String estado = Environment.getExternalStorageState();

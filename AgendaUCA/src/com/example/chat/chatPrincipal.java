@@ -1,19 +1,13 @@
 package com.example.chat;
 
-import java.io.File;
 import java.util.ArrayList;
-
-import com.example.agendauca.Audio;
-import com.example.agendauca.BlocNotas;
-import com.example.agendauca.Camara;
 import com.example.agendauca.R;
-import com.example.agendauca.Video;
+import com.example.conexionesServidor.BuscarUsuarioAsynTask;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Menu;
@@ -82,7 +76,7 @@ public class chatPrincipal extends Activity{
 	 public boolean onOptionsItemSelected(MenuItem item) {
 	     switch (item.getItemId()) {
 	         case R.id.AgregarAmigo:
-	        	 agregarAmigo();
+	        	 agregarAmigo(this); 
 	             break;
 	         case R.id.EliminarAmigo:
 	        	 eliminarAmigo();
@@ -92,7 +86,7 @@ public class chatPrincipal extends Activity{
 	 }
 
 
-	private void agregarAmigo() {
+	private void agregarAmigo(final chatPrincipal activity) {
 		AlertDialog.Builder dialogo = new Builder(this);
         nuevoAmigo = new EditText(this);
         dialogo.setTitle("Agregar Amigo");
@@ -101,7 +95,10 @@ public class chatPrincipal extends Activity{
         dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
         	@Override
         	public void onClick(DialogInterface dialog, int which) {
-				
+				String consultaAmigo = nuevoAmigo.getText().toString();
+				BuscarUsuarioAsynTask existeUsuario = new BuscarUsuarioAsynTask();
+				existeUsuario.inicilizarValores(consultaAmigo, activity);
+				existeUsuario.execute();
         	}
         });
         dialogo.setNegativeButton("Cancelar",new DialogInterface.OnClickListener() {

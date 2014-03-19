@@ -10,9 +10,12 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.widget.Toast;
+import com.example.persistencia.BDAcceso;
 import com.example.utilidades.FuncionesUtiles;
 
 public class BuscarUsuarioAsynTask  extends AsyncTask<Void,Void,String>{
+	private final static String ERROR = "Error";
 	private HttpJsonObject peticionPostServidor = new HttpJsonObject();
 	private String usuario;
 	private String resultado;
@@ -37,20 +40,35 @@ public class BuscarUsuarioAsynTask  extends AsyncTask<Void,Void,String>{
 	@Override
 	protected String doInBackground(Void... params) { 
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-        nameValuePairs.add(new BasicNameValuePair("tag","getuser"));
-        nameValuePairs.add(new BasicNameValuePair("username", usuario));
+        nameValuePairs.add(new BasicNameValuePair(FuncionesUtiles.TAG,"getuser"));
+        nameValuePairs.add(new BasicNameValuePair(FuncionesUtiles.USERNAME, usuario));
         JSONObject jdata = peticionPostServidor.getserverdata(nameValuePairs, FuncionesUtiles.getIPServer());
         if (jdata != null && jdata.length() > 0){
 			try {
 				resultado = jdata.getString("success"); //Accedemos al valor 
+				System.out.println(resultado);
 
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}		
         }
+        
+        
         dialogCarga.dismiss();
         
 		return resultado;
+	}
+	
+	protected void onPostExecute(String result){
+		if(resultado == ERROR){
+			Toast.makeText(activity, "Usuario no encontrado", Toast.LENGTH_SHORT).show();
+		}
+		else{
+			BDAcceso BD = new BDAcceso(activity);
+			BD = BD.BDopen();
+			BD.insertarUsuario(usuario, result);
+			Toast.makeText(activity, "Usuario agregado", Toast.LENGTH_SHORT).show();
+		}
 	}
 
 }
