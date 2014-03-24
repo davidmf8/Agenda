@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
     android:orientation="vertical" >
 
     <TextView
         android:id="@+id/Mensaje"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="108dp"
-        android:layout_weight="0.70"
+        android:layout_gravity="center_vertical|center"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:layout_weight="0"
         android:gravity="center"
-        android:padding="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_vertical_margin"
         android:text="Nuevo usuario"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
         android:id="@+id/UserName"
-        android:layout_width="fill_parent"
+        android:layout_width="189dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/Mensaje"
+        android:layout_gravity="center"
         android:layout_marginTop="15dp"
         android:ems="10"
         android:hint="Nombre de usuario"
@@ -32,13 +31,14 @@
 
     <Button
         android:id="@+id/Login"
-        android:layout_width="wrap_content"
+        android:layout_width="122dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/UserName"
         android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
         android:layout_marginTop="43dp"
         android:paddingLeft="15dip"
         android:paddingRight="15dip"
         android:text="enviar" />
 
-</RelativeLayout>
+</LinearLayout>

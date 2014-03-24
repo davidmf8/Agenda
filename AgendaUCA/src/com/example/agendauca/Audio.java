@@ -14,15 +14,18 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.Toast;
 
 //Clase para grabar audio
 public class Audio extends Activity {
 	MediaRecorder audio;
 	Button grabar, parar;
-
+    Chronometer tiempo;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,11 +33,13 @@ public class Audio extends Activity {
 
 		grabar = (Button) findViewById(R.id.Grabar); 
 		parar = (Button) findViewById(R.id.Parar);
+		parar.setEnabled(false);
 		//Obtenemos los botones para habilitar/deshabilitar alguno de ellos mientras el otro está en uso
 	}
 
 	public void grabar(View v) { //Grabar audio
 		//Confifiguramos el formato del audio
+		tiempo = (Chronometer) findViewById(R.id.tiempoGrabacion);
 		audio = new MediaRecorder();
 		audio.setAudioSource(MediaRecorder.AudioSource.MIC);
 		audio.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
@@ -55,6 +60,7 @@ public class Audio extends Activity {
 			  audio.prepare();
 		  } catch (IOException e) {}
 		  audio.start();
+		  tiempo.start();
 		  grabar.setEnabled(false);
 		  parar.setEnabled(true);
 		}
@@ -62,8 +68,9 @@ public class Audio extends Activity {
 
 	public void detener(View v) { //Detener grabación
 		audio.stop();
+		tiempo.stop();
+		tiempo.setBase(SystemClock.elapsedRealtime());
 		audio.release();
-
 		grabar.setEnabled(true); 
 		parar.setEnabled(false);
 	}

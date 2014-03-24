@@ -14,7 +14,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.KeyEvent;
 import android.widget.Toast;
 
 //Clase para grabar video

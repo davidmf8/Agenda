@@ -3,13 +3,6 @@
     <item
         android:id="@+id/MenuAmigos"
         android:showAsAction="ifRoom"
-        android:icon="@android:drawable/ic_menu_add"
-        android:title="Opciones">
-    	<menu>
-    		<item android:id="@+id/AgregarAmigo"
-        	 	 android:title="Añadir Amigo" />
-    		<item android:id="@+id/EliminarAmigo"
-        	 	 android:title="Eliminar Amigo"/>
-    	</menu>
+        android:title="Añadir Amigo">
     </item>
 </menu>

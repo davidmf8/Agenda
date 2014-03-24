@@ -143,8 +143,6 @@ public class ListarFicheros extends Activity{
 	    switch (item.getItemId()) {
 	        case R.id.Renombrar:
 	        	renombrar(info.position);	
-	        	refrescar_lista.putExtra("Subdirectorio", rutaSubDirectorio);
-	        	refrescar_lista.setClass(getApplicationContext(), ListarFicheros.class);
 	            return true;
 	        case R.id.Eliminar:
 	        	if(!ficheros[info.position].isDirectory()){ //Si no es un directorio, se borra el fichero
@@ -159,11 +157,13 @@ public class ListarFicheros extends Activity{
 	        		refrescar_lista.putExtra("Subdirectorio", rutaSubDirectorio);
 	        		refrescar_lista.setClass(getApplicationContext(), ListarFicheros.class);
 	        		startActivity(refrescar_lista);
+	        		finish();
 	        	}
 	        	else{
 	        		nuevos_archivos.delete();
 	        		refrescar_lista.setClass(getApplicationContext(), ListarDirectorios.class);
 	        		startActivity(refrescar_lista);
+	        		finish();
 	        	}       	
 	            return true;
 	        case R.id.Mover: 
@@ -171,6 +171,7 @@ public class ListarFicheros extends Activity{
 				cambio_actividad.putExtra("Mover", ficheros[info.position].getAbsolutePath());
 				cambio_actividad.setClass(getApplicationContext(), moverDirFich.class);
 				startActivity(cambio_actividad);
+				finish();
 	        	return true;
 	        default:
 	            return super.onContextItemSelected(item);
@@ -223,6 +224,11 @@ public class ListarFicheros extends Activity{
 		        	ficheros[posicionFichero].renameTo(renombrado);
 				}
 				
+				Intent refrescar_lista = new Intent();
+				refrescar_lista .putExtra("Subdirectorio", rutaSubDirectorio);
+        		refrescar_lista.setClass(getApplicationContext(), ListarFicheros.class);
+        		startActivity(refrescar_lista);
+        		finish();
         	}
         });
         dialogo.setNegativeButton("Cancelar",new DialogInterface.OnClickListener() {
@@ -255,7 +261,7 @@ public class ListarFicheros extends Activity{
 			  cambio_actividad.setClass(getApplicationContext(), ListarFicheros.class);
 			  cambio_actividad.putExtra("Subdirectorio", rutaSubDirectorio);
 			  startActivity(cambio_actividad);
-
+			  finish();
         	}
         });
         dialogo.setNegativeButton("Cancelar",new DialogInterface.OnClickListener() {

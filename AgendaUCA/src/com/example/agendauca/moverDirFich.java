@@ -55,8 +55,10 @@ public class moverDirFich extends Activity{
 					    cambio_actividad.putExtra("Mover", rutaDirMover);
 					    cambio_actividad.setClass(getApplicationContext(), moverDirFich.class);
 					    startActivity(cambio_actividad);
+					    
 					  }
 					}
+					
 				}
 		   });
 	    }
@@ -66,6 +68,7 @@ public class moverDirFich extends Activity{
             cambio_actividad.setClass(this, MenuInicial.class);
 	        startActivity(cambio_actividad);
 		}
+		finish();
 	}
 	
 	@Override
@@ -85,6 +88,7 @@ public class moverDirFich extends Activity{
 			  cambio_actividad.setClass(getApplicationContext(), moverDirFich.class);
 			  startActivity(cambio_actividad);
 		    }
+		    finish();
 		}
 		return super.onKeyDown(keyCode, event);
 	}

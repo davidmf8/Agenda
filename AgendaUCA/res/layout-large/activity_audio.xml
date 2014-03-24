@@ -16,7 +16,7 @@
         android:layout_centerInParent="true"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:textSize="@android:dimen/notification_large_icon_height" />
+        android:textSize="@android:dimen/thumbnail_height" />
 
     <Button
         android:id="@+id/Parar"
@@ -25,6 +25,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/Grabar"
+        android:minHeight="60dip"
         android:onClick="detener"
         android:text="Detener" />
 
@@ -34,7 +35,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:minWidth="160dp"
+        android:minHeight="60dip"
+        android:minWidth="235dip"
         android:onClick="grabar"
         android:text="Grabar" />
 

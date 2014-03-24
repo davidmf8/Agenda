@@ -59,17 +59,19 @@ public class MainActivity extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		if(v.getId() == R.id.Login){ //Lanzo un asyncTask con la peticion de registro.
 			name = usuario.getText().toString();
-			/*if(comprobarServiciosGoogle()){
-			  context = getApplicationContext();
-			  serverGCM = GoogleCloudMessaging.getInstance(context);
-			  try {
-				gcm = serverGCM.register(FuncionesUtiles.getSenderID());
-			  } catch (IOException e) {}*/
-			  
+			
+			if(!name.equals("")){
 			  conexionLogin = new LoginAsynTask();
 			  conexionLogin.inicilizarValores(name, gcm, this);
 			  conexionLogin.execute();
-			//}
+			}
+			else{
+				Intent cambio_actividad = new Intent();
+				error = true;
+				cambio_actividad.setClass(this, MainActivity.class);
+			    startActivity(cambio_actividad);
+			    finish();
+			}
 		}	
 	}
 	

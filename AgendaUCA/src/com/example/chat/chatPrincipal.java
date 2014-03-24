@@ -56,11 +56,6 @@ public class chatPrincipal extends Activity{
 	private void listadoAmigos() {
 		BDAcceso BDAmigos = new BDAcceso(getApplicationContext());
 		BDAmigos = BDAmigos.BDopen();
-		/*BDAmigos.insertarUsuario("prueba1","OK");
-		BDAmigos.insertarUsuario("prueba2","OK");
-		BDAmigos.insertarUsuario("prueba3","OK");
-		BDAmigos.insertarUsuario("prueba4","OK");
-		BDAmigos.insertarUsuario("prueba5","OK");*/
 		amigos = BDAmigos.getUsuarios();
 		BDAmigos.BDclose();
 	}
@@ -74,14 +69,7 @@ public class chatPrincipal extends Activity{
 	
 	@Override
 	 public boolean onOptionsItemSelected(MenuItem item) {
-	     switch (item.getItemId()) {
-	         case R.id.AgregarAmigo:
-	        	 agregarAmigo(this); 
-	             break;
-	         case R.id.EliminarAmigo:
-	        	 eliminarAmigo();
-	        	 break;
-	     } 
+	  agregarAmigo(this); 
 	  return false;
 	 }
 

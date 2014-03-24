@@ -120,10 +120,12 @@ public class ListarDirectorios extends Activity{
 	        	if(getDirectorioRaiz().length != 0){ 
 	        	  refrescar_lista.setClass(getApplicationContext(), ListarDirectorios.class);
 	        	  startActivity(refrescar_lista);
+	        	  finish();
 	            }
 	        	else{
 		        	refrescar_lista.setClass(this, MenuInicial.class);
 		            startActivity(refrescar_lista);
+		            finish();
 	        	}
 	            return true;
 	        case R.id.Renombrar:
@@ -135,6 +137,7 @@ public class ListarDirectorios extends Activity{
 				cambio_actividad.putExtra("Mover", raiz[info.position].getAbsolutePath());
 				cambio_actividad.setClass(getApplicationContext(), moverDirFich.class);
 				startActivity(cambio_actividad);
+				finish();
 	        	return true;
 	        default:
 	            return super.onContextItemSelected(item);
@@ -166,7 +169,10 @@ public class ListarDirectorios extends Activity{
         		File renombrado = null;
         		renombrado = new File(getExternalFilesDir(null) + et.getText().toString());
 	        	directorios[posicionFichero].renameTo(renombrado);
-				
+	        	Intent cambio_actividad = new Intent();
+				cambio_actividad.setClass(getApplicationContext(), ListarDirectorios.class);
+				startActivity(cambio_actividad);
+				finish();
         	}
         });
         dialogo.setNegativeButton("Cancelar",new DialogInterface.OnClickListener() {
@@ -198,6 +204,7 @@ public class ListarDirectorios extends Activity{
 			  Intent cambio_actividad = new Intent();
 			  cambio_actividad.setClass(getApplicationContext(), ListarDirectorios.class);
 			  startActivity(cambio_actividad);
+			  finish();
 
         	}
         });

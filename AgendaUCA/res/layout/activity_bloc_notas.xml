@@ -16,8 +16,8 @@
         android:id="@+id/guardarNota"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.55"
+        android:layout_weight="0.06"
         android:onClick="onClick"
-        android:text="Button" />
+        android:text="Guardar Nota" />
 
 </LinearLayout>

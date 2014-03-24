@@ -6,6 +6,7 @@ import com.example.chat.chatPrincipal;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,6 +37,8 @@ public class MenuInicial extends Activity implements OnClickListener{
 		
 		calificaciones = (ImageButton)findViewById(R.id.Calificaciones);
 		calificaciones.setOnClickListener(this);
+		
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	}
 	
 	@Override
