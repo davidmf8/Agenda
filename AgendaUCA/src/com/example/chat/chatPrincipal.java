@@ -36,20 +36,20 @@ public class chatPrincipal extends Activity{
 		tabHostChat.setup();
 		 
 		TabHost.TabSpec spec=tabHostChat.newTabSpec("mitab1");
-		spec.setContent(R.id.ListaAmigos);
+		spec.setContent(R.id.Amigos);
 		spec.setIndicator("",
 		    res.getDrawable(android.R.drawable.ic_menu_agenda));
 		tabHostChat.addTab(spec);
 
 		spec=tabHostChat.newTabSpec("mitab2");
-		spec.setContent(R.id.ListaChats);
+		spec.setContent(R.id.Conversaciones);
 		spec.setIndicator("TAB2",
 		    res.getDrawable(android.R.drawable.ic_menu_send));
 		tabHostChat.addTab(spec);
 		 
 		tabHostChat.setCurrentTab(0);
 		listadoAmigos();
-		miListaAmigos = (ListView)findViewById(R.id.Amigos);
+		miListaAmigos = (ListView)findViewById(R.id.ListaAmigos);
         miListaAmigos.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, amigos));
 	}
 

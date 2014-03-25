@@ -15,20 +15,20 @@
         android:gravity="center"
         android:text="Nuevo usuario"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="35dp" />
+        android:textSize="@android:dimen/app_icon_size" />
 
     <EditText
         android:id="@+id/UserName"
-        android:layout_width="175dp"
-        android:layout_height="36dp"
+        android:layout_width="244dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="15dp"
         android:ems="10"
         android:hint="Nombre de usuario"
         android:inputType="text"
-        android:padding="@dimen/activity_vertical_margin" >
-
-        <requestFocus />
-    </EditText>
+        android:padding="@dimen/activity_vertical_margin"
+        android:textSize="25dp"
+        android:typeface="sans" />
 
     <Button
         android:id="@+id/Login"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="43dp"
-        android:background="@android:drawable/btn_default"
+        android:background="@android:drawable/btn_default_small"
         android:paddingLeft="15dip"
         android:paddingRight="15dip"
         android:text="Enviar" />

@@ -226,16 +226,16 @@ containing a value of this type.
         public static final int miniexams=0x7f020021;
     }
     public static final class id {
-        public static final int Amigos=0x7f05000b;
+        public static final int Amigos=0x7f05000a;
         public static final int Audio=0x7f05001d;
         public static final int Calificaciones=0x7f050016;
+        public static final int Conversaciones=0x7f05000c;
         public static final int Directorios=0x7f050013;
         public static final int Eliminar=0x7f050021;
         public static final int Evento=0x7f050014;
         public static final int Grabar=0x7f050007;
         public static final int ImgFoto=0x7f050017;
-        public static final int ListaAmigos=0x7f05000a;
-        public static final int ListaChats=0x7f05000c;
+        public static final int ListaAmigos=0x7f05000b;
         public static final int ListaFicheros=0x7f05000e;
         public static final int Login=0x7f050012;
         public static final int Mensaje=0x7f050010;
