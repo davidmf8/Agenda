@@ -230,9 +230,9 @@ containing a value of this type.
         public static final int Audio=0x7f05001d;
         public static final int Calificaciones=0x7f050016;
         public static final int Conversaciones=0x7f05000c;
-        public static final int Directorios=0x7f050013;
+        public static final int Directorios=0x7f050014;
         public static final int Eliminar=0x7f050021;
-        public static final int Evento=0x7f050014;
+        public static final int Evento=0x7f050015;
         public static final int Grabar=0x7f050007;
         public static final int ImgFoto=0x7f050017;
         public static final int ListaAmigos=0x7f05000b;
@@ -243,7 +243,7 @@ containing a value of this type.
         public static final int Mover=0x7f050022;
         public static final int NotaMostrada=0x7f050018;
         public static final int Notas=0x7f05001e;
-        public static final int Notificacion=0x7f050015;
+        public static final int Notificacion=0x7f050013;
         public static final int Parar=0x7f050006;
         public static final int Renombrar=0x7f050020;
         public static final int ReproductorVideo=0x7f050019;
@@ -408,6 +408,7 @@ containing a value of this type.
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f090001;
+        public static final int styleName=0x7f090002;
     }
     public static final class styleable {
         /** Attributes that can be used with a AdsAttrs.

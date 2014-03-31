@@ -45,7 +45,7 @@ public class ListarDirectorios extends Activity{
 					if(nombreDirectorios[posicion] == "Crear directorio..."){ //Si se ha elegido crear directorio, se muestra un editText para introducir su nombre
 						 crearCarpeta();
 					}
-					else{ //Si haelegido un directorio pincipal
+					else{ //Si ha elegido un directorio pincipal
 					  File[] seleccionDirectorio = getDirectorioRaiz();
 					  Intent cambio_actividad = new Intent();
 					  String ruta = seleccionDirectorio[posicion].getAbsolutePath();
@@ -167,7 +167,7 @@ public class ListarDirectorios extends Activity{
         	public void onClick(DialogInterface dialog, int which) {
         		File[] directorios = getDirectorioRaiz();
         		File renombrado = null;
-        		renombrado = new File(getExternalFilesDir(null) + et.getText().toString());
+        		renombrado = new File(getExternalFilesDir(null) + "/" + et.getText().toString());
 	        	directorios[posicionFichero].renameTo(renombrado);
 	        	Intent cambio_actividad = new Intent();
 				cambio_actividad.setClass(getApplicationContext(), ListarDirectorios.class);

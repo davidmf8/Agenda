@@ -9,26 +9,33 @@
     tools:context=".MenuInicial" >
 
     <ImageButton
+        android:id="@+id/Calificaciones"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Evento"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="156dp"
+        android:layout_marginLeft="31dp"
+        android:minHeight="80dip"
+        android:minWidth="80dip"
+        android:onClick="onClick"
+        android:scaleType="fitXY"
+        android:src="@drawable/miniexams" />
+
+    <ImageButton
         android:id="@+id/Notificacion"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="21dp"
+        android:layout_alignTop="@+id/Calificaciones"
+        android:layout_marginLeft="52dp"
         android:layout_toRightOf="@+id/Directorios"
+        android:minHeight="80dip"
+        android:minWidth="80dip"
         android:onClick="onClick"
+        android:scaleType="fitXY"
         android:src="@drawable/miniamiguetes" />
-
-    <ImageButton
-        android:id="@+id/Evento"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Notificacion"
-        android:layout_marginTop="70dp"
-        android:layout_toLeftOf="@+id/Notificacion"
-        android:onClick="onClick"
-        android:src="@drawable/minicalendar" />
 
     <ImageButton
         android:id="@+id/Directorios"
@@ -36,21 +43,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/Notificacion"
-        android:layout_marginBottom="68dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="99dp"
+        android:layout_marginLeft="47dp"
         android:layout_toRightOf="@+id/Calificaciones"
+        android:minHeight="80dip"
+        android:minWidth="80dip"
         android:onClick="onClick"
+        android:scaleType="fitXY"
         android:src="@drawable/minicarpeta" />
 
     <ImageButton
-        android:id="@+id/Calificaciones"
+        android:id="@+id/Evento"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/Evento"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="22dp"
+        android:layout_alignLeft="@+id/Directorios"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="90dp"
+        android:minHeight="80dip"
+        android:minWidth="80dip"
         android:onClick="onClick"
-        android:src="@drawable/miniexams" />
+        android:scaleType="fitXY"
+        android:src="@drawable/minicalendar" />
 
 </RelativeLayout>

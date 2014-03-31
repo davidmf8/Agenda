@@ -44,6 +44,7 @@ public class moverDirFich extends Activity{
 						Intent cambio_actividad = new Intent();
 					    cambio_actividad.setClass(getApplicationContext(), ListarDirectorios.class);
 					    startActivity(cambio_actividad);
+					    finish();
 					}
 					else{
 					  File[] seleccionDirectorio = getDirectorio();
@@ -55,7 +56,7 @@ public class moverDirFich extends Activity{
 					    cambio_actividad.putExtra("Mover", rutaDirMover);
 					    cambio_actividad.setClass(getApplicationContext(), moverDirFich.class);
 					    startActivity(cambio_actividad);
-					    
+					    finish();
 					  }
 					}
 					
@@ -67,8 +68,9 @@ public class moverDirFich extends Activity{
 			Intent cambio_actividad = new Intent();
             cambio_actividad.setClass(this, MenuInicial.class);
 	        startActivity(cambio_actividad);
+	        finish();
 		}
-		finish();
+		
 	}
 	
 	@Override
@@ -80,6 +82,7 @@ public class moverDirFich extends Activity{
 		    	Intent cambio_actividad = new Intent();
 				cambio_actividad.setClass(getApplicationContext(), MenuInicial.class);
 				startActivity(cambio_actividad);
+				finish();
 		    }
 		    else{
 		      profundidadDir--;
@@ -87,8 +90,9 @@ public class moverDirFich extends Activity{
 			  cambio_actividad.putExtra("Subdirectorio", rutaAnterior);
 			  cambio_actividad.setClass(getApplicationContext(), moverDirFich.class);
 			  startActivity(cambio_actividad);
+			  finish();
 		    }
-		    finish();
+		    
 		}
 		return super.onKeyDown(keyCode, event);
 	}

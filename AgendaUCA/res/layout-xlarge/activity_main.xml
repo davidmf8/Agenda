@@ -9,14 +9,32 @@
     tools:context=".MenuInicial" >
 
     <ImageButton
+        android:id="@+id/Calificaciones"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/Notificacion"
+        android:layout_marginLeft="91dp"
+        android:minHeight="110dip"
+        android:minWidth="110dip"
+        android:onClick="onClick"
+        android:scaleType="fitXY"
+        android:src="@drawable/miniexams" />
+
+    <ImageButton
         android:id="@+id/Notificacion"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="21dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="483dp"
+        android:layout_marginLeft="113dp"
         android:layout_toRightOf="@+id/Directorios"
+        android:minHeight="110dip"
+        android:minWidth="110dip"
         android:onClick="onClick"
+        android:scaleType="fitXY"
         android:src="@drawable/miniamiguetes" />
 
     <ImageButton
@@ -24,10 +42,13 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Notificacion"
-        android:layout_marginTop="70dp"
+        android:layout_below="@+id/Calificaciones"
+        android:layout_marginTop="132dp"
         android:layout_toLeftOf="@+id/Notificacion"
+        android:minHeight="110dip"
+        android:minWidth="110dip"
         android:onClick="onClick"
+        android:scaleType="fitXY"
         android:src="@drawable/minicalendar" />
 
     <ImageButton
@@ -35,22 +56,14 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/Notificacion"
-        android:layout_marginBottom="68dp"
-        android:layout_marginLeft="20dp"
+        android:layout_above="@+id/Calificaciones"
+        android:layout_marginBottom="169dp"
+        android:layout_marginLeft="84dp"
         android:layout_toRightOf="@+id/Calificaciones"
+        android:minHeight="110dip"
+        android:minWidth="110dip"
         android:onClick="onClick"
+        android:scaleType="fitXY"
         android:src="@drawable/minicarpeta" />
-
-    <ImageButton
-        android:id="@+id/Calificaciones"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/Evento"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="22dp"
-        android:onClick="onClick"
-        android:src="@drawable/miniexams" />
 
 </RelativeLayout>
