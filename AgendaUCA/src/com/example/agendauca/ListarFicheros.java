@@ -104,7 +104,7 @@ public class ListarFicheros extends Activity{
 			String rutaAnterior = rutaSubDirectorio.substring(0, pos);
 		    if(dirPrincipal == 0){
 		    	Intent cambio_actividad = new Intent();
-				cambio_actividad.setClass(getApplicationContext(), ListarDirectorios.class);
+				cambio_actividad.setClass(getApplicationContext(), MenuInicial.class);
 				startActivity(cambio_actividad);
 				finish();
 		    }
@@ -121,7 +121,7 @@ public class ListarFicheros extends Activity{
 	}
 	
 	private void ficherosDir(File dir) {
-		ficheros = dir.listFiles();
+		  ficheros = dir.listFiles();
 		  datosFicheros = new String[ficheros.length+1];
 		  for(int i = 0; i < ficheros.length; i++){
 			  datosFicheros[i] = ficheros[i].getName();
@@ -160,13 +160,14 @@ public class ListarFicheros extends Activity{
 	        		finish();
 	        	}
 	        	else{
-	        		nuevos_archivos.delete();
-	        		refrescar_lista.setClass(getApplicationContext(), ListarDirectorios.class);
+	        		refrescar_lista.putExtra("Subdirectorio", rutaSubDirectorio);
+	        		refrescar_lista.setClass(getApplicationContext(), ListarFicheros.class);
 	        		startActivity(refrescar_lista);
 	        		finish();
 	        	}       	
 	            return true;
 	        case R.id.Mover: 
+	        	dirPrincipal = 0;
 	        	Intent cambio_actividad = new Intent();
 				cambio_actividad.putExtra("Mover", ficheros[info.position].getAbsolutePath());
 				cambio_actividad.setClass(getApplicationContext(), moverDirFich.class);

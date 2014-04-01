@@ -55,7 +55,8 @@ public class MenuInicial extends Activity implements OnClickListener{
 		Intent cambio_actividad = new Intent();
 		switch(v.getId()){
 		   case R.id.Directorios:
-			   cambio_actividad.setClass(this, ListarDirectorios.class);
+			   cambio_actividad.setClass(this, ListarFicheros.class);
+			   cambio_actividad.putExtra("Subdirectorio", getExternalFilesDir(null).getAbsolutePath());
 			   startActivity(cambio_actividad);
 		       break;
 		   case R.id.Notificacion:

@@ -26,8 +26,8 @@ public class moverDirFich extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_gestionficheros);
-		miListaDirectorios = (ListView)findViewById(R.id.listaDir);
+		setContentView(R.layout.activity_ficheros);
+		miListaDirectorios = (ListView)findViewById(R.id.ListaFicheros);
 		nombreDirectorios = getNombreDirectorios(); //Obtenemos los nombres de los directorios.
 		if(nombreDirectorios.length  != 0){	//Si se ha podido leer los directorios, se muestran
 		   miListaDirectorios.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nombreDirectorios));
@@ -36,13 +36,14 @@ public class moverDirFich extends Activity{
 					if(nombreDirectorios[posicion] == "Mover a directorio actual..."){ //Si se ha elegido crear directorio, se muestra un editText para introducir su nombre
 						File dirMover = new File(rutaDirMover);
 						File nuevaRuta = new File(rutaSubDirectorio);
-						if(dirMover.isDirectory() || rutaSubDirectorio != getExternalFilesDir(null).getAbsolutePath()){
+						//if(dirMover.isDirectory()){// || rutaSubDirectorio != getExternalFilesDir(null).getAbsolutePath()){
 						   dirMover.renameTo(new File(nuevaRuta, dirMover.getName()));
-						}
+						//}
 
 						profundidadDir = 0;
 						Intent cambio_actividad = new Intent();
-					    cambio_actividad.setClass(getApplicationContext(), ListarDirectorios.class);
+					    cambio_actividad.setClass(getApplicationContext(), ListarFicheros.class);
+					    cambio_actividad.putExtra("Subdirectorio", getExternalFilesDir(null).getAbsolutePath());
 					    startActivity(cambio_actividad);
 					    finish();
 					}
