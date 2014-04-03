@@ -61,4 +61,9 @@ public class BDAcceso {
 		}
 		return usuarios;
 	}
+	
+	public void eliminarUsuario(String nombre){
+		String sql = "DELETE FROM AMIGOS WHERE nombre='"+nombre+"'";
+		database.execSQL(sql);
+	}
 }

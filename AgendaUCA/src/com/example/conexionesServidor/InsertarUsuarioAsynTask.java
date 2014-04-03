@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.example.persistencia.BDAcceso;
 import com.example.utilidades.FuncionesUtiles;
 
-public class BuscarUsuarioAsynTask  extends AsyncTask<Void,Void,String>{
+public class InsertarUsuarioAsynTask  extends AsyncTask<Void,Void,String>{
 	private final static String ERROR = "Error";
 	private HttpJsonObject peticionPostServidor = new HttpJsonObject();
 	private String usuario;
@@ -54,19 +54,21 @@ public class BuscarUsuarioAsynTask  extends AsyncTask<Void,Void,String>{
         }
         
         
-        dialogCarga.dismiss();
+        dialogCarga.dismiss();   
         
 		return resultado;
 	}
 	
 	protected void onPostExecute(String result){
-		if(resultado == ERROR){
+		System.out.println(resultado);
+		if(resultado.equalsIgnoreCase(ERROR)){
 			Toast.makeText(activity, "Usuario no encontrado", Toast.LENGTH_SHORT).show();
 		}
 		else{
 			BDAcceso BD = new BDAcceso(activity);
 			BD = BD.BDopen();
 			BD.insertarUsuario(usuario, result);
+			BD.BDclose();
 			Toast.makeText(activity, "Usuario agregado", Toast.LENGTH_SHORT).show();
 		}
 	}

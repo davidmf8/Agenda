@@ -1,17 +1,25 @@
 package com.example.chat;
 
 import java.util.ArrayList;
+
+import com.example.agendauca.MenuInicial;
 import com.example.agendauca.R;
-import com.example.conexionesServidor.BuscarUsuarioAsynTask;
+import com.example.conexionesServidor.InsertarUsuarioAsynTask;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -51,6 +59,15 @@ public class chatPrincipal extends Activity{
 		listadoAmigos();
 		miListaAmigos = (ListView)findViewById(R.id.ListaAmigos);
         miListaAmigos.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, amigos));
+        
+        miListaAmigos.setOnItemLongClickListener(new OnItemLongClickListener(){
+			public boolean onItemLongClick(AdapterView<?> adapter, View view,
+					int posicion, long id) {
+				String usuarioABorrar = amigos.get(posicion);
+				eliminarAmigo(usuarioABorrar, getApplicationContext());
+				return false;
+			}
+        });
 	}
 
 	private void listadoAmigos() {
@@ -58,6 +75,16 @@ public class chatPrincipal extends Activity{
 		BDAmigos = BDAmigos.BDopen();
 		amigos = BDAmigos.getUsuarios();
 		BDAmigos.BDclose();
+	}
+	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+			Intent cambio_actividad = new Intent();
+			cambio_actividad.setClass(this, MenuInicial.class);
+			startActivity(cambio_actividad);
+			finish();
+		}
+		return false;
 	}
 	
 	@Override
@@ -84,7 +111,7 @@ public class chatPrincipal extends Activity{
         	@Override
         	public void onClick(DialogInterface dialog, int which) {
 				String consultaAmigo = nuevoAmigo.getText().toString();
-				BuscarUsuarioAsynTask existeUsuario = new BuscarUsuarioAsynTask();
+				InsertarUsuarioAsynTask existeUsuario = new InsertarUsuarioAsynTask();
 				existeUsuario.inicilizarValores(consultaAmigo, activity);
 				existeUsuario.execute();
         	}
@@ -101,8 +128,28 @@ public class chatPrincipal extends Activity{
         dialogo.show();
 	}
 	
-	private void eliminarAmigo() {
-		
+	private void eliminarAmigo(final String usuarioABorrar, final Context context) {
+		 AlertDialog.Builder builder = new AlertDialog.Builder(this);
+         builder.setMessage("¿Desea eliminarlo definitivamente?").setTitle("Eliminar Amigo")
+	        .setPositiveButton("Aceptar", new DialogInterface.OnClickListener()  {
+	               public void onClick(DialogInterface dialog, int id) {
+	            	   BDAcceso BD = new BDAcceso(context);
+	       			   BD = BD.BDopen();
+	       			   BD.eliminarUsuario(usuarioABorrar);
+	       			   BD.BDclose();
+	   				   Intent cambio_actividad = new Intent();
+					   cambio_actividad.setClass(getApplicationContext(), chatPrincipal.class);
+					   startActivity(cambio_actividad);
+					   finish();
+	                   }
+	               })
+	        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	                   
+	                   }
+	               });
+         builder.create();
+         builder.show();
 	}
 
 }
