@@ -26,6 +26,7 @@ import android.widget.ListView;
 import android.widget.TabHost;
 import com.example.persistencia.*;
 
+//Clase que representa el menu principal del chat con amigos y conversaciones.
 public class chatPrincipal extends Activity{
 	private TabHost  tabHostChat;
 	private ArrayList<String> amigos;
@@ -59,7 +60,7 @@ public class chatPrincipal extends Activity{
 		listadoAmigos();
 		miListaAmigos = (ListView)findViewById(R.id.ListaAmigos);
         miListaAmigos.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, amigos));
-        
+        //Para borrar un usuario
         miListaAmigos.setOnItemLongClickListener(new OnItemLongClickListener(){
 			public boolean onItemLongClick(AdapterView<?> adapter, View view,
 					int posicion, long id) {
@@ -70,6 +71,7 @@ public class chatPrincipal extends Activity{
         });
 	}
 
+	//Listar amigos de la base de datos
 	private void listadoAmigos() {
 		BDAcceso BDAmigos = new BDAcceso(getApplicationContext());
 		BDAmigos = BDAmigos.BDopen();
@@ -77,6 +79,7 @@ public class chatPrincipal extends Activity{
 		BDAmigos.BDclose();
 	}
 	
+	//Volver atras
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK){
 			Intent cambio_actividad = new Intent();
@@ -89,7 +92,6 @@ public class chatPrincipal extends Activity{
 	
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Carga el action bar, para el "menu" de la creacion de fotos videos...
         getMenuInflater().inflate(R.menu.menu_amigos, menu);
         return true;
     }
@@ -100,7 +102,7 @@ public class chatPrincipal extends Activity{
 	  return false;
 	 }
 
-
+    //Agregar un nuevo usuario
 	private void agregarAmigo(final chatPrincipal activity) {
 		AlertDialog.Builder dialogo = new Builder(this);
         nuevoAmigo = new EditText(this);
@@ -128,6 +130,14 @@ public class chatPrincipal extends Activity{
         dialogo.show();
 	}
 	
+	public void actualizarLista(){
+		Intent cambio_actividad = new Intent();
+		cambio_actividad.setClass(getApplicationContext(), chatPrincipal.class);
+		startActivity(cambio_actividad);
+	    finish();
+	}
+	
+	//Eliminar un usuario
 	private void eliminarAmigo(final String usuarioABorrar, final Context context) {
 		 AlertDialog.Builder builder = new AlertDialog.Builder(this);
          builder.setMessage("¿Desea eliminarlo definitivamente?").setTitle("Eliminar Amigo")
@@ -137,12 +147,13 @@ public class chatPrincipal extends Activity{
 	       			   BD = BD.BDopen();
 	       			   BD.eliminarUsuario(usuarioABorrar);
 	       			   BD.BDclose();
-	   				   Intent cambio_actividad = new Intent();
+	   				  /* Intent cambio_actividad = new Intent();
 					   cambio_actividad.setClass(getApplicationContext(), chatPrincipal.class);
 					   startActivity(cambio_actividad);
-					   finish();
-	                   }
-	               })
+					   finish();*/
+	       			   actualizarLista();
+	              }
+	         })
 	        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
 	               public void onClick(DialogInterface dialog, int id) {
 	                   

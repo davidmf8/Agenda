@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
+//Crea la base de datos
 public class BDUsuarios extends SQLiteOpenHelper{
 	
 	String SQLiteCreate = "CREATE TABLE AMIGOS (nombre TEXT, gcm TEXT)";

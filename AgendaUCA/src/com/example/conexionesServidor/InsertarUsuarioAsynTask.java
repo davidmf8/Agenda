@@ -7,10 +7,11 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.widget.Toast;
+
+import com.example.chat.chatPrincipal;
 import com.example.persistencia.BDAcceso;
 import com.example.utilidades.FuncionesUtiles;
 
@@ -19,12 +20,12 @@ public class InsertarUsuarioAsynTask  extends AsyncTask<Void,Void,String>{
 	private HttpJsonObject peticionPostServidor = new HttpJsonObject();
 	private String usuario;
 	private String resultado;
-	private Activity activity;
-	private ProgressDialog dialogCarga; //Mientras seejecuta la peticion en el lado del servidor
+	private chatPrincipal activity;
+	private ProgressDialog dialogCarga; //Mientras se ejecuta la peticion en el lado del servidor
 	//se mostrará un mensaje de cargando.
 	
 	//Inicializa las variables necesarias antes de ejecutar el hilo
-	public void inicilizarValores(String name, Activity activity){
+	public void inicilizarValores(String name, chatPrincipal activity){
 		this.usuario = name;
 		this.activity = activity;
 		dialogCarga = new ProgressDialog(this.activity);
@@ -35,7 +36,7 @@ public class InsertarUsuarioAsynTask  extends AsyncTask<Void,Void,String>{
         dialogCarga.show();
 	}
 
-	//Ejecución del hilo. Se envia la petición al servidor y comprobamos, con JSONObject, si
+	//Ejecución del hilo. Se envia la petición de busqueda de usuario al servidor y comprobamos, con JSONObject, si
 	//se ha realizado el registro correctamente
 	@Override
 	protected String doInBackground(Void... params) { 
@@ -59,6 +60,8 @@ public class InsertarUsuarioAsynTask  extends AsyncTask<Void,Void,String>{
 		return resultado;
 	}
 	
+	//Evalua el resultado, si se ha encontrado lo añade a la base de datos de la app. Si no muestra un
+	//mensaje de usuario no encontrado
 	protected void onPostExecute(String result){
 		System.out.println(resultado);
 		if(resultado.equalsIgnoreCase(ERROR)){
@@ -71,6 +74,8 @@ public class InsertarUsuarioAsynTask  extends AsyncTask<Void,Void,String>{
 			BD.BDclose();
 			Toast.makeText(activity, "Usuario agregado", Toast.LENGTH_SHORT).show();
 		}
+		
+		activity.actualizarLista();
 	}
 
 }

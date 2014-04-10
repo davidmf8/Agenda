@@ -91,7 +91,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	}
 	
 	//Validar el resultado cuando el hilo termina su ejecución.
-	public  void validacion(boolean result, String gcm){
+	public void validacion(boolean result, String gcm){
 		Intent cambio_actividad = new Intent();
 		if(result == false){
 			error = true;

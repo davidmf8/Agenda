@@ -28,23 +28,23 @@ public class FuncionesUtiles {
 	   return false;
    }
    
-   public static String getIPServer(){
+   public static String getIPServer(){ //Devuelve la IP del servidor de usuarios registrados en la app
 	   return IPServer;
    }
    
-   public static String getSenderID(){
+   public static String getSenderID(){ //Devuelve el sender_id, ID del servidor de google
 	   return Sender_ID;
    }
 
-   public static String getPreferencias() {
+   public static String getPreferencias() { //Devuelve el nombre de las preferencias de un usuario
 	   return preferencias;
    }
 
-   public static String getUsuario() {
+   public static String getUsuario() { //Devuelve el tag de usuario
 	   return usuario;
    }
 
-   public static String getGcm() {
+   public static String getGcm() { //devuelve el tag de gcm
 	   return gcm;
    }
 
