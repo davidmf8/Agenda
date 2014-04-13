@@ -36,20 +36,19 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>   
         
-       <receiver android:name=".GCMBroadcastReceiver"
+       <receiver android:name="com.example.agendauca.GCMBroadcastReceiver"
           android:permission="com.google.android.c2dm.permission.SEND" >
           <intent-filter>
              <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-             <category android:name="com.example.agendauca.chat" />
+             <category android:name="com.example.agendauca" />
           </intent-filter>
         </receiver>
   
-        <service android:name=".GCMServicioPush" />  
+        <service android:name="com.example.agendauca.GCMServicioPush" />  
         
         <meta-data android:name="com.google.android.gms.version"
            android:value="@integer/google_play_services_version" />
@@ -59,15 +58,15 @@
             android:label="@string/app_name" >       
         </activity>
         <activity 
-          android:name="com.example.agendauca.Camara"
+          android:name="com.example.ficheros.Camara"
           android:label="@string/app_name">
         </activity>
         <activity 
-          android:name="com.example.agendauca.Video"
+          android:name="com.example.ficheros.Video"
           android:label="@string/app_name">
         </activity>
         <activity 
-          android:name="com.example.agendauca.Audio"
+          android:name="com.example.ficheros.Audio"
           android:label="@string/app_name">
         </activity>
         <activity 
@@ -75,19 +74,19 @@
           android:label="@string/app_name">
         </activity>
         <activity 
-          android:name="com.example.agendauca.MostrarImagen"
+          android:name="com.example.ficheros.MostrarImagen"
           android:label="@string/app_name">
         </activity>
         <activity 
-          android:name="com.example.agendauca.ReproducirVideo"
+          android:name="com.example.ficheros.ReproducirVideo"
           android:label="@string/app_name">
         </activity>
         <activity 
-          android:name="com.example.agendauca.BlocNotas"
+          android:name="com.example.ficheros.BlocNotas"
           android:label="@string/app_name">
         </activity>
         <activity 
-          android:name="com.example.agendauca.MostrarNota"
+          android:name="com.example.ficheros.MostrarNota"
           android:label="@string/app_name">
         </activity>
         <activity 
@@ -99,7 +98,11 @@
           android:label="@string/app_name">
         </activity>
         <activity 
-          android:name="com.example.chat.chatPrincipal"
+          android:name="com.example.agendauca.chatPrincipal"
+          android:label="@string/app_name">
+        </activity>
+        <activity 
+          android:name="com.example.agendauca.pruebaEnvioMensaje"
           android:label="@string/app_name">
         </activity>
 

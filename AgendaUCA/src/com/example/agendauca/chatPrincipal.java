@@ -1,10 +1,13 @@
-package com.example.chat;
+package com.example.agendauca;
 
+import java.io.File;
 import java.util.ArrayList;
 
-import com.example.agendauca.MenuInicial;
 import com.example.agendauca.R;
 import com.example.conexionesServidor.InsertarUsuarioAsynTask;
+import com.example.ficheros.MostrarImagen;
+import com.example.ficheros.MostrarNota;
+import com.example.ficheros.ReproducirVideo;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -18,6 +21,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -69,6 +73,15 @@ public class chatPrincipal extends Activity{
 				return false;
 			}
         });
+        
+        miListaAmigos.setOnItemClickListener(new OnItemClickListener(){
+			public void onItemClick(AdapterView<?> adapter, View view, int posicion, long id) {
+				Intent cambio_actividad = new Intent();
+				cambio_actividad.setClass(getApplicationContext(), pruebaEnvioMensaje.class);
+				startActivity(cambio_actividad);
+				finish();
+			}
+	   });
 	}
 
 	//Listar amigos de la base de datos

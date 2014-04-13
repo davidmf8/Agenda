@@ -17,6 +17,8 @@ import org.apache.http.params.HttpParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 //Clase encargada de la conexion con nuestro servidor para el registro de usuarios
 public class HttpJsonObject {
     private InputStream stream = null;
@@ -66,6 +68,7 @@ public class HttpJsonObject {
 	        }
 	        stream.close(); 
 	        resultado = sb.toString();
+	        Log.e("Resultado","Resultado : " + sb.toString());
 		}catch(Exception e){}
 	}
 

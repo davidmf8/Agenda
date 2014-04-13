@@ -1,8 +1,12 @@
-package com.example.agendauca;
+package com.example.ficheros;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+
+import com.example.agendauca.R;
+import com.example.agendauca.R.id;
+import com.example.agendauca.R.layout;
 
 import android.app.Activity;
 import android.os.Bundle;

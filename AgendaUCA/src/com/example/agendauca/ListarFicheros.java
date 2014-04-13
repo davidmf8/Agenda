@@ -2,6 +2,9 @@ package com.example.agendauca;
 
 import java.io.File;
 
+import com.example.ficheros.MostrarImagen;
+import com.example.ficheros.MostrarNota;
+import com.example.ficheros.ReproducirVideo;
 import com.example.utilidades.FuncionesUtiles;
 
 

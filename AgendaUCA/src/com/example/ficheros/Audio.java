@@ -1,4 +1,4 @@
-package com.example.agendauca;
+package com.example.ficheros;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,7 +7,10 @@ import java.util.Date;
 import java.util.Locale;
 
 
+import com.example.agendauca.MenuInicial;
 import com.example.agendauca.R;
+import com.example.agendauca.R.id;
+import com.example.agendauca.R.layout;
 import com.example.utilidades.FuncionesUtiles;
 
 import android.app.Activity;

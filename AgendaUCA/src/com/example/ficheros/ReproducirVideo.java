@@ -1,4 +1,8 @@
-package com.example.agendauca;
+package com.example.ficheros;
+
+import com.example.agendauca.R;
+import com.example.agendauca.R.id;
+import com.example.agendauca.R.layout;
 
 import android.app.Activity;
 import android.net.Uri;

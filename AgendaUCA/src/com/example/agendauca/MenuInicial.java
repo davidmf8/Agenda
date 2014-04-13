@@ -1,7 +1,10 @@
 package com.example.agendauca;
 
 import com.example.agendauca.R;
-import com.example.chat.chatPrincipal;
+import com.example.ficheros.Audio;
+import com.example.ficheros.BlocNotas;
+import com.example.ficheros.Camara;
+import com.example.ficheros.Video;
 
 import android.os.Bundle;
 import android.app.Activity;
