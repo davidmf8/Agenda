@@ -41,14 +41,12 @@ public class InsertarUsuarioAsynTask  extends AsyncTask<Void,Void,String>{
 	@Override
 	protected String doInBackground(Void... params) { 
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-        nameValuePairs.add(new BasicNameValuePair(FuncionesUtiles.TAG,"getuser"));
+        nameValuePairs.add(new BasicNameValuePair(FuncionesUtiles.TAG,"getUsuario"));
         nameValuePairs.add(new BasicNameValuePair(FuncionesUtiles.USERNAME, usuario));
         JSONObject jdata = peticionPostServidor.getserverdata(nameValuePairs, FuncionesUtiles.getIPServer());
         if (jdata != null && jdata.length() > 0){
 			try {
 				resultado = jdata.getString("success"); //Accedemos al valor 
-				System.out.println(resultado);
-
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}		
@@ -63,14 +61,14 @@ public class InsertarUsuarioAsynTask  extends AsyncTask<Void,Void,String>{
 	//Evalua el resultado, si se ha encontrado lo añade a la base de datos de la app. Si no muestra un
 	//mensaje de usuario no encontrado
 	protected void onPostExecute(String result){
-		System.out.println(resultado);
 		if(resultado.equalsIgnoreCase(ERROR)){
 			Toast.makeText(activity, "Usuario no encontrado", Toast.LENGTH_SHORT).show();
 		}
 		else{
 			BDAcceso BD = new BDAcceso(activity);
 			BD = BD.BDopen();
-			BD.insertarUsuario(usuario, result);
+			BD.insertarUsuario(usuario);
+			System.out.println(BD.usuarioID(usuario));
 			BD.BDclose();
 			Toast.makeText(activity, "Usuario agregado", Toast.LENGTH_SHORT).show();
 		}

@@ -51,7 +51,7 @@ public class LoginAsynTask extends AsyncTask<Void,Boolean,Boolean>{
 			  } catch (IOException e) {}
         }
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-        nameValuePairs.add(new BasicNameValuePair("tag","usersave"));
+        nameValuePairs.add(new BasicNameValuePair("tag","registrarUsuario"));
         nameValuePairs.add(new BasicNameValuePair("username", usuario));
         nameValuePairs.add(new BasicNameValuePair("gcmcode", gcmcode));
         JSONObject jdata = peticionPostServidor.getserverdata(nameValuePairs, FuncionesUtiles.getIPServer());
@@ -68,7 +68,7 @@ public class LoginAsynTask extends AsyncTask<Void,Boolean,Boolean>{
 			}		
         }
         dialogCarga.dismiss();
-        mainActivity.validacion(resultado, gcmcode);
+        mainActivity.validacion(resultado);
         
 		return resultado;
 	}

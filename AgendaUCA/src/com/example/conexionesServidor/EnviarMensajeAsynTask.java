@@ -31,7 +31,7 @@ public class EnviarMensajeAsynTask extends AsyncTask<Void,Boolean,Boolean>{
 	@Override
 	protected Boolean doInBackground(Void... params) { 
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-        nameValuePairs.add(new BasicNameValuePair("tag","sendmessage"));
+        nameValuePairs.add(new BasicNameValuePair("tag","notificacionPush"));
         nameValuePairs.add(new BasicNameValuePair("username", usuario));
         nameValuePairs.add(new BasicNameValuePair("message", mensaje));
         JSONObject jdata = peticionPostServidor.getserverdata(nameValuePairs, FuncionesUtiles.getIPServer());

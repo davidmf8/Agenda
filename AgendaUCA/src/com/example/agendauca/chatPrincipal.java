@@ -160,10 +160,6 @@ public class chatPrincipal extends Activity{
 	       			   BD = BD.BDopen();
 	       			   BD.eliminarUsuario(usuarioABorrar);
 	       			   BD.BDclose();
-	   				  /* Intent cambio_actividad = new Intent();
-					   cambio_actividad.setClass(getApplicationContext(), chatPrincipal.class);
-					   startActivity(cambio_actividad);
-					   finish();*/
 	       			   actualizarLista();
 	              }
 	         })

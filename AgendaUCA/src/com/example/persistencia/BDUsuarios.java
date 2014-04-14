@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 //Crea la base de datos
 public class BDUsuarios extends SQLiteOpenHelper{
 	
-	String SQLiteCreate = "CREATE TABLE AMIGOS (nombre TEXT, gcm TEXT)";
+	String SQLiteCreate = "CREATE TABLE AMIGOS (nombre TEXT PRIMARY KEY, id INTEGER)";
 
 	public BDUsuarios(Context context, String name,
 			CursorFactory factory, int version) {

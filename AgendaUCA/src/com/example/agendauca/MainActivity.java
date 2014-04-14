@@ -91,7 +91,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	}
 	
 	//Validar el resultado cuando el hilo termina su ejecución.
-	public void validacion(boolean result, String gcm){
+	public void validacion(boolean result){
 		Intent cambio_actividad = new Intent();
 		if(result == false){
 			error = true;
@@ -101,7 +101,6 @@ public class MainActivity extends Activity implements OnClickListener{
 		else{
 			SharedPreferences.Editor misPreferenciasModificadas = misPreferencias.edit();
 			misPreferenciasModificadas.putString(FuncionesUtiles.getUsuario(), name);
-			misPreferenciasModificadas.putString(FuncionesUtiles.getGcm(), gcm);
 			misPreferenciasModificadas.commit();
 			error = false;
 			cambio_actividad.setClass(this, MenuInicial.class);
