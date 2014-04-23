@@ -10,7 +10,6 @@ public class GCMBroadcastReceiver extends WakefulBroadcastReceiver{
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-         System.out.println("SIIII");
 		 ComponentName comp = new ComponentName(context.getPackageName(),
 	                GCMServicioPush.class.getName());
 	      

@@ -1,5 +1,6 @@
 package com.example.agendauca;
 
+import com.example.persistencia.BDAcceso;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import android.app.IntentService;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
 public class GCMServicioPush extends IntentService{
+	private BDAcceso BD;
 
 	public GCMServicioPush() {
 		super("GCMServicioPush");
@@ -27,26 +29,30 @@ public class GCMServicioPush extends IntentService{
         {
                 if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(tipoMensaje))
                 {
-                    mostrarNotificacion(extras.getString("message"));
+                    mostrarNotificacion(extras.getString("message"), extras.getString("user"));
                 }
         }
 
         GCMBroadcastReceiver.completeWakefulIntent(intent);
 	}
 
-	private void mostrarNotificacion(String mensaje) {
+	private void mostrarNotificacion(String mensaje, String usuario) {
 		 NotificationManager notificador = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 	 
 	     NotificationCompat.Builder notificacion =
 	          new NotificationCompat.Builder(this)
 	               .setSmallIcon(android.R.drawable.stat_sys_warning)
-	               .setContentTitle("Notificación GCM")
-	               .setContentText(mensaje)
+	               .setContentTitle("Mensaje de "+usuario)
 	               .setVibrate(new long[] {100, 250, 100, 500})
 	               .setAutoCancel(true);
-	        
+	     
+	     BD = new BDAcceso(this.getApplicationContext());
+	     BD.BDopen();
+	     BD.insertarMensaje(mensaje, usuario, 0);
+	     BD.BDclose();   
 	 
-	     Intent actividadResultante =  new Intent(this, MenuInicial.class);
+	     Intent actividadResultante =  new Intent(this, chatAmigo.class);
+	     actividadResultante.putExtra("Nombre", usuario);
 	     PendingIntent contIntent = PendingIntent.getActivity(this, 0, actividadResultante, 0);
 	 
 	     notificacion.setContentIntent(contIntent);

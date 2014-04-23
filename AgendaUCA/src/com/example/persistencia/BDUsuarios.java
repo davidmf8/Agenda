@@ -9,17 +9,17 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class BDUsuarios extends SQLiteOpenHelper{
 	
 	String SQLiteCreate = "CREATE TABLE AMIGOS (nombre TEXT PRIMARY KEY, id INTEGER)";
+	String SQLiteMensajes = "CREATE TABLE MENSAJES (mensaje TEXT, nombre TEXT, tipo INTEGER, fecha TEXT)";
 
 	public BDUsuarios(Context context, String name,
 			CursorFactory factory, int version) {
 		super(context, name, factory, version);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void onCreate(SQLiteDatabase bd) {
-		// TODO Auto-generated method stub
 		bd.execSQL(SQLiteCreate);
+		bd.execSQL(SQLiteMensajes);
 	}
 
 	@Override

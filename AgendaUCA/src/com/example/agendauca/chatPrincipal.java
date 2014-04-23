@@ -1,13 +1,9 @@
 package com.example.agendauca;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import com.example.agendauca.R;
 import com.example.conexionesServidor.InsertarUsuarioAsynTask;
-import com.example.ficheros.MostrarImagen;
-import com.example.ficheros.MostrarNota;
-import com.example.ficheros.ReproducirVideo;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -77,7 +73,8 @@ public class chatPrincipal extends Activity{
         miListaAmigos.setOnItemClickListener(new OnItemClickListener(){
 			public void onItemClick(AdapterView<?> adapter, View view, int posicion, long id) {
 				Intent cambio_actividad = new Intent();
-				cambio_actividad.setClass(getApplicationContext(), pruebaEnvioMensaje.class);
+				cambio_actividad.putExtra("Nombre", amigos.get(posicion));
+				cambio_actividad.setClass(getApplicationContext(), chatAmigo.class);
 				startActivity(cambio_actividad);
 				finish();
 			}

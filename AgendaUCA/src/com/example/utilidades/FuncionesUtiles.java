@@ -1,5 +1,7 @@
 package com.example.utilidades;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Environment;
 
 public class FuncionesUtiles {

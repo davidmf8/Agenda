@@ -68,7 +68,6 @@ public class InsertarUsuarioAsynTask  extends AsyncTask<Void,Void,String>{
 			BDAcceso BD = new BDAcceso(activity);
 			BD = BD.BDopen();
 			BD.insertarUsuario(usuario);
-			System.out.println(BD.usuarioID(usuario));
 			BD.BDclose();
 			Toast.makeText(activity, "Usuario agregado", Toast.LENGTH_SHORT).show();
 		}
