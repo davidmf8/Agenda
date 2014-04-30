@@ -31,8 +31,7 @@ public class mensajeAdapter extends BaseAdapter{
 
 	@Override
 	public Object getItem(int position) {
-		mensajesAMostrar.get(position);
-		return null;
+		return mensajesAMostrar.get(position);
 	}
 
 	@Override
@@ -49,15 +48,19 @@ public class mensajeAdapter extends BaseAdapter{
 		{
 			holder = new ViewHolder();
 			convertView = LayoutInflater.from(contextChat).inflate(R.layout.sms_row, parent, false);
-			holder.message = (TextView) convertView.findViewById(R.id.message_text);
+			holder.mensaje = (TextView) convertView.findViewById(R.id.texto_mensaje);
+			holder.hora = (TextView) convertView.findViewById(R.id.text2);
 			convertView.setTag(holder);
 		}
 		else
 			holder = (ViewHolder) convertView.getTag();
-		//Aqui llega NULL
-		holder.message.setText(mensaje.getMensaje());
 		
-		LayoutParams lp = (LayoutParams) holder.message.getLayoutParams();
+		String[] hora = mensaje.getFecha().split(" ");
+		holder.mensaje.setText(mensaje.getMensaje());
+		holder.hora.setText(hora[1]);
+		
+		LayoutParams lp = (LayoutParams) holder.mensaje.getLayoutParams();
+		LayoutParams lh = (LayoutParams) holder.hora.getLayoutParams();
 		//check if it is a status message then remove background, and change text color.
 		/*if(mensaje.isStatusMessage())
 		{
@@ -70,22 +73,26 @@ public class mensajeAdapter extends BaseAdapter{
 			//Check whether message is mine to show green background and align to right
 			if(mensaje.getTipo() == 1)
 			{
-				holder.message.setBackgroundResource(R.drawable.speech_bubble_green);
+				holder.mensaje.setBackgroundResource(R.drawable.speech_bubble_green);
 				lp.gravity = Gravity.RIGHT;
+				lh.gravity = Gravity.RIGHT;
 			}
 			//If not mine then it is from sender to show orange background and align to left
 			else
 			{
-				holder.message.setBackgroundResource(R.drawable.speech_bubble_orange);
+				holder.mensaje.setBackgroundResource(R.drawable.speech_bubble_orange);
 				lp.gravity = Gravity.LEFT;
+				lh.gravity = Gravity.LEFT;
 			}
-			holder.message.setLayoutParams(lp);
-			holder.message.setTextColor(R.color.textColor);	
+			holder.mensaje.setLayoutParams(lp);
+			holder.hora.setLayoutParams(lh);
+			holder.mensaje.setTextColor(R.color.textColor);	
 		//}
 		return convertView;
 	}
 	private static class ViewHolder
 	{
-		TextView message;
+		TextView mensaje;
+		TextView hora;
 	}
 }

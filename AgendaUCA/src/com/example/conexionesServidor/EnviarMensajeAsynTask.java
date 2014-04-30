@@ -7,6 +7,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.agendauca.chatAmigo;
 import com.example.persistencia.BDAcceso;
 import com.example.utilidades.FuncionesUtiles;
 
@@ -19,11 +20,11 @@ public class EnviarMensajeAsynTask extends AsyncTask<Void,Boolean,Boolean>{
 	private HttpJsonObject peticionPostServidor = new HttpJsonObject();
 	private String usuario, mensaje;
 	private boolean resultado;
-	private Context context;
+	private chatAmigo context;
 	private SharedPreferences misPreferencias;
 	
 	//Inicializa las variables necesarias antes de ejecutar el hilo
-	public void inicilizarValores(String usuario, String mensaje, Context context){
+	public void inicilizarValores(String usuario, String mensaje, chatAmigo context){
 		this.usuario = usuario;
 		this.mensaje = mensaje;
 		this.context = context;
@@ -41,25 +42,13 @@ public class EnviarMensajeAsynTask extends AsyncTask<Void,Boolean,Boolean>{
         misPreferencias = context.getSharedPreferences(FuncionesUtiles.getPreferencias(), context.MODE_PRIVATE);
 		String user = misPreferencias.getString(FuncionesUtiles.getUsuario(), "");
         nameValuePairs.add(new BasicNameValuePair("usersend", user));
-        JSONObject jdata = peticionPostServidor.getserverdata(nameValuePairs, FuncionesUtiles.getIPServer());
-        //System.out.println(jdata);
-        /*if (jdata != null && jdata.length() > 0){
-			try {
-				int comprobacion = jdata.getInt("RespuestaHTTP"); //Accedemos al valor 
-				System.out.println(comprobacion);
-				if(comprobacion == 1) 
-					resultado = true;			
-				else
-					resultado = false;
-
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}		
-        }*/
-        BDAcceso BD = new BDAcceso(context);
-		BD = BD.BDopen();
-		BD.insertarMensaje(mensaje, usuario, 1);
-		BD.BDclose();
+        JSONObject jdata;
+        
+        do{
+          jdata = peticionPostServidor.getserverdata(nameValuePairs, FuncionesUtiles.getIPServer());
+        }while(!FuncionesUtiles.existeConexion(context));
+		
+		context.actualizarLista();
         
 		return resultado;
 	}

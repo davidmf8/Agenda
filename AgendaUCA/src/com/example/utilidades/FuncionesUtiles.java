@@ -1,11 +1,12 @@
 package com.example.utilidades;
 
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Environment;
 
 public class FuncionesUtiles {
-   private static String IPServer = "http://192.168.1.33:81/AgendaUCA/index.php";
+   private static String IPServer = "http://prubauca.esy.es/index.php";
    private static String Sender_ID = "907123173880";
    private static String preferencias = "MisPreferencias";
    private static String usuario = "usuario";
@@ -49,5 +50,14 @@ public class FuncionesUtiles {
    public static String getGcm() { //devuelve el tag de gcm
 	   return gcm;
    }
+   
+   public static boolean existeConexion(Context context) {
+	    ConnectivityManager conexion = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo infoConexion = conexion.getActiveNetworkInfo();
+	    if (infoConexion != null && infoConexion.isConnected()) {
+	        return true;
+	    }
+	    return false;
+	}
 
 }

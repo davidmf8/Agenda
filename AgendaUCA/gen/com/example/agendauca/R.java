@@ -243,14 +243,15 @@ containing a value of this type.
         public static final int speech_bubble_green=0x7f020028;
         public static final int speech_bubble_orange=0x7f020029;
         public static final int titulo_bar=0x7f02002a;
+        public static final int view_mensaje=0x7f02002b;
     }
     public static final class id {
         public static final int Amigos=0x7f05000a;
-        public static final int Audio=0x7f05001f;
+        public static final int Audio=0x7f050020;
         public static final int Calificaciones=0x7f050017;
         public static final int Conversaciones=0x7f05000c;
         public static final int Directorios=0x7f050015;
-        public static final int Eliminar=0x7f050023;
+        public static final int Eliminar=0x7f050024;
         public static final int Evento=0x7f050016;
         public static final int Grabar=0x7f050007;
         public static final int ImgFoto=0x7f050018;
@@ -258,29 +259,30 @@ containing a value of this type.
         public static final int ListaFicheros=0x7f050010;
         public static final int Login=0x7f050013;
         public static final int Mensaje=0x7f050011;
-        public static final int MenuAmigos=0x7f050021;
-        public static final int Mover=0x7f050024;
+        public static final int MenuAmigos=0x7f050022;
+        public static final int Mover=0x7f050025;
         public static final int NotaMostrada=0x7f050019;
-        public static final int Notas=0x7f050020;
+        public static final int Notas=0x7f050021;
         public static final int Notificacion=0x7f050014;
         public static final int Parar=0x7f050006;
-        public static final int Renombrar=0x7f050022;
+        public static final int Renombrar=0x7f050023;
         public static final int ReproductorVideo=0x7f05001a;
         public static final int UserName=0x7f050012;
-        public static final int Video=0x7f05001e;
+        public static final int Video=0x7f05001f;
         public static final int bar=0x7f05000e;
         public static final int blocNotas=0x7f050008;
         public static final int conversacion=0x7f05000f;
-        public static final int foto=0x7f05001d;
+        public static final int foto=0x7f05001e;
         public static final int guardarNota=0x7f050009;
         public static final int hybrid=0x7f050004;
-        public static final int menu_new=0x7f05001c;
-        public static final int message_text=0x7f05001b;
+        public static final int menu_new=0x7f05001d;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
         public static final int satellite=0x7f050002;
         public static final int terrain=0x7f050003;
+        public static final int text2=0x7f05001c;
         public static final int textView2=0x7f05000d;
+        public static final int texto_mensaje=0x7f05001b;
         public static final int tiempoGrabacion=0x7f050005;
     }
     public static final class integer {

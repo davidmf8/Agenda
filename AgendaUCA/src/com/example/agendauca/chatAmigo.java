@@ -7,17 +7,17 @@ import com.example.persistencia.BDAcceso;
 import com.example.utilidades.Mensaje;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
 public class chatAmigo extends ListActivity{
-	private String nombreAmigo;
+	private String nombreAmigo, mensaje;
 	private ArrayList<Mensaje> mensajesChat;
 	private mensajeAdapter adapterLista;
 	private EditText texto;
 	private BDAcceso BD;
-	private String mensaje;
 	private EnviarMensajeAsynTask enviarMensaje;
 	
 	@Override
@@ -40,16 +40,29 @@ public class chatAmigo extends ListActivity{
 		
 		adapterLista = new mensajeAdapter(this, mensajesChat);
 		this.setListAdapter(adapterLista);
+		this.setSelection(adapterLista.getCount()-1);
 	}
 	
 	public void onClick(View v){
 		mensaje = texto.getText().toString();
 		if(mensaje.length() > 0){
+			BDAcceso BD = new BDAcceso(this);
+			BD = BD.BDopen();
+			BD.insertarMensaje(mensaje, nombreAmigo, 1);
+			BD.BDclose();
+			actualizarLista();
 			enviarMensaje = new EnviarMensajeAsynTask();
-			enviarMensaje.inicilizarValores(nombreAmigo, mensaje, this.getApplicationContext());
+			enviarMensaje.inicilizarValores(nombreAmigo, mensaje, this);
 			enviarMensaje.execute();
 		}
 		texto.setText("");
+	}
+	
+	public void actualizarLista(){
+		Intent cambio_actividad = new Intent();
+	    cambio_actividad.setClass(this, chatAmigo.class);
+	    cambio_actividad.putExtra("Nombre", nombreAmigo);
+	    startActivity(cambio_actividad);
 	}
 
 }

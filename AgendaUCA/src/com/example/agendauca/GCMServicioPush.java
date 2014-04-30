@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 public class GCMServicioPush extends IntentService{
 	private BDAcceso BD;
@@ -37,6 +38,8 @@ public class GCMServicioPush extends IntentService{
 	}
 
 	private void mostrarNotificacion(String mensaje, String usuario) {
+		 Context contexto = getApplicationContext();
+		 Log.d("SSSS", contexto.getClass().getName());
 		 NotificationManager notificador = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 	 
 	     NotificationCompat.Builder notificacion =
