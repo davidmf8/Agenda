@@ -120,11 +120,6 @@ public class BDAcceso {
 		    } while(cursor.moveToNext());
 		}
 
-		for(int i = 0; i < mensajesUsuario.size(); i++){
-			Log.d("Hora" ,mensajesUsuario.get(i).getMensaje());
-			Log.d("Hora" ,mensajesUsuario.get(i).getFecha());
-		}
-
 		return mensajesUsuario;
 	}
 	
@@ -132,6 +127,8 @@ public class BDAcceso {
 		String sql = "DELETE FROM AMIGOS WHERE nombre='"+nombre+"'";
 		database.execSQL(sql);
 	}
+	
+	
 	
 	public int usuarioID(String nombre){ //Obtiene el ID de un usuario de la base de datos
 		String sql = "SELECT id FROM AMIGOS WHERE nombre='"+nombre+"'";

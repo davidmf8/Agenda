@@ -93,7 +93,7 @@ public class chatPrincipal extends Activity{
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK){
 			Intent cambio_actividad = new Intent();
-			cambio_actividad.setClass(this, MenuInicial.class);
+			cambio_actividad.setClass(getApplicationContext(), MenuInicial.class);
 			startActivity(cambio_actividad);
 			finish();
 		}

@@ -9,6 +9,7 @@ import com.example.utilidades.Mensaje;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 
@@ -43,6 +44,16 @@ public class chatAmigo extends ListActivity{
 		this.setSelection(adapterLista.getCount()-1);
 	}
 	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+			Intent cambio_actividad = new Intent();
+		    cambio_actividad.setClass(getApplicationContext(), chatPrincipal.class);
+		    startActivity(cambio_actividad);
+			finish();
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+	
 	public void onClick(View v){
 		mensaje = texto.getText().toString();
 		if(mensaje.length() > 0){
@@ -59,10 +70,14 @@ public class chatAmigo extends ListActivity{
 	}
 	
 	public void actualizarLista(){
-		Intent cambio_actividad = new Intent();
-	    cambio_actividad.setClass(this, chatAmigo.class);
+		adapterLista.insertarNuevoMensaje(nombreAmigo);
+		adapterLista.notifyDataSetChanged();
+		this.setSelection(adapterLista.getCount()-1);
+		/*Intent cambio_actividad = new Intent();
+	    cambio_actividad.setClass(getApplicationContext(), chatAmigo.class);
 	    cambio_actividad.putExtra("Nombre", nombreAmigo);
 	    startActivity(cambio_actividad);
+	    finish();*/
 	}
 
 }

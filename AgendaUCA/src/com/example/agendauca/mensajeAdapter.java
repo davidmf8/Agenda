@@ -2,6 +2,7 @@ package com.example.agendauca;
 
 import java.util.ArrayList;
 
+import com.example.persistencia.BDAcceso;
 import com.example.utilidades.Mensaje;
 
 import android.annotation.SuppressLint;
@@ -94,5 +95,12 @@ public class mensajeAdapter extends BaseAdapter{
 	{
 		TextView mensaje;
 		TextView hora;
+	}
+	
+	public void insertarNuevoMensaje(String nombreAmigo){
+		BDAcceso BD = new BDAcceso(contextChat);
+		BD.BDopen();
+		mensajesAMostrar = BD.getMensajesUsuarioFechaActual(nombreAmigo);
+		BD.BDclose();
 	}
 }

@@ -48,7 +48,7 @@ public class EnviarMensajeAsynTask extends AsyncTask<Void,Boolean,Boolean>{
           jdata = peticionPostServidor.getserverdata(nameValuePairs, FuncionesUtiles.getIPServer());
         }while(!FuncionesUtiles.existeConexion(context));
 		
-		context.actualizarLista();
+		//context.actualizarLista();
         
 		return resultado;
 	}
