@@ -128,7 +128,14 @@ public class BDAcceso {
 		database.execSQL(sql);
 	}
 	
-	
+	public boolean existeUsuario(String nombre){ //Comprueba si un usuario existe en la base de datos
+		String sql = "SELECT * FROM AMIGOS WHERE nombre='"+nombre+"'";
+		Cursor cursor = database.rawQuery(sql, null);
+		if(cursor.getCount() == 1){
+			return true;
+		}
+		return false;
+	}
 	
 	public int usuarioID(String nombre){ //Obtiene el ID de un usuario de la base de datos
 		String sql = "SELECT id FROM AMIGOS WHERE nombre='"+nombre+"'";

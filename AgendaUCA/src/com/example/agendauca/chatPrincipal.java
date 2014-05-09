@@ -80,6 +80,11 @@ public class chatPrincipal extends Activity{
 			}
 	   });
 	}
+	
+	/*public void onStop(){
+		finish();
+		super.onStop();
+	}*/
 
 	//Listar amigos de la base de datos
 	private void listadoAmigos() {

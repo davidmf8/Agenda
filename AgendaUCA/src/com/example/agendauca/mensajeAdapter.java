@@ -97,7 +97,7 @@ public class mensajeAdapter extends BaseAdapter{
 		TextView hora;
 	}
 	
-	public void insertarNuevoMensaje(String nombreAmigo){
+	public void actualizarAdapter(String nombreAmigo){
 		BDAcceso BD = new BDAcceso(contextChat);
 		BD.BDopen();
 		mensajesAMostrar = BD.getMensajesUsuarioFechaActual(nombreAmigo);

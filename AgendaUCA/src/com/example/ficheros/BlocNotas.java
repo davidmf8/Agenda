@@ -15,13 +15,14 @@ import com.example.utilidades.FuncionesUtiles;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 //Clase que modela poder apuntar notas y guardarlas
 public class BlocNotas extends Activity{
-	EditText texto; //El texto que se escribirá en pantalal será recogido por este objeto
+	EditText texto; //El texto que se escribirá en pantalla será recogido por este objeto
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +32,23 @@ public class BlocNotas extends Activity{
 		texto = (EditText)findViewById(R.id.blocNotas);
 	}
 	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+		    Intent cambio_actividad = new Intent();
+			cambio_actividad.setClass(getApplicationContext(), MenuInicial.class);
+			startActivity(cambio_actividad);
+			finish();
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+	
 	public void onClick(View v) { //Cuando se pulsa guardar
 		guardarNota(); //Se guarda la nota y se carga el menu inicial
 		Intent cambio_actividad = new Intent();
         cambio_actividad.setClass(this, MenuInicial.class);
         startActivity(cambio_actividad);
+        finish();
 	}
 	
 	private void guardarNota(){

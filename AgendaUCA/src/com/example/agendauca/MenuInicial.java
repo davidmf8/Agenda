@@ -44,6 +44,11 @@ public class MenuInicial extends Activity implements OnClickListener{
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	}
 	
+	public void onStop(){
+		finish();
+		super.onStop();
+	}
+	
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Carga el action bar, para el "menu" de la creacion de fotos videos...

@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
 //Clase para grabar video
@@ -34,6 +35,7 @@ public class Video extends Activity{
 			Intent cambio_actividad = new Intent();
             cambio_actividad.setClass(this, MenuInicial.class);
 	        startActivity(cambio_actividad);
+	        finish();
 		}
 		else{ //Se graba
 		  fileUri = Uri.fromFile(miVideo);
@@ -43,17 +45,30 @@ public class Video extends Activity{
 		}
 	}	
 	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+		    Intent cambio_actividad = new Intent();
+			cambio_actividad.setClass(getApplicationContext(), MenuInicial.class);
+			startActivity(cambio_actividad);
+			finish();
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) { //Para verificar que se ha grabado bien
 		   Intent cambio_actividad = new Intent();
 		   if (resultCode == RESULT_OK) {
 		        Toast.makeText(this, "Video guardado con éxito", Toast.LENGTH_SHORT).show();
 		        cambio_actividad.setClass(this, Video.class);
 			    startActivity(cambio_actividad);
+			    finish();
 		    } 
 		    else if (resultCode == RESULT_CANCELED) {
 		      Toast.makeText(this, "Cancelado", Toast.LENGTH_SHORT).show();
 		      cambio_actividad.setClass(this, MenuInicial.class);
 		      startActivity(cambio_actividad);
+		      finish();
 		    } 
     }
 	

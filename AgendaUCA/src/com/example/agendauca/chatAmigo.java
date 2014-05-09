@@ -54,6 +54,11 @@ public class chatAmigo extends ListActivity{
 		return super.onKeyDown(keyCode, event);
 	}
 	
+	/*public void onStop(){
+		finish();
+		super.onStop();
+	}*/
+	
 	public void onClick(View v){
 		mensaje = texto.getText().toString();
 		if(mensaje.length() > 0){
@@ -70,14 +75,9 @@ public class chatAmigo extends ListActivity{
 	}
 	
 	public void actualizarLista(){
-		adapterLista.insertarNuevoMensaje(nombreAmigo);
+		adapterLista.actualizarAdapter(nombreAmigo);
 		adapterLista.notifyDataSetChanged();
 		this.setSelection(adapterLista.getCount()-1);
-		/*Intent cambio_actividad = new Intent();
-	    cambio_actividad.setClass(getApplicationContext(), chatAmigo.class);
-	    cambio_actividad.putExtra("Nombre", nombreAmigo);
-	    startActivity(cambio_actividad);
-	    finish();*/
 	}
 
 }

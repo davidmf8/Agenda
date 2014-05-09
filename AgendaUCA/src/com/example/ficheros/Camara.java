@@ -46,6 +46,8 @@ public class Camara extends Activity{
 		}
 	}
 	
+	
+	
 	//Sobreescribimos este metodo para lo que necesitamos, que es saber el resultado de la captura
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		   Intent cambio_actividad = new Intent();
@@ -55,11 +57,13 @@ public class Camara extends Activity{
 		                       Toast.LENGTH_SHORT).show();
 		        cambio_actividad.setClass(this, Camara.class);
 			    startActivity(cambio_actividad);
+			    finish();
 		    } 
 		    else if (resultCode == RESULT_CANCELED) {
 		      Toast.makeText(this, "Cancelado", Toast.LENGTH_SHORT).show();
 		      cambio_actividad.setClass(this, MenuInicial.class);
 		      startActivity(cambio_actividad);
+		      finish();
 		    } 
 		  }
 	}

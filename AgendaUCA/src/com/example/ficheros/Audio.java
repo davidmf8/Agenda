@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-
 import com.example.agendauca.MenuInicial;
 import com.example.agendauca.R;
 import com.example.utilidades.FuncionesUtiles;
@@ -16,6 +15,7 @@ import android.content.Intent;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -39,7 +39,7 @@ public class Audio extends Activity {
 	}
 
 	public void grabar(View v) { //Grabar audio
-		//Confifiguramos el formato del audio
+		//Configuramos el formato del audio
 		tiempo = (Chronometer) findViewById(R.id.tiempoGrabacion);
 		audio = new MediaRecorder();
 		audio.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -53,6 +53,7 @@ public class Audio extends Activity {
 			Intent cambio_actividad = new Intent();
             cambio_actividad.setClass(this, MenuInicial.class);
 	        startActivity(cambio_actividad);
+	        finish();
 		}
 		else{ //Si lo está, se procede a preparar el micro del telefono y a grabar
 		  audio.setOutputFile(archivo);
@@ -89,6 +90,17 @@ public class Audio extends Activity {
 		  return ruta_audio;
 		}
 	    return ("Error");
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+		    Intent cambio_actividad = new Intent();
+		    cambio_actividad.setClass(this, MenuInicial.class);
+			startActivity(cambio_actividad);
+			finish();
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 }

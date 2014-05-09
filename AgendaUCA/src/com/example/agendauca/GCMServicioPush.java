@@ -38,7 +38,7 @@ public class GCMServicioPush extends IntentService{
 
 	private void mostrarNotificacion(String mensaje, String usuario) {
 		 NotificationManager notificador = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-	 
+
 	     NotificationCompat.Builder notificacion =
 	          new NotificationCompat.Builder(this)
 	               .setSmallIcon(android.R.drawable.stat_sys_warning)
@@ -49,7 +49,14 @@ public class GCMServicioPush extends IntentService{
 	     BD = new BDAcceso(this.getApplicationContext());
 	     BD.BDopen();
 	     BD.insertarMensaje(mensaje, usuario, 0);
-	     BD.BDclose();   
+	     BD.BDclose();
+	     
+	     /*chatAmigo activityAbierta = chatAmigo.getInstancia();
+	     if(activityAbierta != null){
+	    	 if(activityAbierta.getAmigo().equalsIgnoreCase(usuario)){
+				    activityAbierta.actualizarLista();
+	    	 }
+	     }*/
 	 
 	     Intent actividadResultante =  new Intent(this, chatAmigo.class);
 	     actividadResultante.putExtra("Nombre", usuario);

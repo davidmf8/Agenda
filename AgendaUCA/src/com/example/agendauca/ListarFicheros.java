@@ -100,6 +100,11 @@ public class ListarFicheros extends Activity{
 		}
 	}
 	
+	/*public void onStop(){
+        //finish();
+		super.onStop();
+	}*/
+	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK){

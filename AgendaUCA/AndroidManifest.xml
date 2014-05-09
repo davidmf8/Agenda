@@ -53,10 +53,6 @@
         <meta-data android:name="com.google.android.gms.version"
            android:value="@integer/google_play_services_version" />
         
-        <activity
-            android:name="com.example.agendauca.ListarDirectorios"
-            android:label="@string/app_name" >       
-        </activity>
         <activity 
           android:name="com.example.ficheros.Camara"
           android:label="@string/app_name">
@@ -67,27 +63,33 @@
         </activity>
         <activity 
           android:name="com.example.ficheros.Audio"
-          android:label="@string/app_name">
+          android:label="@string/app_name"
+          android:noHistory="true">
         </activity>
         <activity 
           android:name="com.example.agendauca.ListarFicheros"
-          android:label="@string/app_name">
+          android:label="@string/app_name"
+          android:noHistory="true">
         </activity>
         <activity 
           android:name="com.example.ficheros.MostrarImagen"
-          android:label="@string/app_name">
+          android:label="@string/app_name"
+          android:noHistory="true">
         </activity>
         <activity 
           android:name="com.example.ficheros.ReproducirVideo"
-          android:label="@string/app_name">
+          android:label="@string/app_name"
+          android:noHistory="true">
         </activity>
         <activity 
           android:name="com.example.ficheros.BlocNotas"
-          android:label="@string/app_name">
+          android:label="@string/app_name"
+          android:noHistory="true">
         </activity>
         <activity 
           android:name="com.example.ficheros.MostrarNota"
-          android:label="@string/app_name">
+          android:label="@string/app_name"
+          android:noHistory="true">
         </activity>
         <activity 
           android:name="com.example.agendauca.moverDirFich"
@@ -95,19 +97,18 @@
         </activity>
         <activity 
           android:name="com.example.agendauca.MenuInicial"
-          android:label="@string/app_name">
+          android:label="@string/app_name"
+          android:noHistory="true">
         </activity>
         <activity 
           android:name="com.example.agendauca.chatPrincipal"
-          android:label="@string/app_name">
-        </activity>
-        <activity 
-          android:name="com.example.agendauca.pruebaEnvioMensaje"
-          android:label="@string/app_name">
+          android:label="@string/app_name"
+          android:noHistory="true">
         </activity>
         <activity 
           android:name="com.example.agendauca.chatAmigo"
-          android:label="@string/app_name">
+          android:label="@string/app_name"
+          android:noHistory="true">
         </activity>
 
     </application>
