@@ -39,17 +39,40 @@ public class GCMServicioPush extends IntentService{
 	private void mostrarNotificacion(String mensaje, String usuario) {
 		 NotificationManager notificador = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-	     NotificationCompat.Builder notificacion =
-	          new NotificationCompat.Builder(this)
+		 if(mensaje.equalsIgnoreCase("Agregar")){
+			 NotificationCompat.Builder notificacion =
+			            new NotificationCompat.Builder(this)
+			               .setSmallIcon(android.R.drawable.stat_sys_warning)
+			               .setContentTitle(usuario+" te ha agregado. Tienes un nuevo amigo.")
+			               .setVibrate(new long[] {100, 250, 100, 500})
+			               .setAutoCancel(true);
+			 
+			 BDAcceso BD = new BDAcceso(this);
+		     BD = BD.BDopen();
+			 BD.insertarUsuario(usuario);
+			 BD.BDclose();
+			 
+			 Intent actividadResultante =  new Intent(this, chatPrincipal.class);
+		     PendingIntent contIntent = PendingIntent.getActivity(this, 0, actividadResultante, 0);
+		 
+		     notificacion.setContentIntent(contIntent);
+		 
+		     notificador.notify(1, notificacion.build());
+		 }
+		 
+		 else{
+		 
+	       NotificationCompat.Builder notificacion =
+	            new NotificationCompat.Builder(this)
 	               .setSmallIcon(android.R.drawable.stat_sys_warning)
 	               .setContentTitle("Mensaje de "+usuario)
 	               .setVibrate(new long[] {100, 250, 100, 500})
 	               .setAutoCancel(true);
 	     
-	     BD = new BDAcceso(this.getApplicationContext());
-	     BD.BDopen();
-	     BD.insertarMensaje(mensaje, usuario, 0);
-	     BD.BDclose();
+	       BD = new BDAcceso(this.getApplicationContext());
+	       BD.BDopen();
+	       BD.insertarMensaje(mensaje, usuario, 0);
+	       BD.BDclose();
 	     
 	     /*chatAmigo activityAbierta = chatAmigo.getInstancia();
 	     if(activityAbierta != null){
@@ -65,6 +88,8 @@ public class GCMServicioPush extends IntentService{
 	     notificacion.setContentIntent(contIntent);
 	 
 	     notificador.notify(1, notificacion.build());
+		 }
+	     
 	}
 
 }

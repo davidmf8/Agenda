@@ -36,8 +36,8 @@ public class EnviarMensajeAsynTask extends AsyncTask<Void,Boolean,Boolean>{
 	@Override
 	protected Boolean doInBackground(Void... params) { 
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-        nameValuePairs.add(new BasicNameValuePair("tag","notificacionPush"));
-        nameValuePairs.add(new BasicNameValuePair("username", usuario));
+        nameValuePairs.add(new BasicNameValuePair(FuncionesUtiles.TAG,"notificacionPush"));
+        nameValuePairs.add(new BasicNameValuePair(FuncionesUtiles.USERNAME, usuario));
         nameValuePairs.add(new BasicNameValuePair("message", mensaje));
         misPreferencias = context.getSharedPreferences(FuncionesUtiles.getPreferencias(), context.MODE_PRIVATE);
 		String user = misPreferencias.getString(FuncionesUtiles.getUsuario(), "");

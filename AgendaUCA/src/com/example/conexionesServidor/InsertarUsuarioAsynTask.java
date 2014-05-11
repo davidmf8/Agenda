@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ public class InsertarUsuarioAsynTask  extends AsyncTask<Void,Void,String>{
 	private String usuario;
 	private String resultado;
 	private chatPrincipal activity;
+	private SharedPreferences misPreferencias;
 	private ProgressDialog dialogCarga; //Mientras se ejecuta la peticion en el lado del servidor
 	//se mostrará un mensaje de cargando.
 	
@@ -43,6 +45,9 @@ public class InsertarUsuarioAsynTask  extends AsyncTask<Void,Void,String>{
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         nameValuePairs.add(new BasicNameValuePair(FuncionesUtiles.TAG,"getUsuario"));
         nameValuePairs.add(new BasicNameValuePair(FuncionesUtiles.USERNAME, usuario));
+        misPreferencias = activity.getSharedPreferences(FuncionesUtiles.getPreferencias(), activity.MODE_PRIVATE);
+        String miUsuario = misPreferencias.getString(FuncionesUtiles.getUsuario(), "");
+        nameValuePairs.add(new BasicNameValuePair("myUser", miUsuario));
         JSONObject jdata = peticionPostServidor.getserverdata(nameValuePairs, FuncionesUtiles.getIPServer());
         if (jdata != null && jdata.length() > 0){
 			try {
