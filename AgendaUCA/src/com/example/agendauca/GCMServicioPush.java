@@ -25,10 +25,8 @@ public class GCMServicioPush extends IntentService{
 		String tipoMensaje = serverGCM.getMessageType(intent);
         Bundle extras = intent.getExtras();
 
-        if (!extras.isEmpty())
-        {
-                if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(tipoMensaje))
-                {
+        if (!extras.isEmpty()){
+                if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(tipoMensaje)){
                     mostrarNotificacion(extras.getString("message"), extras.getString("user"));
                 }
         }
@@ -59,35 +57,26 @@ public class GCMServicioPush extends IntentService{
 		 
 		     notificador.notify(1, notificacion.build());
 		 }
-		 
 		 else{
-		 
-	       NotificationCompat.Builder notificacion =
-	            new NotificationCompat.Builder(this)
-	               .setSmallIcon(android.R.drawable.stat_sys_warning)
-	               .setContentTitle("Mensaje de "+usuario)
-	               .setVibrate(new long[] {100, 250, 100, 500})
-	               .setAutoCancel(true);
+		     NotificationCompat.Builder notificacion =
+		    		 new NotificationCompat.Builder(this)
+	               		.setSmallIcon(android.R.drawable.stat_sys_warning)
+	               		.setContentTitle("Mensaje de "+usuario)
+	               		.setVibrate(new long[] {100, 250, 100, 500})
+	               		.setAutoCancel(true);
 	     
-	       BD = new BDAcceso(this.getApplicationContext());
-	       BD.BDopen();
-	       BD.insertarMensaje(mensaje, usuario, 0);
-	       BD.BDclose();
-	     
-	     /*chatAmigo activityAbierta = chatAmigo.getInstancia();
-	     if(activityAbierta != null){
-	    	 if(activityAbierta.getAmigo().equalsIgnoreCase(usuario)){
-				    activityAbierta.actualizarLista();
-	    	 }
-	     }*/
+	         BD = new BDAcceso(this.getApplicationContext());
+	         BD.BDopen();
+	         BD.insertarMensaje(mensaje, usuario, 0);
+	         BD.BDclose();
 	 
-	     Intent actividadResultante =  new Intent(this, chatAmigo.class);
-	     actividadResultante.putExtra("Nombre", usuario);
-	     PendingIntent contIntent = PendingIntent.getActivity(this, 0, actividadResultante, 0);
+	         Intent actividadResultante =  new Intent(this, chatAmigo.class);
+	         actividadResultante.putExtra("Nombre", usuario);
+	         PendingIntent contIntent = PendingIntent.getActivity(this, 0, actividadResultante, 0);
 	 
-	     notificacion.setContentIntent(contIntent);
+	         notificacion.setContentIntent(contIntent);
 	 
-	     notificador.notify(1, notificacion.build());
+	         notificador.notify(1, notificacion.build());
 		 }
 	     
 	}

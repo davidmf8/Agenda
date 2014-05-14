@@ -128,6 +128,11 @@ public class BDAcceso {
 		database.execSQL(sql);
 	}
 	
+	public void eliminarMensajesUsuario(String nombre){
+		String sql = "DELETE FROM MENSAJES WHERE nombre='"+nombre+"'";
+		database.execSQL(sql);
+	}
+	
 	public boolean existeUsuario(String nombre){ //Comprueba si un usuario existe en la base de datos
 		String sql = "SELECT * FROM AMIGOS WHERE nombre='"+nombre+"'";
 		Cursor cursor = database.rawQuery(sql, null);

@@ -1,6 +1,7 @@
 package com.example.agendauca;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.example.persistencia.BDAcceso;
 import com.example.utilidades.Mensaje;
@@ -18,6 +19,8 @@ import android.widget.LinearLayout.LayoutParams;
 public class mensajeAdapter extends BaseAdapter{
 	private Context contextChat;
 	private ArrayList<Mensaje> mensajesAMostrar;
+	private Date fechaActual;
+	private String compararFecha;
 	
 	public mensajeAdapter(Context context, ArrayList<Mensaje> mensajes){
 		super();
@@ -56,9 +59,10 @@ public class mensajeAdapter extends BaseAdapter{
 		else
 			holder = (ViewHolder) convertView.getTag();
 		
-		String[] hora = mensaje.getFecha().split(" ");
+		String fechaMensaje = esFechaActual(mensaje.getFecha());
+		
 		holder.mensaje.setText(" " + mensaje.getMensaje() + " ");
-		holder.hora.setText(hora[1]);
+		holder.hora.setText(fechaMensaje);
 		
 		LayoutParams lp = (LayoutParams) holder.mensaje.getLayoutParams();
 		LayoutParams lh = (LayoutParams) holder.hora.getLayoutParams();
@@ -79,10 +83,30 @@ public class mensajeAdapter extends BaseAdapter{
 		holder.mensaje.setTextColor(R.color.textColor);	
 		return convertView;
 	}
-	private static class ViewHolder
-	{
+	
+	private String esFechaActual(String fechaMensaje){
+		fechaActual = new Date();
+		compararFecha = fechaActual.toLocaleString();
+		String[] fechaMsj = fechaMensaje.split(" ");
+		String[] fechaHoy = compararFecha.split(" ");
+		if(fechaMsj[0].equalsIgnoreCase(fechaHoy[0])){
+			return fechaMsj[1];
+		}
+		else{
+			return fechaMensaje;
+		}
+	}
+	
+	private static class ViewHolder{
 		TextView mensaje;
 		TextView hora;
+	}
+	
+	public void mostrarHistorial(String nombreAmigo){
+		BDAcceso BD = new BDAcceso(contextChat);
+		BD.BDopen();
+		mensajesAMostrar = BD.getMensajesUsuario(nombreAmigo);
+		BD.BDclose();
 	}
 	
 	public void actualizarAdapter(String nombreAmigo){

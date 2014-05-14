@@ -10,8 +10,11 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class chatAmigo extends ListActivity{
 	private String nombreAmigo, mensaje;
@@ -20,6 +23,7 @@ public class chatAmigo extends ListActivity{
 	private EditText texto;
 	private BDAcceso BD;
 	private EnviarMensajeAsynTask enviarMensaje;
+	private boolean historialActivo;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,7 @@ public class chatAmigo extends ListActivity{
         Bundle datosAmigos = this.getIntent().getExtras();
         nombreAmigo = datosAmigos.getString("Nombre");
 		
+        historialActivo = false;
 		texto = (EditText)this.findViewById(R.id.conversacion);
 		
 		this.setTitle(nombreAmigo);
@@ -44,6 +49,31 @@ public class chatAmigo extends ListActivity{
 		this.setSelection(adapterLista.getCount()-1);
 	}
 	
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.historial_conversacion, menu);
+        return true;
+    }
+	
+	@Override
+	 public boolean onOptionsItemSelected(MenuItem item) {
+	     switch (item.getItemId()) {
+	     case R.id.EliminarHistorial:
+	    	 BD = new BDAcceso(this);
+	 		 BD.BDopen();
+	 		 BD.eliminarMensajesUsuario(nombreAmigo);
+	 		 BD.BDclose();
+	 		 actualizarLista();
+             break;
+         case R.id.VerHistorial:
+        	 historialActivo = true;
+        	 actualizarLista();
+        	 Toast.makeText(this, "Historial cargado", Toast.LENGTH_SHORT).show();
+        	 break;
+	     } 
+	     return false;
+	 }
+	
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK){
 			Intent cambio_actividad = new Intent();
@@ -53,11 +83,6 @@ public class chatAmigo extends ListActivity{
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-	
-	/*public void onStop(){
-		finish();
-		super.onStop();
-	}*/
 	
 	public void onClick(View v){
 		mensaje = texto.getText().toString();
@@ -75,9 +100,18 @@ public class chatAmigo extends ListActivity{
 	}
 	
 	public void actualizarLista(){
-		adapterLista.actualizarAdapter(nombreAmigo);
-		adapterLista.notifyDataSetChanged();
-		this.setSelection(adapterLista.getCount()-1);
+		if(historialActivo){
+			adapterLista.mostrarHistorial(nombreAmigo);
+   	        adapterLista.notifyDataSetChanged();
+		    this.setSelection(adapterLista.getCount()-1);
+		}
+		else{
+			adapterLista.actualizarAdapter(nombreAmigo);
+		    adapterLista.notifyDataSetChanged();
+		    this.setSelection(adapterLista.getCount()-1);
+		}	
 	}
+	
+
 
 }

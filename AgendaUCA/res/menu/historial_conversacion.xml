@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/EliminarHistorial" android:title="Eliminar historial"></item>
+    <item android:id="@+id/VerHistorial" android:title="Ver historial"></item>
+</menu>

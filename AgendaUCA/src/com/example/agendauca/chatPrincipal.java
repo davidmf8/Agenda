@@ -161,6 +161,7 @@ public class chatPrincipal extends Activity{
 	            	   BDAcceso BD = new BDAcceso(context);
 	       			   BD = BD.BDopen();
 	       			   BD.eliminarUsuario(usuarioABorrar);
+	       			   BD.eliminarMensajesUsuario(usuarioABorrar);
 	       			   BD.BDclose();
 	       			   actualizarLista();
 	              }
