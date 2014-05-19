@@ -41,7 +41,7 @@ public class chatAmigo extends ListActivity{
 		mensajesChat = new ArrayList<Mensaje>();
 		BD = new BDAcceso(this);
 		BD.BDopen();
-		mensajesChat = BD.getMensajesUsuarioFechaActual(nombreAmigo);
+		mensajesChat = BD.getMensajesUsuarioFechaActual(nombreAmigo, true);
 		BD.BDclose();
 		
 		adapterLista = new mensajeAdapter(this, mensajesChat);
@@ -89,7 +89,7 @@ public class chatAmigo extends ListActivity{
 		if(mensaje.length() > 0){
 			BDAcceso BD = new BDAcceso(this);
 			BD = BD.BDopen();
-			BD.insertarMensaje(mensaje, nombreAmigo, 1);
+			BD.insertarMensaje(mensaje, nombreAmigo, 1, true);
 			BD.BDclose();
 			actualizarLista();
 			enviarMensaje = new EnviarMensajeAsynTask();

@@ -105,14 +105,14 @@ public class mensajeAdapter extends BaseAdapter{
 	public void mostrarHistorial(String nombreAmigo){
 		BDAcceso BD = new BDAcceso(contextChat);
 		BD.BDopen();
-		mensajesAMostrar = BD.getMensajesUsuario(nombreAmigo);
+		mensajesAMostrar = BD.getMensajesUsuario(nombreAmigo, true);
 		BD.BDclose();
 	}
 	
 	public void actualizarAdapter(String nombreAmigo){
 		BDAcceso BD = new BDAcceso(contextChat);
 		BD.BDopen();
-		mensajesAMostrar = BD.getMensajesUsuarioFechaActual(nombreAmigo);
+		mensajesAMostrar = BD.getMensajesUsuarioFechaActual(nombreAmigo, true);
 		BD.BDclose();
 	}
 }

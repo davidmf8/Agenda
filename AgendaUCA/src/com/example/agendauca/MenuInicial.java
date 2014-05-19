@@ -49,12 +49,12 @@ public class MenuInicial extends Activity implements OnClickListener{
 		super.onStop();
 	}
 	
-	@Override
+	/*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Carga el action bar, para el "menu" de la creacion de fotos videos...
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
-    }
+    }*/
 	
 
 	@Override
@@ -75,7 +75,7 @@ public class MenuInicial extends Activity implements OnClickListener{
 		finish();
 	}
 	
-	@Override
+	/*@Override
 	 public boolean onOptionsItemSelected(MenuItem item) {
 		Intent cambio_actividad = new Intent();
 		//Para los botones de crear un archivo: foto, video, grabación, nota.
@@ -98,7 +98,7 @@ public class MenuInicial extends Activity implements OnClickListener{
 	        	 break;
 	     } 
 	  return false;
-	 }
+	 }*/
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {

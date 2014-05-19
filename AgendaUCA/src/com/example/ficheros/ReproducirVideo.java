@@ -22,7 +22,7 @@ public class ReproducirVideo extends Activity{
 		setContentView(R.layout.activity_reproduccion_video);
 		
 		Bundle datosIntent = this.getIntent().getExtras();
-		rutaVideo = datosIntent.getString("AchivoReproducir");
+		rutaVideo = datosIntent.getString("ArchivoReproducir");
 		
 		 miVideo = (VideoView) findViewById(R.id.ReproductorVideo);
          Uri ruta = Uri.parse(rutaVideo);

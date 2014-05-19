@@ -4,14 +4,11 @@ import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.agendauca.chatAmigo;
-import com.example.persistencia.BDAcceso;
 import com.example.utilidades.FuncionesUtiles;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
@@ -47,8 +44,6 @@ public class EnviarMensajeAsynTask extends AsyncTask<Void,Boolean,Boolean>{
         do{
           jdata = peticionPostServidor.getserverdata(nameValuePairs, FuncionesUtiles.getIPServer());
         }while(!FuncionesUtiles.existeConexion(context));
-		
-		//context.actualizarLista();
         
 		return resultado;
 	}

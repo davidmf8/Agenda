@@ -67,7 +67,7 @@ public class GCMServicioPush extends IntentService{
 	     
 	         BD = new BDAcceso(this.getApplicationContext());
 	         BD.BDopen();
-	         BD.insertarMensaje(mensaje, usuario, 0);
+	         BD.insertarMensaje(mensaje, usuario, 0, true);
 	         BD.BDclose();
 	 
 	         Intent actividadResultante =  new Intent(this, chatAmigo.class);

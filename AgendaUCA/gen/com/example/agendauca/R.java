@@ -248,27 +248,28 @@ containing a value of this type.
         public static final int view_mensaje=0x7f02002d;
     }
     public static final class id {
-        public static final int Amigos=0x7f05000a;
+        public static final int Amigos=0x7f05000b;
         public static final int Audio=0x7f050022;
         public static final int Calificaciones=0x7f050017;
         public static final int Conversaciones=0x7f05000c;
         public static final int Directorios=0x7f050015;
-        public static final int Eliminar=0x7f050026;
+        public static final int Eliminar=0x7f050027;
         public static final int EliminarHistorial=0x7f05001d;
         public static final int Evento=0x7f050016;
         public static final int Grabar=0x7f050007;
+        public static final int Grupo=0x7f050025;
         public static final int ImgFoto=0x7f050018;
-        public static final int ListaAmigos=0x7f05000b;
+        public static final int ListaAmigos=0x7f05000a;
         public static final int ListaFicheros=0x7f050010;
         public static final int Login=0x7f050013;
         public static final int Mensaje=0x7f050011;
         public static final int MenuAmigos=0x7f050024;
-        public static final int Mover=0x7f050027;
+        public static final int Mover=0x7f050028;
         public static final int NotaMostrada=0x7f050019;
         public static final int Notas=0x7f050023;
         public static final int Notificacion=0x7f050014;
         public static final int Parar=0x7f050006;
-        public static final int Renombrar=0x7f050025;
+        public static final int Renombrar=0x7f050026;
         public static final int ReproductorVideo=0x7f05001a;
         public static final int UserName=0x7f050012;
         public static final int VerHistorial=0x7f05001e;

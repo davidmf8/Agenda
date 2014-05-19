@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import com.example.agendauca.ListarFicheros;
 import com.example.agendauca.MenuInicial;
 import com.example.agendauca.R;
 import com.example.utilidades.FuncionesUtiles;
@@ -26,11 +27,15 @@ public class Audio extends Activity {
 	MediaRecorder audio;
 	Button grabar, parar;
     Chronometer tiempo;
+    String ruta;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_audio);
+		
+        Bundle rutaDeDirectorio = this.getIntent().getExtras();
+		ruta = rutaDeDirectorio.getString("CarpetaDestino");
 
 		grabar = (Button) findViewById(R.id.Grabar); 
 		parar = (Button) findViewById(R.id.Parar);
@@ -57,7 +62,6 @@ public class Audio extends Activity {
 		}
 		else{ //Si lo está, se procede a preparar el micro del telefono y a grabar
 		  audio.setOutputFile(archivo);
-		
 		  try {
 			  audio.prepare();
 		  } catch (IOException e) {}
@@ -75,15 +79,13 @@ public class Audio extends Activity {
 		audio.release();
 		grabar.setEnabled(true); 
 		parar.setEnabled(false);
+		Toast.makeText(this, "Audio guardado correctamente", Toast.LENGTH_SHORT).show();
 	}
 
 	private String ficheroAudio() {
 		  //Creamos directorio AgendaAudio si no está creado, y se crea el archivo que almacenará el audio
 		if(FuncionesUtiles.estadoEscritura()){
-		  File dir = new File(this.getExternalFilesDir(null),  ".AgendaAudio");
-		  if(!dir.exists()){
-			dir.mkdir();
-		  }
+		  File dir = new File(ruta);
 		
           String horaLocal = new SimpleDateFormat("yyyMMdd_HHmmss", Locale.ROOT).format(new Date());
           String ruta_audio = dir.getAbsolutePath() + "/" + "AUD_" + horaLocal + ".3gp";
@@ -96,7 +98,8 @@ public class Audio extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK){
 		    Intent cambio_actividad = new Intent();
-		    cambio_actividad.setClass(this, MenuInicial.class);
+		    cambio_actividad.putExtra("Subdirectorio",  ruta);
+            cambio_actividad.setClass(this, ListarFicheros.class);
 			startActivity(cambio_actividad);
 			finish();
 		}

@@ -2,9 +2,13 @@ package com.example.agendauca;
 
 import java.io.File;
 
+import com.example.ficheros.Audio;
+import com.example.ficheros.BlocNotas;
+import com.example.ficheros.Camara;
 import com.example.ficheros.MostrarImagen;
 import com.example.ficheros.MostrarNota;
 import com.example.ficheros.ReproducirVideo;
+import com.example.ficheros.Video;
 import com.example.utilidades.FuncionesUtiles;
 
 
@@ -17,6 +21,7 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -76,7 +81,7 @@ public class ListarFicheros extends Activity{
 							startActivity(mostrarTipoFichero);
 						}
 						if(nombreFichero.indexOf(".mp4") != -1 || nombreFichero.indexOf(".3gp") != -1){
-							mostrarTipoFichero.putExtra("AchivoReproducir", ficheros[posicion].getAbsolutePath());
+							mostrarTipoFichero.putExtra("ArchivoReproducir", ficheros[posicion].getAbsolutePath());
 							mostrarTipoFichero.setClass(getApplicationContext(), ReproducirVideo.class);
 							startActivity(mostrarTipoFichero);
 						}
@@ -99,6 +104,42 @@ public class ListarFicheros extends Activity{
 	        finish();
 		}
 	}
+	
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Carga el action bar, para el "menu" de la creacion de fotos videos...
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+	
+	@Override
+	 public boolean onOptionsItemSelected(MenuItem item) {
+		Intent cambio_actividad = new Intent();
+		//Para los botones de crear un archivo: foto, video, grabación, nota.
+	     switch (item.getItemId()) {
+	         case R.id.foto:
+	        	 cambio_actividad.setClass(this, Camara.class);
+	        	 cambio_actividad.putExtra("CarpetaDestino",  rutaSubDirectorio);
+				 startActivity(cambio_actividad);
+	             break;
+	         case R.id.Video:
+	        	 cambio_actividad.setClass(this, Video.class);
+	        	 cambio_actividad.putExtra("CarpetaDestino",  rutaSubDirectorio);
+				 startActivity(cambio_actividad);
+	        	 break;
+	         case R.id.Audio:
+	        	 cambio_actividad.setClass(this, Audio.class);
+	        	 cambio_actividad.putExtra("CarpetaDestino",  rutaSubDirectorio);
+				 startActivity(cambio_actividad);
+	        	 break;
+	         case R.id.Notas:
+	        	 cambio_actividad.setClass(this, BlocNotas.class);
+	        	 cambio_actividad.putExtra("CarpetaDestino",  rutaSubDirectorio);
+				 startActivity(cambio_actividad);
+	        	 break;
+	     } 
+	  return false;
+	 }
 	
 	/*public void onStop(){
         //finish();

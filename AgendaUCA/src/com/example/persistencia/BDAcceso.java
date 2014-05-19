@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
-//BDAcceso se encarga de eliminaciones, consultar e inserciones en la base de datos
+//BDAcceso se encarga de eliminaciones, consultas e inserciones en la base de datos
 public class BDAcceso {
 	private static int ID = 1;
 	private static String KEY_ID = "id";
@@ -22,6 +22,7 @@ public class BDAcceso {
 	private static String KEY_FECHA = "fecha";
 	private static String BASE_DATOS_MENSAJE = "MENSAJES";
 	private static String BASE_DATOS_USUARIO = "AMIGOS";
+	private static String BASE_DATOS_GRUPO = "GRUPOS";
 	private static String NOMBRE_BD = "Amigos";
 	private static int version = 1;
 	private Context context;
@@ -42,23 +43,27 @@ public class BDAcceso {
 		usuarios.close();
 	}
 	
-	public void insertarUsuario(String nombre){ //Inserta un nuevo usuario en la base de datos
+	public long insertarUsuario(String nombre){ //Inserta un nuevo usuario en la base de datos
 		ContentValues datosUsuario = new ContentValues();
 		datosUsuario.put(KEY_NOMBRE, nombre);
 		datosUsuario.put(KEY_ID, ID);
 		long resultado = database.insert(BASE_DATOS_USUARIO, null, datosUsuario);
 		if(resultado != -1)
 			ID++;
+		return resultado;
 	}
 	
-	public void insertarMensaje(String mensaje, String nombre, int tipo){
+	public void insertarMensaje(String mensaje, String nombre, int tipo, boolean tipoTabla){
 		ContentValues datosMensaje = new ContentValues();
 		datosMensaje.put(KEY_MENSAJE, mensaje);
 		datosMensaje.put(KEY_NOMBRE, nombre);
 		datosMensaje.put(KEY_TIPO, tipo);
 		Date fechaActual = new Date();
 		datosMensaje.put(KEY_FECHA, fechaActual.toLocaleString());
-		database.insert(BASE_DATOS_MENSAJE, null, datosMensaje);
+		if(tipoTabla)
+		    database.insert(BASE_DATOS_MENSAJE, null, datosMensaje);
+		else
+			database.insert(BASE_DATOS_GRUPO, null, datosMensaje);
 	}
 	
 	public ArrayList<String> getUsuarios(){ //Consulta sobre todos los usuarios en la base de datos
@@ -73,7 +78,7 @@ public class BDAcceso {
 		return usuarios;
 	}
 	
-	public ArrayList<Mensaje> getMensajesUsuarioFechaActual(String nombre){
+	public ArrayList<Mensaje> getMensajesUsuarioFechaActual(String nombre, boolean tipoTabla){
 		String mensaje, fecha;
 		int tipo;
 		Mensaje mensajes;
@@ -83,7 +88,11 @@ public class BDAcceso {
 		String[] fechaYHora = fechaHoy.split(" ");
 		String splitFecha = fechaYHora[0];
 		//Log.d("FECHA", splitFecha);
-		String sql = "SELECT * FROM MENSAJES WHERE nombre='"+nombre+"' AND fecha LIKE '"+splitFecha+"%'";
+		String sql;
+		if(tipoTabla)
+		    sql = "SELECT * FROM MENSAJES WHERE nombre='"+nombre+"' AND fecha LIKE '"+splitFecha+"%'";
+		else
+			sql = "SELECT * FROM GRUPOS WHERE miembros='"+nombre+"' AND fecha LIKE '"+splitFecha+"%'";
 		Cursor cursor = database.rawQuery(sql, null);
 		if(cursor.moveToFirst()){
 			do {
@@ -103,12 +112,16 @@ public class BDAcceso {
 		return mensajesUsuario;
 	}
 	
-	public ArrayList<Mensaje> getMensajesUsuario (String nombre){
+	public ArrayList<Mensaje> getMensajesUsuario (String nombre, boolean tipoTabla){
 		String mensaje, fecha;
 		int tipo;
 		Mensaje mensajes;
 		ArrayList<Mensaje> mensajesUsuario = new ArrayList<Mensaje>();
-		String sql = "SELECT * FROM MENSAJES WHERE nombre='"+nombre+"'";
+		String sql;
+		if(tipoTabla)
+		    sql = "SELECT * FROM MENSAJES WHERE nombre='"+nombre+"'";
+		else
+			sql = "SELECT * FROM GRUPOS WHERE miembros='"+nombre+"'";
 		Cursor cursor = database.rawQuery(sql, null);
 		if(cursor.moveToFirst()){
 			do {

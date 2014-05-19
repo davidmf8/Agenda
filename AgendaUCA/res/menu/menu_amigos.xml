@@ -2,7 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item
         android:id="@+id/MenuAmigos"
-        android:showAsAction="ifRoom"
         android:title="Añadir Amigo">
+    </item>
+    <item
+        android:id="@+id/Grupo"
+        android:title="Crear Grupo">
     </item>
 </menu>

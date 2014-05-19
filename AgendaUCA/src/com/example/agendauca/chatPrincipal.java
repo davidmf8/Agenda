@@ -11,7 +11,6 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -23,12 +22,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TabHost;
 import com.example.persistencia.*;
 
 //Clase que representa el menu principal del chat con amigos y conversaciones.
 public class chatPrincipal extends Activity{
-	private TabHost  tabHostChat;
 	private ArrayList<String> amigos;
 	private ListView miListaAmigos;
 	private EditText nuevoAmigo;
@@ -38,25 +35,6 @@ public class chatPrincipal extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_chat);
 		
-		tabHostChat = (TabHost) this.findViewById(android.R.id.tabhost);
-		
-		Resources res = getResources();
-		 
-		tabHostChat.setup();
-		 
-		TabHost.TabSpec spec=tabHostChat.newTabSpec("mitab1");
-		spec.setContent(R.id.Amigos);
-		spec.setIndicator("",
-		    res.getDrawable(android.R.drawable.ic_menu_agenda));
-		tabHostChat.addTab(spec);
-
-		spec=tabHostChat.newTabSpec("mitab2");
-		spec.setContent(R.id.Conversaciones);
-		spec.setIndicator("TAB2",
-		    res.getDrawable(android.R.drawable.ic_menu_send));
-		tabHostChat.addTab(spec);
-		 
-		tabHostChat.setCurrentTab(0);
 		listadoAmigos();
 		miListaAmigos = (ListView)findViewById(R.id.ListaAmigos);
         miListaAmigos.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, amigos));
@@ -113,7 +91,14 @@ public class chatPrincipal extends Activity{
 	
 	@Override
 	 public boolean onOptionsItemSelected(MenuItem item) {
-	  agregarAmigo(this); 
+		switch (item.getItemId()) {
+		   case R.id.MenuAmigos:
+			   agregarAmigo(this); 
+			   break;
+		   case R.id.Grupo:
+			   break;
+		}
+	  
 	  return false;
 	 }
 

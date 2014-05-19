@@ -72,9 +72,12 @@ public class InsertarUsuarioAsynTask  extends AsyncTask<Void,Void,String>{
 		else{
 			BDAcceso BD = new BDAcceso(activity);
 			BD = BD.BDopen();
-			BD.insertarUsuario(usuario);
+			long resultado = BD.insertarUsuario(usuario);
 			BD.BDclose();
-			Toast.makeText(activity, "Usuario agregado", Toast.LENGTH_SHORT).show();
+			if(resultado != -1)
+			    Toast.makeText(activity, "Usuario agregado", Toast.LENGTH_SHORT).show();
+			else
+				Toast.makeText(activity, "No se ha podido realizar la solicitud. Inténtelo de nuevo.", Toast.LENGTH_SHORT).show();		
 		}
 		
 		activity.actualizarLista();
