@@ -29,11 +29,14 @@ public class chatPrincipal extends Activity{
 	private ArrayList<String> amigos;
 	private ListView miListaAmigos;
 	private EditText nuevoAmigo;
+	private static int CODIGO = 1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_chat);
+		
+		this.setTitle("Contactos");
 		
 		listadoAmigos();
 		miListaAmigos = (ListView)findViewById(R.id.ListaAmigos);
@@ -96,6 +99,11 @@ public class chatPrincipal extends Activity{
 			   agregarAmigo(this); 
 			   break;
 		   case R.id.Grupo:
+			   Intent cambio_actividad = new Intent();
+			   cambio_actividad.setClass(getApplicationContext(), creacionGrupo.class);
+			   cambio_actividad.putStringArrayListExtra("ListaAmigos", amigos);
+			   startActivity(cambio_actividad);
+			   finish();
 			   break;
 		}
 	  

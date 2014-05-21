@@ -22,7 +22,6 @@ public class BDAcceso {
 	private static String KEY_FECHA = "fecha";
 	private static String BASE_DATOS_MENSAJE = "MENSAJES";
 	private static String BASE_DATOS_USUARIO = "AMIGOS";
-	private static String BASE_DATOS_GRUPO = "GRUPOS";
 	private static String NOMBRE_BD = "Amigos";
 	private static int version = 1;
 	private Context context;
@@ -53,17 +52,14 @@ public class BDAcceso {
 		return resultado;
 	}
 	
-	public void insertarMensaje(String mensaje, String nombre, int tipo, boolean tipoTabla){
+	public void insertarMensaje(String mensaje, String nombre, int tipo){
 		ContentValues datosMensaje = new ContentValues();
 		datosMensaje.put(KEY_MENSAJE, mensaje);
 		datosMensaje.put(KEY_NOMBRE, nombre);
 		datosMensaje.put(KEY_TIPO, tipo);
 		Date fechaActual = new Date();
 		datosMensaje.put(KEY_FECHA, fechaActual.toLocaleString());
-		if(tipoTabla)
-		    database.insert(BASE_DATOS_MENSAJE, null, datosMensaje);
-		else
-			database.insert(BASE_DATOS_GRUPO, null, datosMensaje);
+        database.insert(BASE_DATOS_MENSAJE, null, datosMensaje);
 	}
 	
 	public ArrayList<String> getUsuarios(){ //Consulta sobre todos los usuarios en la base de datos
@@ -78,7 +74,7 @@ public class BDAcceso {
 		return usuarios;
 	}
 	
-	public ArrayList<Mensaje> getMensajesUsuarioFechaActual(String nombre, boolean tipoTabla){
+	public ArrayList<Mensaje> getMensajesUsuarioFechaActual(String nombre){
 		String mensaje, fecha;
 		int tipo;
 		Mensaje mensajes;
@@ -88,11 +84,7 @@ public class BDAcceso {
 		String[] fechaYHora = fechaHoy.split(" ");
 		String splitFecha = fechaYHora[0];
 		//Log.d("FECHA", splitFecha);
-		String sql;
-		if(tipoTabla)
-		    sql = "SELECT * FROM MENSAJES WHERE nombre='"+nombre+"' AND fecha LIKE '"+splitFecha+"%'";
-		else
-			sql = "SELECT * FROM GRUPOS WHERE miembros='"+nombre+"' AND fecha LIKE '"+splitFecha+"%'";
+		String sql = "SELECT * FROM MENSAJES WHERE nombre='"+nombre+"' AND fecha LIKE '"+splitFecha+"%'";
 		Cursor cursor = database.rawQuery(sql, null);
 		if(cursor.moveToFirst()){
 			do {
@@ -112,16 +104,12 @@ public class BDAcceso {
 		return mensajesUsuario;
 	}
 	
-	public ArrayList<Mensaje> getMensajesUsuario (String nombre, boolean tipoTabla){
+	public ArrayList<Mensaje> getMensajesUsuario (String nombre){
 		String mensaje, fecha;
 		int tipo;
 		Mensaje mensajes;
 		ArrayList<Mensaje> mensajesUsuario = new ArrayList<Mensaje>();
-		String sql;
-		if(tipoTabla)
-		    sql = "SELECT * FROM MENSAJES WHERE nombre='"+nombre+"'";
-		else
-			sql = "SELECT * FROM GRUPOS WHERE miembros='"+nombre+"'";
+		String sql = "SELECT * FROM MENSAJES WHERE nombre='"+nombre+"'";
 		Cursor cursor = database.rawQuery(sql, null);
 		if(cursor.moveToFirst()){
 			do {
