@@ -10,7 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
+
 
 public class GCMServicioPush extends IntentService{
 	private BDAcceso BD;
@@ -41,7 +41,7 @@ public class GCMServicioPush extends IntentService{
 		 if(mensaje.equalsIgnoreCase("Agregar")){
 			 NotificationCompat.Builder notificacion =
 			            new NotificationCompat.Builder(this)
-			               .setSmallIcon(android.R.drawable.stat_sys_warning)
+			               .setSmallIcon(android.R.drawable.ic_dialog_email)
 			               .setContentTitle(usuario+" te ha agregado. Tienes un nuevo amigo.")
 			               .setVibrate(new long[] {100, 250, 100, 500})
 			               .setAutoCancel(true);
@@ -61,7 +61,7 @@ public class GCMServicioPush extends IntentService{
 			 if(mensaje.equalsIgnoreCase("NuevoGrupo")){
 				 NotificationCompat.Builder notificacion =
 				            new NotificationCompat.Builder(this)
-				               .setSmallIcon(android.R.drawable.stat_sys_warning)
+				               .setSmallIcon(android.R.drawable.ic_dialog_email)
 				               .setContentTitle("Has sido agregado a un nuevo grupo.")
 				               .setVibrate(new long[] {100, 250, 100, 500})
 				               .setAutoCancel(true);
@@ -81,18 +81,24 @@ public class GCMServicioPush extends IntentService{
 			 else{
 				 NotificationCompat.Builder notificacion =
 		    		 new NotificationCompat.Builder(this)
-	               		.setSmallIcon(android.R.drawable.stat_sys_warning)
+	               		.setSmallIcon(android.R.drawable.ic_dialog_email)
 	               		.setContentTitle("Mensaje de "+usuario)
 	               		.setVibrate(new long[] {100, 250, 100, 500})
 	               		.setAutoCancel(true);
 	     
 	        	BD = new BDAcceso(this.getApplicationContext());
 	        	BD.BDopen();
-	        	BD.insertarMensaje(mensaje, usuario, 0);
+	        	if(grupo != null)
+	        		BD.insertarMensaje(mensaje, grupo, 0);
+	        	else	
+	        	    BD.insertarMensaje(mensaje, usuario, 0);
 	        	BD.BDclose();
 	 
 	        	Intent actividadResultante =  new Intent(this, chatAmigo.class);
-	        	actividadResultante.putExtra("Nombre", usuario);
+	        	if(grupo != null)
+	        		actividadResultante.putExtra("Nombre", grupo);
+	        	else	
+	        	    actividadResultante.putExtra("Nombre", usuario);
 	        	PendingIntent contIntent = PendingIntent.getActivity(this, 0, actividadResultante, PendingIntent.FLAG_UPDATE_CURRENT);
 	 
 	        	notificacion.setContentIntent(contIntent);

@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 public class chatAmigo extends ListActivity{
 	private String nombreAmigo, mensaje;
+	private String[] grupo;
 	private ArrayList<Mensaje> mensajesChat;
 	private mensajeAdapter adapterLista;
 	private EditText texto;
@@ -32,6 +33,7 @@ public class chatAmigo extends ListActivity{
 		
         Bundle datosAmigos = this.getIntent().getExtras();
         nombreAmigo = datosAmigos.getString("Nombre");
+        grupo = nombreAmigo.split("/");
 		
         historialActivo = false;
 		texto = (EditText)this.findViewById(R.id.conversacion);
@@ -93,7 +95,10 @@ public class chatAmigo extends ListActivity{
 			BD.BDclose();
 			actualizarLista();
 			enviarMensaje = new EnviarMensajeAsynTask();
-			enviarMensaje.inicilizarValores(nombreAmigo, mensaje, this, true);
+			if(grupo.length == 1)
+			    enviarMensaje.inicilizarValores(nombreAmigo, mensaje, this, true);
+			else
+				enviarMensaje.inicilizarValores(nombreAmigo, mensaje, this, false);
 			enviarMensaje.execute();
 		}
 		texto.setText("");

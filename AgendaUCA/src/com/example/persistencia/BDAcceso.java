@@ -14,8 +14,6 @@ import android.util.Log;
 
 //BDAcceso se encarga de eliminaciones, consultas e inserciones en la base de datos
 public class BDAcceso {
-	private static int ID = 1;
-	private static String KEY_ID = "id";
 	private static String KEY_NOMBRE = "nombre";
 	private static String KEY_MENSAJE = "mensaje";
 	private static String KEY_TIPO = "tipo";
@@ -45,10 +43,7 @@ public class BDAcceso {
 	public long insertarUsuario(String nombre){ //Inserta un nuevo usuario en la base de datos
 		ContentValues datosUsuario = new ContentValues();
 		datosUsuario.put(KEY_NOMBRE, nombre);
-		datosUsuario.put(KEY_ID, ID);
 		long resultado = database.insert(BASE_DATOS_USUARIO, null, datosUsuario);
-		if(resultado != -1)
-			ID++;
 		return resultado;
 	}
 	
@@ -141,16 +136,5 @@ public class BDAcceso {
 			return true;
 		}
 		return false;
-	}
-	
-	public int usuarioID(String nombre){ //Obtiene el ID de un usuario de la base de datos
-		String sql = "SELECT id FROM AMIGOS WHERE nombre='"+nombre+"'";
-		Cursor cursor = database.rawQuery(sql, null);
-		int idUsuario = 0;
-		if(cursor.getCount() == 1){
-			cursor.moveToFirst();
-			idUsuario = cursor.getInt(0);
-		}
-		return idUsuario;
 	}
 }
