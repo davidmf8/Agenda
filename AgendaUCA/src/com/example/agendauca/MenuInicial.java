@@ -1,18 +1,16 @@
 package com.example.agendauca;
 
 import com.example.agendauca.R;
-import com.example.ficheros.Audio;
-import com.example.ficheros.BlocNotas;
-import com.example.ficheros.Camara;
-import com.example.ficheros.Video;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.provider.CalendarContract.Events;
 import android.app.Activity;
+import android.content.ContentUris;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View; 
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -44,12 +42,12 @@ public class MenuInicial extends Activity implements OnClickListener{
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	}
 	
-	public void onStop(){
+	/*public void onStop(){
 		finish();
 		super.onStop();
 	}
 	
-	/*@Override
+	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Carga el action bar, para el "menu" de la creacion de fotos videos...
         getMenuInflater().inflate(R.menu.main, menu);
@@ -66,13 +64,23 @@ public class MenuInicial extends Activity implements OnClickListener{
 			   cambio_actividad.setClass(this, ListarFicheros.class);
 			   cambio_actividad.putExtra("Subdirectorio", getExternalFilesDir(null).getAbsolutePath());
 			   startActivity(cambio_actividad);
+			   finish();
 		       break;
 		   case R.id.Notificacion:
 			   cambio_actividad.setClass(this, chatPrincipal.class);
 			   startActivity(cambio_actividad);
+			   finish();
+			   break;
+		   case R.id.Evento:
+			   long tiempo = System.currentTimeMillis();
+			   Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
+			   builder.appendPath("time");
+			   ContentUris.appendId(builder, tiempo);
+			   Intent intent = new Intent(Intent.ACTION_VIEW).setData(builder.build());
+			   startActivity(intent);
 			   break;
 		}
-		finish();
+		
 	}
 	
 	/*@Override

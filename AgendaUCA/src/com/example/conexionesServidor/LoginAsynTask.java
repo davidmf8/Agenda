@@ -16,6 +16,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 //Clase encargada de realizar el registro de usuario en segundo plano.
 public class LoginAsynTask extends AsyncTask<Void,Boolean,Boolean>{
@@ -48,6 +49,7 @@ public class LoginAsynTask extends AsyncTask<Void,Boolean,Boolean>{
 			  GoogleCloudMessaging serverGCM = GoogleCloudMessaging.getInstance(context);
 			  try {
 				gcmcode = serverGCM.register(FuncionesUtiles.getSenderID());
+				Log.d("GCM", gcmcode);
 			  } catch (IOException e) {}
         }
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();

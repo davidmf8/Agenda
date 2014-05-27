@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import com.example.agendauca.ListarFicheros;
+import com.example.agendauca.MenuInicial;
 import com.example.utilidades.FuncionesUtiles;
 
 
@@ -41,30 +42,28 @@ public class Camara extends Activity{
 			cambio_actividad.putExtra("Subdirectorio",  ruta);
             cambio_actividad.setClass(this, ListarFicheros.class);
 	        startActivity(cambio_actividad);
+	        finish();
 		}
 		else{ //Se ha creado correctamente el fichero
-		  fileUri = Uri.fromFile(miFoto);
-		  //Idicamos al intent de captura donde se guardará la foto en caso de confirmarlo
-		  camara.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-		  startActivityForResult(camara, IMAGEN_CAPTURADA );
+			fileUri = Uri.fromFile(miFoto);
+			//Idicamos al intent de captura donde se guardará la foto en caso de confirmarlo
+		  	camara.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+		  	startActivityForResult(camara, IMAGEN_CAPTURADA );
 		}
 	}
 	
-	
-	
 	//Sobreescribimos este metodo para lo que necesitamos, que es saber el resultado de la captura
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		   Intent cambio_actividad = new Intent();
+		  Intent cambio_actividad = new Intent();
 		  if (requestCode == IMAGEN_CAPTURADA) {
 		    if (resultCode == RESULT_OK) {
-		        Toast.makeText(this, "Foto guardada con éxito", 
-		                       Toast.LENGTH_SHORT).show();
+		        Toast.makeText(this, "Foto guardada con éxito", Toast.LENGTH_SHORT).show();
 		        cambio_actividad.setClass(this, Camara.class);
 		        cambio_actividad.putExtra("CarpetaDestino",  ruta);
 			    startActivity(cambio_actividad);
 			    finish();
 		    } 
-		    else if (resultCode == RESULT_CANCELED) {
+		    else{
 		      Toast.makeText(this, "Cancelado", Toast.LENGTH_SHORT).show();
 		  	  cambio_actividad.putExtra("Subdirectorio",  ruta);
               cambio_actividad.setClass(this, ListarFicheros.class);
@@ -79,7 +78,6 @@ public class Camara extends Activity{
 		if(FuncionesUtiles.estadoEscritura()){
 		  File dir = new File(ruta); 
 		  
-		
           String horaLocal = new SimpleDateFormat("yyyMMdd_HHmmss", Locale.ROOT).format(new Date());
           File foto = new File(dir, "IMG_" + horaLocal + ".jpg");
 		  return foto;

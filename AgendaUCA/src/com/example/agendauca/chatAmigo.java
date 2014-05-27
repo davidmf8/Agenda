@@ -4,11 +4,15 @@ import java.util.ArrayList;
 
 import com.example.conexionesServidor.EnviarMensajeAsynTask;
 import com.example.persistencia.BDAcceso;
+import com.example.utilidades.FuncionesUtiles;
 import com.example.utilidades.Mensaje;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +21,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class chatAmigo extends ListActivity{
-	private String nombreAmigo, mensaje;
+	private String nombreAmigo, mensaje, Grupo, miUsuario;
 	private String[] grupo;
 	private ArrayList<Mensaje> mensajesChat;
 	private mensajeAdapter adapterLista;
@@ -34,11 +38,18 @@ public class chatAmigo extends ListActivity{
         Bundle datosAmigos = this.getIntent().getExtras();
         nombreAmigo = datosAmigos.getString("Nombre");
         grupo = nombreAmigo.split("/");
+        
+        SharedPreferences misPreferencias = this.getSharedPreferences(FuncionesUtiles.getPreferencias(), 0);
+		miUsuario = misPreferencias.getString(FuncionesUtiles.getUsuario(), "");
 		
         historialActivo = false;
 		texto = (EditText)this.findViewById(R.id.conversacion);
 		
-		this.setTitle(nombreAmigo);
+		if(grupo.length > 1){
+			this.setTitle("Grupo: " + nombreAmigo.replace("/", ", "));
+		}
+		else
+		    this.setTitle(nombreAmigo);
 		
 		mensajesChat = new ArrayList<Mensaje>();
 		BD = new BDAcceso(this);
@@ -97,8 +108,11 @@ public class chatAmigo extends ListActivity{
 			enviarMensaje = new EnviarMensajeAsynTask();
 			if(grupo.length == 1)
 			    enviarMensaje.inicilizarValores(nombreAmigo, mensaje, this, true);
-			else
-				enviarMensaje.inicilizarValores(nombreAmigo, mensaje, this, false);
+			else{
+				Grupo = nombreAmigo.replace(miUsuario, "");
+				Log.d("GRUPO", Grupo);
+				enviarMensaje.inicilizarValores(Grupo, mensaje, this, false);
+			}
 			enviarMensaje.execute();
 		}
 		texto.setText("");

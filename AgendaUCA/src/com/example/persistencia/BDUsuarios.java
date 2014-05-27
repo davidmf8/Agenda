@@ -10,8 +10,7 @@ public class BDUsuarios extends SQLiteOpenHelper{
 	String SQLiteCreate = "CREATE TABLE AMIGOS (nombre TEXT PRIMARY KEY)";
 	String SQLiteMensajes = "CREATE TABLE MENSAJES (mensaje TEXT, nombre TEXT, tipo INTEGER, fecha TEXT)";
 
-	public BDUsuarios(Context context, String name,
-			CursorFactory factory, int version) {
+	public BDUsuarios(Context context, String name, CursorFactory factory, int version) {
 		super(context, name, factory, version);
 	}
 
@@ -22,9 +21,8 @@ public class BDUsuarios extends SQLiteOpenHelper{
 	}
 
 	@Override
-	public void onUpgrade(SQLiteDatabase bd, int versionActual, int nuevaVersion) {
-		// TODO Auto-generated method stub
-		
+	public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
+		// TODO Auto-generated method stub		
 	}
 
 }

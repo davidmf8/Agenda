@@ -3,24 +3,23 @@ package com.example.agendauca;
 import java.util.ArrayList;
 
 import com.example.conexionesServidor.EnviarMensajeAsynTask;
+import com.example.utilidades.FuncionesUtiles;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class creacionGrupo extends Activity{
 	private ArrayList<String> amigos, amigosSeleccionados;
 	private ListView miListaAmigos;
-	private EditText nuevoGrupo;
-	private String nombreGrupo, miembrosGrupo;
+	private String miembrosGrupo;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +32,6 @@ public class creacionGrupo extends Activity{
 		amigos = datosAmigos.getStringArrayList("ListaAmigos");
 		
 		amigosSeleccionados = new ArrayList<String>();
-		nuevoGrupo = (EditText)findViewById(R.id.nombreGrupo);
 		miListaAmigos = (ListView)findViewById(R.id.ListaSeleccionable);
         miListaAmigos.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, amigos));
         miListaAmigos.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
@@ -62,13 +60,15 @@ public class creacionGrupo extends Activity{
 	}
 	
 	public void onClick(View v){
-		nombreGrupo = nuevoGrupo.getText().toString();
-		if(nombreGrupo.length() > 0 && amigosSeleccionados.size() > 1){
+		if(amigosSeleccionados.size() > 1){
 			miembrosGrupo = amigosSeleccionados.get(0);
 			for(int i = 1; i < amigosSeleccionados.size(); i++){
 				miembrosGrupo = miembrosGrupo + "/" + amigosSeleccionados.get(i);
 			}
-			Log.d("USERS", miembrosGrupo);
+			SharedPreferences misPreferencias = getSharedPreferences(FuncionesUtiles.getPreferencias(), MODE_PRIVATE);
+			String miUsuario = misPreferencias.getString(FuncionesUtiles.getUsuario(), "");
+			miembrosGrupo = miembrosGrupo + "/" + miUsuario;
+			//Log.d("USERS", miembrosGrupo);
 			String mensaje = "NuevoGrupo";
 			EnviarMensajeAsynTask enviarMensaje = new EnviarMensajeAsynTask();
 			enviarMensaje.inicilizarValores(miembrosGrupo, mensaje, this, false);

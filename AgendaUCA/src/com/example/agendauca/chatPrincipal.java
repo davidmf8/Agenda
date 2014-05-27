@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,7 +30,6 @@ public class chatPrincipal extends Activity{
 	private ArrayList<String> amigos;
 	private ListView miListaAmigos;
 	private EditText nuevoAmigo;
-	private static int CODIGO = 1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,10 @@ public class chatPrincipal extends Activity{
         miListaAmigos.setOnItemClickListener(new OnItemClickListener(){
 			public void onItemClick(AdapterView<?> adapter, View view, int posicion, long id) {
 				Intent cambio_actividad = new Intent();
-				cambio_actividad.putExtra("Nombre", amigos.get(posicion));
+				String usuarioChat = amigos.get(posicion).replace("Grupo: ", "");
+         	    String amigo = usuarioChat.replace(", ", "/");
+         	    Log.d("Prueba", amigo);
+				cambio_actividad.putExtra("Nombre", amigo);
 				cambio_actividad.setClass(getApplicationContext(), chatAmigo.class);
 				startActivity(cambio_actividad);
 				finish();
@@ -73,6 +76,13 @@ public class chatPrincipal extends Activity{
 		BDAmigos = BDAmigos.BDopen();
 		amigos = BDAmigos.getUsuarios();
 		BDAmigos.BDclose();
+		String listarGrupo;
+		for(int i = 0; i < amigos.size(); i++){
+			if(amigos.get(i).contains("/")){
+				listarGrupo = "Grupo: " +amigos.get(i).replace("/", ", ");
+				amigos.set(i, listarGrupo);
+			}
+		}
 	}
 	
 	//Volver atras
@@ -151,10 +161,13 @@ public class chatPrincipal extends Activity{
          builder.setMessage("¿Desea eliminarlo definitivamente?").setTitle("Eliminar Amigo")
 	        .setPositiveButton("Aceptar", new DialogInterface.OnClickListener()  {
 	               public void onClick(DialogInterface dialog, int id) {
+	            	   String borrarUsuario = usuarioABorrar.replace("Grupo: ", "");
+	            	   String borrarDefinitivo = borrarUsuario.replace(", ", "/");
+	            	   Log.d("Prueba", borrarDefinitivo);
 	            	   BDAcceso BD = new BDAcceso(context);
 	       			   BD = BD.BDopen();
-	       			   BD.eliminarUsuario(usuarioABorrar);
-	       			   BD.eliminarMensajesUsuario(usuarioABorrar);
+	       			   BD.eliminarUsuario(borrarDefinitivo);
+	       			   BD.eliminarMensajesUsuario(borrarDefinitivo);
 	       			   BD.BDclose();
 	       			   actualizarLista();
 	              }

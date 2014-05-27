@@ -66,7 +66,7 @@ public class InsertarUsuarioAsynTask  extends AsyncTask<Void,Void,String>{
 	//Evalua el resultado, si se ha encontrado lo añade a la base de datos de la app. Si no muestra un
 	//mensaje de usuario no encontrado
 	protected void onPostExecute(String result){
-		if(resultado.equalsIgnoreCase(ERROR)){
+		if(resultado == null || resultado.equalsIgnoreCase(ERROR)){
 			Toast.makeText(activity, "Usuario no encontrado", Toast.LENGTH_SHORT).show();
 		}
 		else{

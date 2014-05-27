@@ -1,6 +1,7 @@
 package com.example.ficheros;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -16,6 +17,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.widget.Toast;
 
 //Clase para grabar video
@@ -42,7 +44,7 @@ public class Video extends Activity{
 		else{ //Se graba
 		  fileUri = Uri.fromFile(miVideo);
 		  video.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-		  video.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+		  video.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
 		  startActivityForResult(video, CAPTURA_VIDEO);
 		}
 	}	
@@ -57,11 +59,11 @@ public class Video extends Activity{
 			    finish();
 		    } 
 		    else if (resultCode == RESULT_CANCELED) {
-		      Toast.makeText(this, "Cancelado", Toast.LENGTH_SHORT).show();
-		      cambio_actividad.putExtra("Subdirectorio",  ruta);
-              cambio_actividad.setClass(this, ListarFicheros.class);
-		      startActivity(cambio_actividad);
-		      finish();
+		    	Toast.makeText(this, "Cancelado", Toast.LENGTH_SHORT).show();
+		    	cambio_actividad.putExtra("Subdirectorio",  ruta);
+		    	cambio_actividad.setClass(this, ListarFicheros.class);
+		    	startActivity(cambio_actividad);
+		    	finish();
 		    } 
     }
 	
