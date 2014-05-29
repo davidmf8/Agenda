@@ -248,6 +248,7 @@ containing a value of this type.
         public static final int view_mensaje=0x7f02002d;
     }
     public static final class id {
+        public static final int AgregarCal=0x7f05002b;
         public static final int Amigos=0x7f05000b;
         public static final int Audio=0x7f050024;
         public static final int Calificaciones=0x7f050017;

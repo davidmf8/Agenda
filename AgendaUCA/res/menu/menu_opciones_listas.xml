@@ -6,4 +6,6 @@
           android:title="Eliminar"/>
     <item android:id="@+id/Mover"
           android:title="Mover" />
+    <item android:id="@+id/AgregarCal"
+          android:title="Agregar al calendario" />
 </menu>

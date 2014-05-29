@@ -5,7 +5,6 @@ import com.example.agendauca.R;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
-import android.provider.CalendarContract.Events;
 import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Intent;

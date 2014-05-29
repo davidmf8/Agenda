@@ -1,6 +1,7 @@
 package com.example.agendauca;
 
 import java.io.File;
+import java.util.Calendar;
 
 import com.example.ficheros.Audio;
 import com.example.ficheros.BlocNotas;
@@ -15,9 +16,14 @@ import com.example.utilidades.FuncionesUtiles;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.app.DatePickerDialog;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract.Events;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
@@ -28,6 +34,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -223,6 +230,9 @@ public class ListarFicheros extends Activity{
 				startActivity(cambio_actividad);
 				finish();
 	        	return true;
+	        case R.id.AgregarCal:
+                mostrarDialogFecha(info.position);
+	        	return true;
 	        default:
 	            return super.onContextItemSelected(item);
 	    }
@@ -230,6 +240,42 @@ public class ListarFicheros extends Activity{
 	
 	
 	
+	private void mostrarDialogFecha(final int posicionFichero) {
+		Calendar calendarioActual = Calendar.getInstance();
+		int dia, mes, anio;
+		dia = calendarioActual.get(Calendar.DAY_OF_MONTH);
+		mes = calendarioActual.get(Calendar.MONTH);
+		anio = calendarioActual.get(Calendar.YEAR);
+		
+		DatePickerDialog eleccionFecha = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+			@Override
+			public void onDateSet(DatePicker view, int year, int monthOfYear,
+					int dayOfMonth) {
+				File ficheroAgenda = ficheros[posicionFichero];
+				long startMillis = 0; 
+	        	long endMillis = 0;     
+	        	Calendar beginTime = Calendar.getInstance();
+	        	beginTime.set(year, monthOfYear, dayOfMonth, 7, 30);
+	        	startMillis = beginTime.getTimeInMillis();
+	        	Calendar endTime = Calendar.getInstance();
+	        	endTime.set(year, monthOfYear, dayOfMonth, 8, 45);
+	        	endMillis = endTime.getTimeInMillis();
+
+	        	ContentResolver cr = getContentResolver();
+	        	ContentValues values = new ContentValues();
+	        	values.put(Events.DTSTART, startMillis);
+	        	values.put(Events.DTEND, endMillis);
+	        	values.put(Events.TITLE, "Fichero" + ficheroAgenda.getName() + " anotado");
+	        	values.put(Events.EVENT_TIMEZONE, "Universidad de Cádiz");
+	        	values.put(Events.DESCRIPTION, ficheroAgenda.getName() + "esta ligado de la agenda al calendario");
+	        	values.put(Events.CALENDAR_ID, 1);
+	        	Uri uri = cr.insert(Events.CONTENT_URI, values);	
+			}
+		}, dia, mes, anio);
+		eleccionFecha.onDateChanged(eleccionFecha.getDatePicker(), anio, mes, dia);
+		eleccionFecha.show();
+	}
+
 	private void borrarDirectorio(File directorioABorrar) {
 		File[] ficherosDir = directorioABorrar.listFiles();
 		for(int i = 0; i < ficherosDir.length; i++){
