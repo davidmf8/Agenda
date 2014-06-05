@@ -14,6 +14,7 @@ import android.support.v4.app.NotificationCompat;
 
 public class GCMServicioPush extends IntentService{
 	private BDAcceso BD;
+	private Intent notificadorChat;
 
 	public GCMServicioPush() {
 		super("GCMServicioPush");
@@ -28,6 +29,9 @@ public class GCMServicioPush extends IntentService{
 
         if (!extras.isEmpty()){
                 if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(tipoMensaje)){
+                	notificadorChat = new Intent("ActualizarLista");
+                	notificadorChat.putExtra("message", extras.getString("message"));
+                	notificadorChat.putExtra("user", extras.getString("user"));
                     mostrarNotificacion(extras.getString("message"), extras.getString("user"), extras.getString("addGroup"));
                 }
         }
@@ -93,6 +97,8 @@ public class GCMServicioPush extends IntentService{
 	        	else	
 	        	    BD.insertarMensaje(mensaje, usuario, 0);
 	        	BD.BDclose();
+	        	
+	        	
 	 
 	        	Intent actividadResultante =  new Intent(this, chatAmigo.class);
 	        	if(grupo != null)
@@ -104,6 +110,8 @@ public class GCMServicioPush extends IntentService{
 	        	notificacion.setContentIntent(contIntent);
 	 
 	        	notificador.notify(1, notificacion.build());
+	        	
+	        	sendBroadcast(notificadorChat);
 			 }
 		 }
 	     

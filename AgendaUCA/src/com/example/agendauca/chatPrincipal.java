@@ -70,6 +70,7 @@ public class chatPrincipal extends Activity{
 		super.onStop();
 	}*/
 
+
 	//Listar amigos de la base de datos
 	private void listadoAmigos() {
 		BDAcceso BDAmigos = new BDAcceso(getApplicationContext());

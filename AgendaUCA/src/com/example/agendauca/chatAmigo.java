@@ -8,10 +8,16 @@ import com.example.utilidades.FuncionesUtiles;
 import com.example.utilidades.Mensaje;
 
 import android.app.ListActivity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.database.ContentObserver;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -29,6 +35,7 @@ public class chatAmigo extends ListActivity{
 	private BDAcceso BD;
 	private EnviarMensajeAsynTask enviarMensaje;
 	private boolean historialActivo;
+	private BroadcastReceiver broadcastReceiver;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -60,6 +67,9 @@ public class chatAmigo extends ListActivity{
 		adapterLista = new mensajeAdapter(this, mensajesChat);
 		this.setListAdapter(adapterLista);
 		this.setSelection(adapterLista.getCount()-1);
+		
+		broadcastReceiver = new recibirNotificacion();
+		this.registerReceiver(broadcastReceiver, new IntentFilter("ActualizarLista"));
 	}
 	
 	@Override
@@ -67,6 +77,20 @@ public class chatAmigo extends ListActivity{
         getMenuInflater().inflate(R.menu.historial_conversacion, menu);
         return true;
     }
+	
+	
+	public void onResume(){
+		Log.d("LLEGA", "1");
+		super.onResume();
+		IntentFilter intentFiltro = new IntentFilter();
+		intentFiltro.addAction("ActualizarLista");
+		this.registerReceiver(broadcastReceiver, intentFiltro);
+	}
+	
+	public void onDestroy(){
+		super.onDestroy();
+		this.unregisterReceiver(broadcastReceiver);
+	}
 	
 	@Override
 	 public boolean onOptionsItemSelected(MenuItem item) {
@@ -131,6 +155,17 @@ public class chatAmigo extends ListActivity{
 		}	
 	}
 	
+	public class recibirNotificacion extends BroadcastReceiver{
 
-
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			   Bundle extras = intent.getExtras();
+			   String origen =  extras.getString("user");
+			   Log.d("Origen", origen);
+			   if(origen.equalsIgnoreCase(nombreAmigo)){
+	                actualizarLista();
+			   }
+		}
+		
+	}
 }

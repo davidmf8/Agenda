@@ -19,6 +19,7 @@ import android.app.AlertDialog.Builder;
 import android.app.DatePickerDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -231,7 +232,7 @@ public class ListarFicheros extends Activity{
 				finish();
 	        	return true;
 	        case R.id.AgregarCal:
-                mostrarDialogFecha(info.position);
+                mostrarDialogFecha(info.position, this);
 	        	return true;
 	        default:
 	            return super.onContextItemSelected(item);
@@ -240,7 +241,7 @@ public class ListarFicheros extends Activity{
 	
 	
 	
-	private void mostrarDialogFecha(final int posicionFichero) {
+	private void mostrarDialogFecha(final int posicionFichero, final Context context) {
 		Calendar calendarioActual = Calendar.getInstance();
 		int dia, mes, anio;
 		dia = calendarioActual.get(Calendar.DAY_OF_MONTH);
@@ -252,24 +253,25 @@ public class ListarFicheros extends Activity{
 			public void onDateSet(DatePicker view, int year, int monthOfYear,
 					int dayOfMonth) {
 				File ficheroAgenda = ficheros[posicionFichero];
-				long startMillis = 0; 
-	        	long endMillis = 0;     
-	        	Calendar beginTime = Calendar.getInstance();
-	        	beginTime.set(year, monthOfYear, dayOfMonth, 7, 30);
-	        	startMillis = beginTime.getTimeInMillis();
-	        	Calendar endTime = Calendar.getInstance();
-	        	endTime.set(year, monthOfYear, dayOfMonth, 8, 45);
-	        	endMillis = endTime.getTimeInMillis();
+				long comienzoTiempo = 0; 
+	        	long finTiempo = 0;     
+	        	Calendar calendarioActual = Calendar.getInstance();
+	        	calendarioActual.set(year, monthOfYear, dayOfMonth, 7, 30);
+	        	comienzoTiempo = calendarioActual.getTimeInMillis();
+	        	Calendar calendarioFinal = Calendar.getInstance();
+	        	calendarioFinal.set(year, monthOfYear, dayOfMonth, 8, 45);
+	        	finTiempo = calendarioFinal.getTimeInMillis();
 
-	        	ContentResolver cr = getContentResolver();
-	        	ContentValues values = new ContentValues();
-	        	values.put(Events.DTSTART, startMillis);
-	        	values.put(Events.DTEND, endMillis);
-	        	values.put(Events.TITLE, "Fichero" + ficheroAgenda.getName() + " anotado");
-	        	values.put(Events.EVENT_TIMEZONE, "Universidad de Cádiz");
-	        	values.put(Events.DESCRIPTION, ficheroAgenda.getName() + "esta ligado de la agenda al calendario");
-	        	values.put(Events.CALENDAR_ID, 1);
-	        	Uri uri = cr.insert(Events.CONTENT_URI, values);	
+	        	ContentResolver contentCalendario = getContentResolver();
+	        	ContentValues parametrosEvento = new ContentValues();
+	        	parametrosEvento.put(Events.DTSTART, comienzoTiempo);
+	        	parametrosEvento.put(Events.DTEND, finTiempo);
+	        	parametrosEvento.put(Events.TITLE, "Fichero " + ficheroAgenda.getName() + " anotado");
+	        	parametrosEvento.put(Events.EVENT_TIMEZONE, "Universidad de Cádiz");
+	        	parametrosEvento.put(Events.DESCRIPTION, ficheroAgenda.getName() + " esta ligado de la agenda al calendario");
+	        	parametrosEvento.put(Events.CALENDAR_ID, 1);
+	        	Uri uriEvento = contentCalendario.insert(Events.CONTENT_URI, parametrosEvento);	
+				Toast.makeText(context, ficheroAgenda.getName() + " agregado al calendario", Toast.LENGTH_SHORT).show();
 			}
 		}, dia, mes, anio);
 		eleccionFecha.onDateChanged(eleccionFecha.getDatePicker(), anio, mes, dia);

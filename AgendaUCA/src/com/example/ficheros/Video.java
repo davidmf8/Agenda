@@ -34,7 +34,7 @@ public class Video extends Activity{
 		ruta = rutaDeDirectorio.getString("CarpetaDestino");
 		Intent video = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
 		miVideo = ficheroVideo();
-		if(miVideo.getName() == "Error"){ //Si no se ha creado el archivo por memoria
+		if(miVideo.getName().equalsIgnoreCase("Error")){ //Si no se ha creado el archivo por memoria
 			Toast.makeText(this, "Memoria externa no disponible", Toast.LENGTH_SHORT).show();
 			Intent cambio_actividad = new Intent();
             cambio_actividad.setClass(this, MenuInicial.class);
