@@ -1,6 +1,7 @@
 package com.example.agendauca;
 
 import com.example.persistencia.BDAcceso;
+import com.example.utilidades.FuncionesUtiles;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import android.app.IntentService;
@@ -8,6 +9,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
@@ -15,6 +17,7 @@ import android.support.v4.app.NotificationCompat;
 public class GCMServicioPush extends IntentService{
 	private BDAcceso BD;
 	private Intent notificadorChat;
+	String miUsuario;
 
 	public GCMServicioPush() {
 		super("GCMServicioPush");
@@ -23,6 +26,9 @@ public class GCMServicioPush extends IntentService{
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		GoogleCloudMessaging serverGCM = GoogleCloudMessaging.getInstance(this);
+		
+		SharedPreferences misPreferencias = this.getSharedPreferences(FuncionesUtiles.getPreferencias(), 0);
+		miUsuario = misPreferencias.getString(FuncionesUtiles.getUsuario(), "");
 		
 		String tipoMensaje = serverGCM.getMessageType(intent);
         Bundle extras = intent.getExtras();
@@ -92,13 +98,13 @@ public class GCMServicioPush extends IntentService{
 	     
 	        	BD = new BDAcceso(this.getApplicationContext());
 	        	BD.BDopen();
-	        	if(grupo != null)
-	        		BD.insertarMensaje(mensaje, grupo, 0);
+	        	if(grupo != null){
+					if(!miUsuario.equalsIgnoreCase(usuario))
+	        		    BD.insertarMensaje(mensaje, grupo, 0);
+	        	}
 	        	else	
 	        	    BD.insertarMensaje(mensaje, usuario, 0);
 	        	BD.BDclose();
-	        	
-	        	
 	 
 	        	Intent actividadResultante =  new Intent(this, chatAmigo.class);
 	        	if(grupo != null)
@@ -108,8 +114,9 @@ public class GCMServicioPush extends IntentService{
 	        	PendingIntent contIntent = PendingIntent.getActivity(this, 0, actividadResultante, PendingIntent.FLAG_UPDATE_CURRENT);
 	 
 	        	notificacion.setContentIntent(contIntent);
-	 
-	        	notificador.notify(1, notificacion.build());
+	            
+	        	if(!miUsuario.equalsIgnoreCase(usuario))
+	        	    notificador.notify(1, notificacion.build());
 	        	
 	        	sendBroadcast(notificadorChat);
 			 }

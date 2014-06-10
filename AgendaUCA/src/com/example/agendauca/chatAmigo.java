@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.example.conexionesServidor.EnviarMensajeAsynTask;
 import com.example.persistencia.BDAcceso;
-import com.example.utilidades.FuncionesUtiles;
 import com.example.utilidades.Mensaje;
 
 import android.app.ListActivity;
@@ -12,12 +11,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.database.ContentObserver;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -27,7 +21,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class chatAmigo extends ListActivity{
-	private String nombreAmigo, mensaje, Grupo, miUsuario;
+	private String nombreAmigo, mensaje;
 	private String[] grupo;
 	private ArrayList<Mensaje> mensajesChat;
 	private mensajeAdapter adapterLista;
@@ -45,9 +39,6 @@ public class chatAmigo extends ListActivity{
         Bundle datosAmigos = this.getIntent().getExtras();
         nombreAmigo = datosAmigos.getString("Nombre");
         grupo = nombreAmigo.split("/");
-        
-        SharedPreferences misPreferencias = this.getSharedPreferences(FuncionesUtiles.getPreferencias(), 0);
-		miUsuario = misPreferencias.getString(FuncionesUtiles.getUsuario(), "");
 		
         historialActivo = false;
 		texto = (EditText)this.findViewById(R.id.conversacion);
@@ -80,7 +71,6 @@ public class chatAmigo extends ListActivity{
 	
 	
 	public void onResume(){
-		Log.d("LLEGA", "1");
 		super.onResume();
 		IntentFilter intentFiltro = new IntentFilter();
 		intentFiltro.addAction("ActualizarLista");
@@ -95,18 +85,18 @@ public class chatAmigo extends ListActivity{
 	@Override
 	 public boolean onOptionsItemSelected(MenuItem item) {
 	     switch (item.getItemId()) {
-	     case R.id.EliminarHistorial:
-	    	 BD = new BDAcceso(this);
-	 		 BD.BDopen();
-	 		 BD.eliminarMensajesUsuario(nombreAmigo);
-	 		 BD.BDclose();
-	 		 actualizarLista();
-             break;
-         case R.id.VerHistorial:
-        	 historialActivo = true;
-        	 actualizarLista();
-        	 Toast.makeText(this, "Historial cargado", Toast.LENGTH_SHORT).show();
-        	 break;
+	         case R.id.EliminarHistorial:
+	    	     BD = new BDAcceso(this);
+	 		     BD.BDopen();
+	 		     BD.eliminarMensajesUsuario(nombreAmigo);
+	 		     BD.BDclose();
+	 		     actualizarLista();
+                 break;
+             case R.id.VerHistorial:
+        	     historialActivo = true;
+        	     actualizarLista();
+        	     Toast.makeText(this, "Historial cargado", Toast.LENGTH_SHORT).show();
+        	     break;
 	     } 
 	     return false;
 	 }
@@ -133,9 +123,9 @@ public class chatAmigo extends ListActivity{
 			if(grupo.length == 1)
 			    enviarMensaje.inicilizarValores(nombreAmigo, mensaje, this, true);
 			else{
-				Grupo = nombreAmigo.replace(miUsuario, "");
-				Log.d("GRUPO", Grupo);
-				enviarMensaje.inicilizarValores(Grupo, mensaje, this, false);
+				//Grupo = nombreAmigo.replace(miUsuario, "");
+				Log.d("GRUPO", nombreAmigo);
+				enviarMensaje.inicilizarValores(nombreAmigo, mensaje, this, false);
 			}
 			enviarMensaje.execute();
 		}
@@ -156,7 +146,6 @@ public class chatAmigo extends ListActivity{
 	}
 	
 	public class recibirNotificacion extends BroadcastReceiver{
-
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			   Bundle extras = intent.getExtras();

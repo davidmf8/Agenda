@@ -1,6 +1,7 @@
 package com.example.agendauca;
 
 import com.example.agendauca.R;
+import com.example.conexionesServidor.consultarExamenes;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -77,6 +78,11 @@ public class MenuInicial extends Activity implements OnClickListener{
 			   ContentUris.appendId(builder, tiempo);
 			   Intent intent = new Intent(Intent.ACTION_VIEW).setData(builder.build());
 			   startActivity(intent);
+			   break;
+		   case R.id.Calificaciones:
+			   consultarExamenes consulta = new consultarExamenes();
+			   consulta.inicializar(getExternalFilesDir(null).getAbsolutePath());
+			   consulta.execute();
 			   break;
 		}
 		
