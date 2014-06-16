@@ -1,7 +1,8 @@
 package com.example.agendauca;
 
 import com.example.agendauca.R;
-import com.example.conexionesServidor.consultarExamenes;
+import com.example.chat.chatPrincipal;
+import com.example.ficheros.ListarFicheros;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -80,9 +81,6 @@ public class MenuInicial extends Activity implements OnClickListener{
 			   startActivity(intent);
 			   break;
 		   case R.id.Calificaciones:
-			   consultarExamenes consulta = new consultarExamenes();
-			   consulta.inicializar(getExternalFilesDir(null).getAbsolutePath());
-			   consulta.execute();
 			   break;
 		}
 		
@@ -116,6 +114,10 @@ public class MenuInicial extends Activity implements OnClickListener{
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK){
+			Intent cierreAplicacion = new Intent(Intent.ACTION_MAIN);
+			cierreAplicacion.addCategory(Intent.CATEGORY_HOME);
+			cierreAplicacion.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(cierreAplicacion);
 			finish();
 		}
 		return super.onKeyDown(keyCode, event);

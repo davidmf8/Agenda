@@ -1,4 +1,4 @@
-package com.example.agendauca;
+package com.example.chat;
 
 import com.example.persistencia.BDAcceso;
 import com.example.utilidades.FuncionesUtiles;
@@ -38,6 +38,7 @@ public class GCMServicioPush extends IntentService{
                 	notificadorChat = new Intent("ActualizarLista");
                 	notificadorChat.putExtra("message", extras.getString("message"));
                 	notificadorChat.putExtra("user", extras.getString("user"));
+                	notificadorChat.putExtra("addGroup", extras.getString("addGroup"));
                     mostrarNotificacion(extras.getString("message"), extras.getString("user"), extras.getString("addGroup"));
                 }
         }
@@ -47,7 +48,7 @@ public class GCMServicioPush extends IntentService{
 
 	private void mostrarNotificacion(String mensaje, String usuario, String grupo) {
 		 NotificationManager notificador = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
+       if(mensaje != null){
 		 if(mensaje.equalsIgnoreCase("Agregar")){
 			 NotificationCompat.Builder notificacion =
 			            new NotificationCompat.Builder(this)
@@ -111,16 +112,18 @@ public class GCMServicioPush extends IntentService{
 	        		actividadResultante.putExtra("Nombre", grupo);
 	        	else	
 	        	    actividadResultante.putExtra("Nombre", usuario);
+
 	        	PendingIntent contIntent = PendingIntent.getActivity(this, 0, actividadResultante, PendingIntent.FLAG_UPDATE_CURRENT);
 	 
 	        	notificacion.setContentIntent(contIntent);
 	            
-	        	if(!miUsuario.equalsIgnoreCase(usuario))
+	        	//if(!miUsuario.equalsIgnoreCase(usuario))
 	        	    notificador.notify(1, notificacion.build());
 	        	
 	        	sendBroadcast(notificadorChat);
 			 }
 		 }
+       }
 	     
 	}
 

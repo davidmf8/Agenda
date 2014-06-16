@@ -6,7 +6,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
-import com.example.agendauca.chatAmigo;
+import com.example.chat.chatAmigo;
 import com.example.utilidades.FuncionesUtiles;
 
 import android.content.Context;

@@ -1,15 +1,14 @@
-package com.example.agendauca;
+package com.example.ficheros;
 
 import java.io.File;
 import java.util.Calendar;
 
-import com.example.ficheros.Audio;
-import com.example.ficheros.BlocNotas;
-import com.example.ficheros.Camara;
-import com.example.ficheros.MostrarImagen;
-import com.example.ficheros.MostrarNota;
-import com.example.ficheros.ReproducirVideo;
-import com.example.ficheros.Video;
+import com.example.agendauca.MenuInicial;
+import com.example.agendauca.R;
+import com.example.agendauca.R.id;
+import com.example.agendauca.R.layout;
+import com.example.agendauca.R.menu;
+import com.example.chat.chatAmigo.recibirNotificacion;
 import com.example.utilidades.FuncionesUtiles;
 
 
@@ -17,14 +16,17 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.DatePickerDialog;
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract.Events;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
@@ -84,14 +86,17 @@ public class ListarFicheros extends Activity{
 						Intent mostrarTipoFichero = new Intent();
 						//Segun el tipo de fichero, se mostrará de la mejor forma (video, audio, imagen, nota)
 						if(nombreFichero.indexOf(".jpg") != -1){
-							mostrarTipoFichero.putExtra("Imagen", ficheros[posicion].getAbsolutePath());
-							mostrarTipoFichero.setClass(getApplicationContext(), MostrarImagen.class);
-							startActivity(mostrarTipoFichero);
+							mostrarTipoFichero.setAction(android.content.Intent.ACTION_VIEW);
+							mostrarTipoFichero.setDataAndType(Uri.fromFile(ficheroSeleccionado), "image/jpg");
+							startActivityForResult(mostrarTipoFichero, 0);
 						}
 						if(nombreFichero.indexOf(".mp4") != -1 || nombreFichero.indexOf(".3gp") != -1){
-							mostrarTipoFichero.putExtra("ArchivoReproducir", ficheros[posicion].getAbsolutePath());
+							/*mostrarTipoFichero.putExtra("ArchivoReproducir", ficheros[posicion].getAbsolutePath());
 							mostrarTipoFichero.setClass(getApplicationContext(), ReproducirVideo.class);
-							startActivity(mostrarTipoFichero);
+							startActivity(mostrarTipoFichero);*/
+							mostrarTipoFichero.setAction(android.content.Intent.ACTION_VIEW);
+							mostrarTipoFichero.setDataAndType(Uri.fromFile(ficheroSeleccionado), "video/*");
+							startActivityForResult(mostrarTipoFichero, 0);
 						}
 						if(nombreFichero.indexOf(".txt") != -1){
 							mostrarTipoFichero.putExtra("LecturaNota", ficheros[posicion].getAbsolutePath());
@@ -111,6 +116,17 @@ public class ListarFicheros extends Activity{
 	        startActivity(cambio_actividad);
 	        finish();
 		}
+	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		  if (requestCode == 0){
+			Intent refrescar_lista = new Intent();
+			refrescar_lista.putExtra("Subdirectorio", rutaSubDirectorio);
+      		refrescar_lista.setClass(getApplicationContext(), ListarFicheros.class);
+      		startActivity(refrescar_lista);
+      		finish();
+		  }
+
 	}
 	
 	@Override
@@ -149,10 +165,9 @@ public class ListarFicheros extends Activity{
 	  return false;
 	 }
 	
-	/*public void onStop(){
-        //finish();
-		super.onStop();
-	}*/
+	public void onPause(){
+		super.onPause();
+	}
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -268,7 +283,7 @@ public class ListarFicheros extends Activity{
 	        	parametrosEvento.put(Events.DTEND, finTiempo);
 	        	parametrosEvento.put(Events.TITLE, "Fichero " + ficheroAgenda.getName() + " anotado");
 	        	parametrosEvento.put(Events.EVENT_TIMEZONE, "Universidad de Cádiz");
-	        	parametrosEvento.put(Events.DESCRIPTION, ficheroAgenda.getName() + " esta ligado de la agenda al calendario");
+	        	parametrosEvento.put(Events.DESCRIPTION, ficheroAgenda.getName() + " esta ligado al calendario");
 	        	parametrosEvento.put(Events.CALENDAR_ID, 1);
 	        	Uri uriEvento = contentCalendario.insert(Events.CONTENT_URI, parametrosEvento);	
 				Toast.makeText(context, ficheroAgenda.getName() + " agregado al calendario", Toast.LENGTH_SHORT).show();

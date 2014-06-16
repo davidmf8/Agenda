@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-import com.example.agendauca.ListarFicheros;
 import com.example.agendauca.R;
 
 import android.app.Activity;

@@ -1,8 +1,13 @@
-package com.example.agendauca;
+package com.example.chat;
 
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.example.agendauca.R;
+import com.example.agendauca.R.color;
+import com.example.agendauca.R.drawable;
+import com.example.agendauca.R.id;
+import com.example.agendauca.R.layout;
 import com.example.persistencia.BDAcceso;
 import com.example.utilidades.Mensaje;
 

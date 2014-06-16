@@ -1,7 +1,8 @@
-package com.example.agendauca;
+package com.example.chat;
 
 import java.util.ArrayList;
 
+import com.example.agendauca.R;
 import com.example.conexionesServidor.EnviarMensajeAsynTask;
 import com.example.persistencia.BDAcceso;
 import com.example.utilidades.Mensaje;
@@ -58,9 +59,6 @@ public class chatAmigo extends ListActivity{
 		adapterLista = new mensajeAdapter(this, mensajesChat);
 		this.setListAdapter(adapterLista);
 		this.setSelection(adapterLista.getCount()-1);
-		
-		broadcastReceiver = new recibirNotificacion();
-		this.registerReceiver(broadcastReceiver, new IntentFilter("ActualizarLista"));
 	}
 	
 	@Override
@@ -72,14 +70,16 @@ public class chatAmigo extends ListActivity{
 	
 	public void onResume(){
 		super.onResume();
+		broadcastReceiver = new recibirNotificacion();
+		this.registerReceiver(broadcastReceiver, new IntentFilter("ActualizarLista"));
 		IntentFilter intentFiltro = new IntentFilter();
 		intentFiltro.addAction("ActualizarLista");
 		this.registerReceiver(broadcastReceiver, intentFiltro);
 	}
 	
-	public void onDestroy(){
-		super.onDestroy();
+	public void onPause(){
 		this.unregisterReceiver(broadcastReceiver);
+		super.onPause();
 	}
 	
 	@Override
@@ -97,6 +97,9 @@ public class chatAmigo extends ListActivity{
         	     actualizarLista();
         	     Toast.makeText(this, "Historial cargado", Toast.LENGTH_SHORT).show();
         	     break;
+             case R.id.CrearEvento:
+            	 
+            	 break;
 	     } 
 	     return false;
 	 }
@@ -150,10 +153,14 @@ public class chatAmigo extends ListActivity{
 		public void onReceive(Context context, Intent intent) {
 			   Bundle extras = intent.getExtras();
 			   String origen =  extras.getString("user");
-			   Log.d("Origen", origen);
-			   if(origen.equalsIgnoreCase(nombreAmigo)){
+			   String origenGrupo = extras.getString("addGroup");
+			   //if(origenGrupo == null){
+			     if(origen.equalsIgnoreCase(nombreAmigo))// || (origenGrupo != null && origenGrupo.equalsIgnoreCase(nombreAmigo))){
 	                actualizarLista();
-			   }
+			  /*}
+			   else
+				   if(origenGrupo.equalsIgnoreCase(nombreAmigo))
+					   actualizarLista();*/
 		}
 		
 	}

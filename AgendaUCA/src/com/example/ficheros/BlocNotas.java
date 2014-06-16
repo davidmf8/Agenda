@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import com.example.agendauca.ListarFicheros;
 import com.example.agendauca.R;
 import com.example.utilidades.FuncionesUtiles;
 

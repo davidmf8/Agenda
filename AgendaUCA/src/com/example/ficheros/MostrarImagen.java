@@ -1,6 +1,5 @@
 package com.example.ficheros;
 
-import com.example.agendauca.ListarFicheros;
 import com.example.agendauca.R;
 
 import android.app.Activity;
@@ -32,8 +31,9 @@ public class MostrarImagen extends Activity{
 		
 		miImagen = (ImageView)findViewById(R.id.ImgFoto);
 		miImagen.setImageBitmap(imagenRuta);
+		miImagen.setAdjustViewBounds(true);
 		//miImagen.setScaleType(ImageView.ScaleType.FIT_XY); //Imagen a pantalla completa
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); //No gira la pantalla	
+		//setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); //No gira la pantalla	
 	}
 	
 	@Override

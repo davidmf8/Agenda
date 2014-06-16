@@ -1,4 +1,5 @@
-package com.example.agendauca;
+package com.example.chat;
+
 
 import android.app.Activity;
 import android.content.ComponentName;

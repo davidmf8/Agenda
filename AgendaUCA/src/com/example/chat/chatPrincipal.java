@@ -1,8 +1,12 @@
-package com.example.agendauca;
+package com.example.chat;
 
 import java.util.ArrayList;
 
+import com.example.agendauca.MenuInicial;
 import com.example.agendauca.R;
+import com.example.agendauca.R.id;
+import com.example.agendauca.R.layout;
+import com.example.agendauca.R.menu;
 import com.example.conexionesServidor.InsertarUsuarioAsynTask;
 
 import android.app.Activity;
