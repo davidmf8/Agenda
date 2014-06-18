@@ -98,7 +98,11 @@ public class chatAmigo extends ListActivity{
         	     Toast.makeText(this, "Historial cargado", Toast.LENGTH_SHORT).show();
         	     break;
              case R.id.CrearEvento:
-            	 
+            	 Intent cambio_actividad = new Intent();
+     		     cambio_actividad.setClass(getApplicationContext(), creacionEvento.class);
+     		     cambio_actividad.putExtra("Nombre", nombreAmigo);
+     		     startActivity(cambio_actividad);
+     			 finish();
             	 break;
 	     } 
 	     return false;

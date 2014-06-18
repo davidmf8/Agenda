@@ -1,5 +1,10 @@
 package com.example.chat;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import com.example.persistencia.BDAcceso;
 import com.example.utilidades.FuncionesUtiles;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -7,11 +12,17 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract.Events;
 import android.support.v4.app.NotificationCompat;
+import android.text.format.DateFormat;
+import android.util.Log;
 
 
 public class GCMServicioPush extends IntentService{
@@ -39,15 +50,57 @@ public class GCMServicioPush extends IntentService{
                 	notificadorChat.putExtra("message", extras.getString("message"));
                 	notificadorChat.putExtra("user", extras.getString("user"));
                 	notificadorChat.putExtra("addGroup", extras.getString("addGroup"));
-                    mostrarNotificacion(extras.getString("message"), extras.getString("user"), extras.getString("addGroup"));
+                	if(extras.getString("user").equalsIgnoreCase("CrearEvento"))
+                	  notificacionEvento(extras.getString("message"));
+                	else
+                      mostrarNotificacion(extras.getString("message"), extras.getString("user"), extras.getString("addGroup"));
                 }
         }
 
         GCMBroadcastReceiver.completeWakefulIntent(intent);
 	}
 
-	private void mostrarNotificacion(String mensaje, String usuario, String grupo) {
+	private void notificacionEvento(String datos) {
 		 NotificationManager notificador = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		 NotificationCompat.Builder notificacion =
+		            new NotificationCompat.Builder(this)
+		               .setSmallIcon(android.R.drawable.ic_dialog_email)
+		               .setContentTitle("Nuevo evento")
+		               .setVibrate(new long[] {100, 250, 100, 500})
+		               .setAutoCancel(true);
+		  
+		  String[] datosEvento = datos.split("-");
+		  String fechaHora = datosEvento[3] + " " + datosEvento[4];
+		  SimpleDateFormat formateoFechaHora = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		  Date formatoFecha = null;
+		  try {
+			formatoFecha = formateoFechaHora.parse(fechaHora);
+			Log.d("FECHA", formatoFecha.toString());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		  
+		  ContentResolver contentCalendario = getContentResolver();
+     	  ContentValues parametrosEvento = new ContentValues();
+     	  parametrosEvento.put(Events.TITLE, datosEvento[0]);
+     	  parametrosEvento.put(Events.DESCRIPTION, datosEvento[1]);
+     	  parametrosEvento.put(Events.EVENT_TIMEZONE, datosEvento[2]);
+     	  parametrosEvento.put(Events.DTSTART, formatoFecha.getTime());
+     	 parametrosEvento.put(Events.DTEND, formatoFecha.getTime());
+     	  parametrosEvento.put(Events.CALENDAR_ID, 1);
+     	  Uri uriEvento = contentCalendario.insert(Events.CONTENT_URI, parametrosEvento);	
+		 
+		 Intent actividadResultante =  new Intent(this, chatPrincipal.class);
+	     PendingIntent contIntent = PendingIntent.getActivity(this, 0, actividadResultante, PendingIntent.FLAG_UPDATE_CURRENT);
+	 
+	     notificacion.setContentIntent(contIntent);
+	 
+	     notificador.notify(1, notificacion.build());
+		
+	}
+
+	private void mostrarNotificacion(String mensaje, String usuario, String grupo) {
+	   NotificationManager notificador = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
        if(mensaje != null){
 		 if(mensaje.equalsIgnoreCase("Agregar")){
 			 NotificationCompat.Builder notificacion =
