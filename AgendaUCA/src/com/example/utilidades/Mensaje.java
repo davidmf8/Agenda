@@ -1,13 +1,14 @@
 package com.example.utilidades;
 
 public class Mensaje {
-    String mensaje, fecha;
+    String mensaje, fecha, autor;
     int tipo;
     
-    public Mensaje(String mensaje, String fecha, int tipo){
+    public Mensaje(String mensaje, String fecha, int tipo, String autor){
     	this.mensaje = mensaje;
     	this.fecha = fecha;
     	this.tipo = tipo;
+    	this.autor = autor;
     }    
     
 	public String getMensaje() {
@@ -20,6 +21,10 @@ public class Mensaje {
 
 	public int getTipo() {
 		return tipo;
+	}
+	
+	public String getAutor() {
+		return autor;
 	}
     
 }

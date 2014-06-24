@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import com.example.agendauca.R;
-import com.example.agendauca.R.color;
-import com.example.agendauca.R.drawable;
-import com.example.agendauca.R.id;
-import com.example.agendauca.R.layout;
 import com.example.persistencia.BDAcceso;
 import com.example.utilidades.Mensaje;
 
@@ -26,11 +22,13 @@ public class mensajeAdapter extends BaseAdapter{
 	private ArrayList<Mensaje> mensajesAMostrar;
 	private Date fechaActual;
 	private String compararFecha;
+	private int tipoChat;
 	
-	public mensajeAdapter(Context context, ArrayList<Mensaje> mensajes){
+	public mensajeAdapter(Context context, ArrayList<Mensaje> mensajes, int grupo){
 		super();
 		contextChat = context;
 		mensajesAMostrar = mensajes;
+		tipoChat = grupo;
 	}
 
 	@Override
@@ -65,8 +63,10 @@ public class mensajeAdapter extends BaseAdapter{
 			holder = (ViewHolder) convertView.getTag();
 		
 		String fechaMensaje = esFechaActual(mensaje.getFecha());
-		
-		holder.mensaje.setText(" " + mensaje.getMensaje() + " ");
+		if(tipoChat > 1 && !mensaje.getAutor().equalsIgnoreCase(""))
+			holder.mensaje.setText(" " + mensaje.getAutor() +":" + "\n" +" " + mensaje.getMensaje() + " ");
+		else
+			holder.mensaje.setText(" " + mensaje.getMensaje() + " ");
 		holder.hora.setText(fechaMensaje);
 		
 		LayoutParams lp = (LayoutParams) holder.mensaje.getLayoutParams();

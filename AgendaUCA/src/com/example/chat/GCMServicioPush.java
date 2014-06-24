@@ -154,10 +154,10 @@ public class GCMServicioPush extends IntentService{
 	        	BD.BDopen();
 	        	if(grupo != null){
 					if(!miUsuario.equalsIgnoreCase(usuario))
-	        		    BD.insertarMensaje(mensaje, grupo, 0);
+	        		    BD.insertarMensaje(mensaje, grupo, 0, usuario);
 	        	}
 	        	else	
-	        	    BD.insertarMensaje(mensaje, usuario, 0);
+	        	    BD.insertarMensaje(mensaje, usuario, 0, "");
 	        	BD.BDclose();
 	 
 	        	Intent actividadResultante =  new Intent(this, chatAmigo.class);

@@ -18,6 +18,7 @@ public class BDAcceso {
 	private static String KEY_MENSAJE = "mensaje";
 	private static String KEY_TIPO = "tipo";
 	private static String KEY_FECHA = "fecha";
+	private static String KEY_GRUPO = "autorgrupo";
 	private static String BASE_DATOS_MENSAJE = "MENSAJES";
 	private static String BASE_DATOS_USUARIO = "AMIGOS";
 	private static String NOMBRE_BD = "Amigos";
@@ -47,13 +48,14 @@ public class BDAcceso {
 		return resultado;
 	}
 	
-	public void insertarMensaje(String mensaje, String nombre, int tipo){
+	public void insertarMensaje(String mensaje, String nombre, int tipo, String grupo){
 		ContentValues datosMensaje = new ContentValues();
 		datosMensaje.put(KEY_MENSAJE, mensaje);
 		datosMensaje.put(KEY_NOMBRE, nombre);
 		datosMensaje.put(KEY_TIPO, tipo);
 		Date fechaActual = new Date();
 		datosMensaje.put(KEY_FECHA, fechaActual.toLocaleString());
+		datosMensaje.put(KEY_GRUPO, grupo);
         database.insert(BASE_DATOS_MENSAJE, null, datosMensaje);
 	}
 	
@@ -70,7 +72,7 @@ public class BDAcceso {
 	}
 	
 	public ArrayList<Mensaje> getMensajesUsuarioFechaActual(String nombre){
-		String mensaje, fecha;
+		String mensaje, fecha, autor;
 		int tipo;
 		Mensaje mensajes;
 		ArrayList<Mensaje> mensajesUsuario = new ArrayList<Mensaje>();
@@ -86,7 +88,8 @@ public class BDAcceso {
 				mensaje = cursor.getString(0);
 				tipo = cursor.getInt(2);
 				fecha = cursor.getString(3);
-				mensajes = new Mensaje(mensaje, fecha, tipo);
+				autor = cursor.getString(4);
+				mensajes = new Mensaje(mensaje, fecha, tipo, autor);
 		        mensajesUsuario.add(mensajes);
 		    } while(cursor.moveToNext());
 		}
@@ -100,7 +103,7 @@ public class BDAcceso {
 	}
 	
 	public ArrayList<Mensaje> getMensajesUsuario (String nombre){
-		String mensaje, fecha;
+		String mensaje, fecha, autor;
 		int tipo;
 		Mensaje mensajes;
 		ArrayList<Mensaje> mensajesUsuario = new ArrayList<Mensaje>();
@@ -111,7 +114,8 @@ public class BDAcceso {
 				mensaje = cursor.getString(0);
 				tipo = cursor.getInt(2);
 				fecha = cursor.getString(3);
-				mensajes = new Mensaje(mensaje, fecha, tipo);
+				autor = cursor.getString(4);
+				mensajes = new Mensaje(mensaje, fecha, tipo, autor);
 		        mensajesUsuario.add(mensajes);
 		    } while(cursor.moveToNext());
 		}
