@@ -2,9 +2,9 @@ package com.example.chat;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
+import com.example.agendauca.MenuInicial;
 import com.example.persistencia.BDAcceso;
 import com.example.utilidades.FuncionesUtiles;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -21,7 +21,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract.Events;
 import android.support.v4.app.NotificationCompat;
-import android.text.format.DateFormat;
 import android.util.Log;
 
 
@@ -84,13 +83,14 @@ public class GCMServicioPush extends IntentService{
      	  ContentValues parametrosEvento = new ContentValues();
      	  parametrosEvento.put(Events.TITLE, datosEvento[0]);
      	  parametrosEvento.put(Events.DESCRIPTION, datosEvento[1]);
-     	  parametrosEvento.put(Events.EVENT_TIMEZONE, datosEvento[2]);
+     	  parametrosEvento.put(Events.EVENT_LOCATION, datosEvento[2]);
+     	  parametrosEvento.put(Events.EVENT_TIMEZONE, "GTM-1");
      	  parametrosEvento.put(Events.DTSTART, formatoFecha.getTime());
-     	 parametrosEvento.put(Events.DTEND, formatoFecha.getTime());
+     	  parametrosEvento.put(Events.DTEND, formatoFecha.getTime());
      	  parametrosEvento.put(Events.CALENDAR_ID, 1);
      	  Uri uriEvento = contentCalendario.insert(Events.CONTENT_URI, parametrosEvento);	
 		 
-		 Intent actividadResultante =  new Intent(this, chatPrincipal.class);
+		 Intent actividadResultante =  new Intent(this, MenuInicial.class);
 	     PendingIntent contIntent = PendingIntent.getActivity(this, 0, actividadResultante, PendingIntent.FLAG_UPDATE_CURRENT);
 	 
 	     notificacion.setContentIntent(contIntent);

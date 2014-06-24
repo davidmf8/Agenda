@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.chat.chatAmigo;
@@ -12,9 +13,9 @@ import com.example.utilidades.FuncionesUtiles;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 public class EnviarMensajeAsynTask extends AsyncTask<Void,Boolean,Boolean>{
-
 	private HttpJsonObject peticionPostServidor = new HttpJsonObject();
 	private String mensaje;
 	private String usuario;
@@ -50,7 +51,19 @@ public class EnviarMensajeAsynTask extends AsyncTask<Void,Boolean,Boolean>{
           jdata = peticionPostServidor.getserverdata(nameValuePairs, FuncionesUtiles.getIPServer());
         }while(!FuncionesUtiles.existeConexion(context));
         
+        try {
+			if(jdata.getInt("success") == 200)
+				resultado = true;
+			else
+				resultado = false;
+		} catch (Exception e) {}
+        
 		return resultado;
+	}
+	
+	protected void onPostExecute(String result){
+		if(!resultado)
+			Toast.makeText(context, "Servidor no disponible", Toast.LENGTH_SHORT).show();
 	}
 
 

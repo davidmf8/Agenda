@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -14,7 +13,6 @@ import android.widget.Toast;
 
 import com.example.agendauca.R;
 import com.example.conexionesServidor.CrearEventoAsynTask;
-import com.example.conexionesServidor.EnviarMensajeAsynTask;
 
 public class creacionEvento extends Activity{
     EditText nombreEvento, descripcionEvento, lugarEvento, fechaEvento, horaEvento;
@@ -40,9 +38,10 @@ public class creacionEvento extends Activity{
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK){
 			Intent cambio_actividad = new Intent();
-		    cambio_actividad.setClass(getApplicationContext(), chatPrincipal.class);
+			cambio_actividad .putExtra("Nombre", nombreAmigo);
+			cambio_actividad.setClass(getApplicationContext(), chatAmigo.class);
 		    startActivity(cambio_actividad);
-			finish();
+		    finish();
 		}
 		return super.onKeyDown(keyCode, event);
 	}
@@ -70,6 +69,14 @@ public class creacionEvento extends Activity{
 		}
 		else
 			Toast.makeText(this, "Datos de evento incompleto", Toast.LENGTH_SHORT).show();
+	}
+
+	public void actualizacionEvento() {
+		Intent cambio_actividad = new Intent();
+		cambio_actividad .putExtra("Nombre", nombreAmigo);
+	    cambio_actividad.setClass(getApplicationContext(), chatAmigo.class);
+		startActivity(cambio_actividad);
+		finish();
 	}
 }
 

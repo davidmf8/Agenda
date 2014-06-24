@@ -5,28 +5,20 @@ import java.util.Calendar;
 
 import com.example.agendauca.MenuInicial;
 import com.example.agendauca.R;
-import com.example.agendauca.R.id;
-import com.example.agendauca.R.layout;
-import com.example.agendauca.R.menu;
-import com.example.chat.chatAmigo.recibirNotificacion;
 import com.example.utilidades.FuncionesUtiles;
-
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.DatePickerDialog;
-import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract.Events;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
@@ -282,7 +274,9 @@ public class ListarFicheros extends Activity{
 	        	parametrosEvento.put(Events.DTSTART, comienzoTiempo);
 	        	parametrosEvento.put(Events.DTEND, finTiempo);
 	        	parametrosEvento.put(Events.TITLE, "Fichero " + ficheroAgenda.getName() + " anotado");
-	        	parametrosEvento.put(Events.EVENT_TIMEZONE, "Universidad de Cádiz");
+	        	parametrosEvento.put(Events.EVENT_TIMEZONE, "GTM-1");
+	        	parametrosEvento.put(Events.ALL_DAY, 1);
+	        	parametrosEvento.put(Events.EVENT_LOCATION, "Universidad de Cádiz");
 	        	parametrosEvento.put(Events.DESCRIPTION, ficheroAgenda.getName() + " esta ligado al calendario");
 	        	parametrosEvento.put(Events.CALENDAR_ID, 1);
 	        	Uri uriEvento = contentCalendario.insert(Events.CONTENT_URI, parametrosEvento);	
