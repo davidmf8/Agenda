@@ -1,16 +1,25 @@
 package com.example.agendauca;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import com.example.agendauca.R;
 import com.example.chat.chatPrincipal;
+import com.example.conexionesServidor.descargarExamenesAsynTask;
 import com.example.ficheros.ListarFicheros;
 
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View; 
 import android.view.View.OnClickListener;
@@ -81,11 +90,14 @@ public class MenuInicial extends Activity implements OnClickListener{
 			   startActivity(intent);
 			   break;
 		   case R.id.Calificaciones:
+			   descargarExamenesAsynTask descargarExcel = new descargarExamenesAsynTask();
+			   descargarExcel.inicializarValores(getExternalFilesDir(null).getAbsolutePath(), this);
+			   descargarExcel.execute();
 			   break;
 		}
 		
 	}
-	
+
 	/*@Override
 	 public boolean onOptionsItemSelected(MenuItem item) {
 		Intent cambio_actividad = new Intent();
