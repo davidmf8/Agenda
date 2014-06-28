@@ -34,20 +34,19 @@ public class descargarExamenesAsynTask extends AsyncTask<Void, Void, Boolean>{
 		   FileOutputStream outputStream = new FileOutputStream(file);
 		   InputStream inputStream = conexion.getInputStream();
 
-		  // int tamanioFichero = conexion.getContentLength();
-		   //int estadoDescargaActual = 0;
+		   int tamanioFichero = conexion.getContentLength();
+		   int estadoDescargaActual = 0;
 		   byte[] buffer = new byte[1024];
 		   int longitudBuffer = 0; 
-		   while ( (longitudBuffer = inputStream.read(buffer)) > 0 ) {
+		   while((longitudBuffer = inputStream.read(buffer)) > 0 ){
 			   outputStream.write(buffer, 0, longitudBuffer);
-			   //estadoDescargaActual += longitudBuffer;
-			   //int progress=(int)(estadoDescargaActual*100/tamanioFichero);
+			   estadoDescargaActual += longitudBuffer;
+			   int progress=(int)(estadoDescargaActual*100/tamanioFichero);
 		  }
 		  outputStream.close();	
 		  Log.d("RUTA", file.getAbsolutePath());
-		}catch(Exception e){ return false;}
-		  
-		  return true;
+		}catch(Exception e){return false;}
+		return true;
 	}
 	
 	protected void onPostExecute(boolean result){
