@@ -120,8 +120,18 @@
           android:label="@string/app_name"
           android:noHistory="true">
         </activity>
-         <activity 
+        <activity 
           android:name="com.example.chat.creacionEvento"
+          android:label="@string/app_name"
+          android:noHistory="true">
+        </activity>
+        <activity 
+          android:name="com.example.examenes.listaGrados"
+          android:label="@string/app_name"
+          android:noHistory="true">
+        </activity>
+        <activity 
+          android:name="com.example.examenes.listaExamenes"
           android:label="@string/app_name"
           android:noHistory="true">
         </activity>

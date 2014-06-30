@@ -31,7 +31,7 @@ public class InsertarUsuarioAsynTask  extends AsyncTask<Void,Void,String>{
 		this.usuario = name;
 		this.activity = activity;
 		dialogCarga = new ProgressDialog(this.activity);
-        dialogCarga.setMessage("Loading...");
+        dialogCarga.setMessage("Cargando...");
         dialogCarga.setIndeterminate(false);
         dialogCarga.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialogCarga.setCancelable(true);

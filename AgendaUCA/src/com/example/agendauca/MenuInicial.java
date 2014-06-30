@@ -9,6 +9,7 @@ import java.net.URL;
 import com.example.agendauca.R;
 import com.example.chat.chatPrincipal;
 import com.example.conexionesServidor.descargarExamenesAsynTask;
+import com.example.examenes.listaGrados;
 import com.example.ficheros.ListarFicheros;
 
 import android.net.Uri;
@@ -90,9 +91,9 @@ public class MenuInicial extends Activity implements OnClickListener{
 			   startActivity(intent);
 			   break;
 		   case R.id.Calificaciones:
-			   descargarExamenesAsynTask descargarExcel = new descargarExamenesAsynTask();
-			   descargarExcel.inicializarValores(getExternalFilesDir(null).getAbsolutePath(), this);
-			   descargarExcel.execute();
+			   cambio_actividad.setClass(this, listaGrados.class);
+			   startActivity(cambio_actividad);
+			   finish();
 			   break;
 		}
 		

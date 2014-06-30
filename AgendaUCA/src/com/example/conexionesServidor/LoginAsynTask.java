@@ -33,7 +33,7 @@ public class LoginAsynTask extends AsyncTask<Void,Boolean,Boolean>{
 		//this.gcmcode = gcmcode;
 		this.mainActivity = main;
 		dialogCarga = new ProgressDialog(this.mainActivity);
-        dialogCarga.setMessage("Loading...");
+        dialogCarga.setMessage("Cargando...");
         dialogCarga.setIndeterminate(false);
         dialogCarga.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialogCarga.setCancelable(true);
