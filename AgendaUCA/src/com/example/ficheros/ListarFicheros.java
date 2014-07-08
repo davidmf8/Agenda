@@ -19,6 +19,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract.Events;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
@@ -112,11 +113,11 @@ public class ListarFicheros extends Activity{
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		  if (requestCode == 0){
-			Intent refrescar_lista = new Intent();
-			refrescar_lista.putExtra("Subdirectorio", rutaSubDirectorio);
-      		refrescar_lista.setClass(getApplicationContext(), ListarFicheros.class);
-      		startActivity(refrescar_lista);
-      		finish();
+			  Intent refrescar_lista = new Intent();
+			  refrescar_lista.putExtra("Subdirectorio", rutaSubDirectorio);
+      		  refrescar_lista.setClass(getApplicationContext(), ListarFicheros.class);
+      		  startActivity(refrescar_lista);
+      		  finish();
 		  }
 
 	}
@@ -163,6 +164,11 @@ public class ListarFicheros extends Activity{
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		System.out.println(keyCode);
+		if(keyCode == KeyEvent.KEYCODE_NOTIFICATION){
+			Log.d("Entra","entra");
+			finish();
+		}
 		if(keyCode == KeyEvent.KEYCODE_BACK){
 			int pos = rutaSubDirectorio.lastIndexOf("/");
 			String rutaAnterior = rutaSubDirectorio.substring(0, pos);
@@ -181,6 +187,7 @@ public class ListarFicheros extends Activity{
 			  finish();
 		    }
 		}
+		
 		return super.onKeyDown(keyCode, event);
 	}
 	
@@ -204,7 +211,7 @@ public class ListarFicheros extends Activity{
 	public boolean onContextItemSelected(MenuItem item) {
 		 AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		 Intent refrescar_lista = new Intent();
-	    switch (item.getItemId()) {
+	     switch (item.getItemId()) {
 	        case R.id.Renombrar:
 	        	renombrar(info.position);	
 	            return true;

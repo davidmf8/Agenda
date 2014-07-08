@@ -4,9 +4,6 @@ import java.util.ArrayList;
 
 import com.example.agendauca.MenuInicial;
 import com.example.agendauca.R;
-import com.example.agendauca.R.id;
-import com.example.agendauca.R.layout;
-import com.example.agendauca.R.menu;
 import com.example.conexionesServidor.InsertarUsuarioAsynTask;
 
 import android.app.Activity;
@@ -62,6 +59,7 @@ public class chatPrincipal extends Activity{
          	    String amigo = usuarioChat.replace(", ", "/");
          	    Log.d("Prueba", amigo);
 				cambio_actividad.putExtra("Nombre", amigo);
+				cambio_actividad.putExtra("cerrarActivity", true);
 				cambio_actividad.setClass(getApplicationContext(), chatAmigo.class);
 				startActivity(cambio_actividad);
 				finish();
@@ -98,6 +96,7 @@ public class chatPrincipal extends Activity{
 			startActivity(cambio_actividad);
 			finish();
 		}
+		
 		return false;
 	}
 	

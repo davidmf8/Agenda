@@ -1,25 +1,22 @@
 package com.example.chat;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.List;
 
 import com.example.agendauca.MenuInicial;
 import com.example.persistencia.BDAcceso;
 import com.example.utilidades.FuncionesUtiles;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningTaskInfo;
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ContentResolver;
-import android.content.ContentValues;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.CalendarContract.Events;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -36,7 +33,6 @@ public class GCMServicioPush extends IntentService{
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		GoogleCloudMessaging serverGCM = GoogleCloudMessaging.getInstance(this);
-		
 		SharedPreferences misPreferencias = this.getSharedPreferences(FuncionesUtiles.getPreferencias(), 0);
 		miUsuario = misPreferencias.getString(FuncionesUtiles.getUsuario(), "");
 		
@@ -69,7 +65,7 @@ public class GCMServicioPush extends IntentService{
 		               .setAutoCancel(true);
 		  
 		  String[] datosEvento = datos.split("-");
-		  String fechaHora = datosEvento[3] + " " + datosEvento[4];
+		  /*String fechaHora = datosEvento[3] + " " + datosEvento[4];
 		  SimpleDateFormat formateoFechaHora = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		  Date formatoFecha = null;
 		  try {
@@ -88,9 +84,10 @@ public class GCMServicioPush extends IntentService{
      	  parametrosEvento.put(Events.DTSTART, formatoFecha.getTime());
      	  parametrosEvento.put(Events.DTEND, formatoFecha.getTime());
      	  parametrosEvento.put(Events.CALENDAR_ID, 1);
-     	  Uri uriEvento = contentCalendario.insert(Events.CONTENT_URI, parametrosEvento);	
+     	  Uri uriEvento = contentCalendario.insert(Events.CONTENT_URI, parametrosEvento);*/	
 		 
 		 Intent actividadResultante =  new Intent(this, MenuInicial.class);
+		 actividadResultante.putExtra("datosEvento", datosEvento);
 	     PendingIntent contIntent = PendingIntent.getActivity(this, 0, actividadResultante, PendingIntent.FLAG_UPDATE_CURRENT);
 	 
 	     notificacion.setContentIntent(contIntent);
@@ -161,17 +158,20 @@ public class GCMServicioPush extends IntentService{
 	        	BD.BDclose();
 	 
 	        	Intent actividadResultante =  new Intent(this, chatAmigo.class);
+	        	ActivityManager am = (ActivityManager) this.getSystemService(ACTIVITY_SERVICE);
+	        	List<RunningTaskInfo> taskInfo = am.getRunningTasks(1);
+	            if(taskInfo.get(0).topActivity.getClassName().equalsIgnoreCase("com.example.chat.chatAmigo"));
+	        	  actividadResultante.putExtra("cerrarActivity", false);
+	        	
 	        	if(grupo != null)
 	        		actividadResultante.putExtra("Nombre", grupo);
 	        	else	
-	        	    actividadResultante.putExtra("Nombre", usuario);
-
+	        	    actividadResultante.putExtra("Nombre", usuario);   
 	        	PendingIntent contIntent = PendingIntent.getActivity(this, 0, actividadResultante, PendingIntent.FLAG_UPDATE_CURRENT);
 	 
 	        	notificacion.setContentIntent(contIntent);
-	            
 	        	//if(!miUsuario.equalsIgnoreCase(usuario))
-	        	    notificador.notify(1, notificacion.build());
+	        	notificador.notify(1, notificacion.build());
 	        	
 	        	sendBroadcast(notificadorChat);
 			 }

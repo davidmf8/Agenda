@@ -29,7 +29,7 @@ public class chatAmigo extends ListActivity{
 	private EditText texto;
 	private BDAcceso BD;
 	private EnviarMensajeAsynTask enviarMensaje;
-	private boolean historialActivo;
+	private boolean historialActivo, cerrarActivity;
 	private BroadcastReceiver broadcastReceiver;
 	
 	@Override
@@ -39,6 +39,7 @@ public class chatAmigo extends ListActivity{
 		
         Bundle datosAmigos = this.getIntent().getExtras();
         nombreAmigo = datosAmigos.getString("Nombre");
+        cerrarActivity= datosAmigos.getBoolean("cerrarActivity");
         grupo = nombreAmigo.split("/");
 		
         historialActivo = false;
@@ -110,11 +111,14 @@ public class chatAmigo extends ListActivity{
 	
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK){
-			Intent cambio_actividad = new Intent();
-		    cambio_actividad.setClass(getApplicationContext(), chatPrincipal.class);
-		    startActivity(cambio_actividad);
+			if(cerrarActivity){
+			   Intent cambio_actividad = new Intent();
+		       cambio_actividad.setClass(getApplicationContext(), chatPrincipal.class);
+		       startActivity(cambio_actividad);
+			}
 			finish();
 		}
+		
 		return super.onKeyDown(keyCode, event);
 	}
 	
@@ -158,13 +162,21 @@ public class chatAmigo extends ListActivity{
 			   Bundle extras = intent.getExtras();
 			   String origen =  extras.getString("user");
 			   String origenGrupo = extras.getString("addGroup");
-			   //if(origenGrupo == null){
+			  
+			   if(origenGrupo == null){
 			     if(origen.equalsIgnoreCase(nombreAmigo))// || (origenGrupo != null && origenGrupo.equalsIgnoreCase(nombreAmigo))){
 	                actualizarLista();
-			  /*}
-			   else
-				   if(origenGrupo.equalsIgnoreCase(nombreAmigo))
-					   actualizarLista();*/
+			  }
+			   else{
+				   Log.d("GRUPO",origenGrupo);
+				   Log.d("GRUPOMIO",nombreAmigo);
+				   if(origenGrupo.equalsIgnoreCase(nombreAmigo)){
+					   actualizarLista();
+					   Log.d("SI ENTRA",nombreAmigo);
+				   }
+				   else
+					   Log.d("NO ENTRA",nombreAmigo);
+			   }
 		}
 		
 	}

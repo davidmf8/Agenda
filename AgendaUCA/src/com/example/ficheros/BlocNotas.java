@@ -58,7 +58,14 @@ public class BlocNotas extends Activity{
 	
 	private void guardarNota(){
 		if(FuncionesUtiles.estadoEscritura()){ //Si se puede accedera memoria, se crea el fichero y la carpeta, si es necesario
-			  File dir = new File(ruta);
+			  File dir;
+			  if(ruta.equalsIgnoreCase(getExternalFilesDir(null).getAbsolutePath())){
+		         dir = new File(getExternalFilesDir(null).getAbsolutePath() + "/AgendaNotas");
+		         if(!dir.exists())
+		    	   dir.mkdir();
+			  }
+			  else
+			     dir = new File(ruta);
 			
 	          String horaLocal = new SimpleDateFormat("yyyMMdd_HHmmss", Locale.ROOT).format(new Date());
 	          String ruta_nota = dir.getAbsolutePath() + "/" + "NOTA_" + horaLocal + ".txt";

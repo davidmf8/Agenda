@@ -84,11 +84,18 @@ public class Audio extends Activity {
 	private String ficheroAudio() {
 		  //Creamos directorio AgendaAudio si no está creado, y se crea el archivo que almacenará el audio
 		if(FuncionesUtiles.estadoEscritura()){
-		  File dir = new File(ruta);
+			File dir;
+			if(ruta.equalsIgnoreCase(getExternalFilesDir(null).getAbsolutePath())){
+		       dir = new File(getExternalFilesDir(null).getAbsolutePath() + "/AgendaAudio");
+		       if(!dir.exists())
+		    	   dir.mkdir();
+			}
+			else
+			   dir = new File(ruta);
 		
-          String horaLocal = new SimpleDateFormat("yyyMMdd_HHmmss", Locale.ROOT).format(new Date());
-          String ruta_audio = dir.getAbsolutePath() + "/" + "AUD_" + horaLocal + ".3gp";
-		  return ruta_audio;
+            String horaLocal = new SimpleDateFormat("yyyMMdd_HHmmss", Locale.ROOT).format(new Date());
+            String ruta_audio = dir.getAbsolutePath() + "/" + "AUD_" + horaLocal + ".3gp";
+		    return ruta_audio;
 		}
 	    return ("Error");
 	}

@@ -75,11 +75,18 @@ public class Camara extends Activity{
 	private File ficheroFoto(String ruta) {
 		  //Creamos directorio Agenda foto si no está creado, y se crea el archivo que se necesita para almacenar la foto
 		if(FuncionesUtiles.estadoEscritura()){
-		  File dir = new File(ruta); 
+			File dir;
+			if(ruta.equalsIgnoreCase(getExternalFilesDir(null).getAbsolutePath())){
+		       dir = new File(getExternalFilesDir(null).getAbsolutePath() + "/AgendaFotos");
+		       if(!dir.exists())
+		    	   dir.mkdir();
+			}
+			else
+			   dir = new File(ruta);
 		  
-          String horaLocal = new SimpleDateFormat("yyyMMdd_HHmmss", Locale.ROOT).format(new Date());
-          File foto = new File(dir, "IMG_" + horaLocal + ".jpg");
-		  return foto;
+            String horaLocal = new SimpleDateFormat("yyyMMdd_HHmmss", Locale.ROOT).format(new Date());
+            File foto = new File(dir, "IMG_" + horaLocal + ".jpg");
+		    return foto;
 		}
 	    return new File("Error");
 	}

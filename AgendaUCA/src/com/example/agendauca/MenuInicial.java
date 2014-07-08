@@ -1,23 +1,24 @@
 package com.example.agendauca;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import com.example.agendauca.R;
 import com.example.chat.chatPrincipal;
-import com.example.conexionesServidor.descargarExamenesAsynTask;
 import com.example.examenes.listaGrados;
 import com.example.ficheros.ListarFicheros;
 
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
-import android.annotation.SuppressLint;
+import android.provider.CalendarContract.Events;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.util.Log;
@@ -37,6 +38,11 @@ public class MenuInicial extends Activity implements OnClickListener{
 		//Primera pantalla y los botones están a la escucha de una acción
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		Bundle datosExtras = this.getIntent().getExtras();
+		try{
+		  String[] datosEvento = datosExtras.getStringArray("datosEvento");
+		  alertaEvento(datosEvento);
+		}catch(Exception e){}		
 		
 		gestion_archivo = (ImageButton)findViewById(R.id.Directorios);
 		gestion_archivo.setOnClickListener(this);
@@ -53,6 +59,43 @@ public class MenuInicial extends Activity implements OnClickListener{
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	}
 	
+	private void alertaEvento(final String[] datosEvento) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("¿Deseas asistir a este nuevo evento?").setTitle("Nuevo evento:" + datosEvento[0])
+	        .setPositiveButton("Aceptar", new DialogInterface.OnClickListener()  {
+	               public void onClick(DialogInterface dialog, int id) {
+	            	  String fechaHora = datosEvento[3] + " " + datosEvento[4];
+	         		  SimpleDateFormat formateoFechaHora = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+	         		  Date formatoFecha = null;
+	         		  try {
+	         			formatoFecha = formateoFechaHora.parse(fechaHora);
+	         			Log.d("FECHA", formatoFecha.toString());
+	         		} catch (ParseException e) {
+	         			e.printStackTrace();
+	         		}
+	         		  
+	         		  ContentResolver contentCalendario = getContentResolver();
+	              	  ContentValues parametrosEvento = new ContentValues();
+	              	  parametrosEvento.put(Events.TITLE, datosEvento[0]);
+	              	  parametrosEvento.put(Events.DESCRIPTION, datosEvento[1]);
+	              	  parametrosEvento.put(Events.EVENT_LOCATION, datosEvento[2]);
+	              	  parametrosEvento.put(Events.EVENT_TIMEZONE, "GTM-1");
+	              	  parametrosEvento.put(Events.DTSTART, formatoFecha.getTime());
+	              	  parametrosEvento.put(Events.DTEND, formatoFecha.getTime());
+	              	  parametrosEvento.put(Events.CALENDAR_ID, 1);
+	              	  Uri uriEvento = contentCalendario.insert(Events.CONTENT_URI, parametrosEvento);
+	              }
+	         })
+	        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	                   
+	                   }
+	               });
+        builder.create();
+        builder.show();
+		
+	}
+
 	/*public void onStop(){
 		finish();
 		super.onStop();
@@ -87,8 +130,8 @@ public class MenuInicial extends Activity implements OnClickListener{
 			   Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
 			   builder.appendPath("time");
 			   ContentUris.appendId(builder, tiempo);
-			   Intent intent = new Intent(Intent.ACTION_VIEW).setData(builder.build());
-			   startActivity(intent);
+			   Intent calendario = new Intent(Intent.ACTION_VIEW).setData(builder.build());
+			   startActivity(calendario);
 			   break;
 		   case R.id.Calificaciones:
 			   cambio_actividad.setClass(this, listaGrados.class);

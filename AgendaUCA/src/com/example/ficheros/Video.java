@@ -68,11 +68,18 @@ public class Video extends Activity{
 	
 	private File ficheroVideo() { //Te crea el fichero de video con respondiente para grabar
 		if(FuncionesUtiles.estadoEscritura()){
-		  File dir = new File(ruta);
+			File dir;
+			if(ruta.equalsIgnoreCase(getExternalFilesDir(null).getAbsolutePath())){
+		       dir = new File(getExternalFilesDir(null).getAbsolutePath() + "/AgendaVideos");
+		       if(!dir.exists())
+		    	   dir.mkdir();
+			}
+			else
+			   dir = new File(ruta);
 		
-          String horaLocal = new SimpleDateFormat("yyyMMdd_HHmmss", Locale.ROOT).format(new Date());
-          File video = new File(dir, "VID_" + horaLocal + ".mp4");
-		  return video;
+            String horaLocal = new SimpleDateFormat("yyyMMdd_HHmmss", Locale.ROOT).format(new Date());
+            File video = new File(dir, "VID_" + horaLocal + ".mp4");
+		    return video;
 		}
 		
 		return new File("Error");
