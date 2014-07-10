@@ -3,8 +3,6 @@ package com.example.chat;
 import java.util.ArrayList;
 
 import com.example.agendauca.R;
-import com.example.agendauca.R.id;
-import com.example.agendauca.R.layout;
 import com.example.conexionesServidor.EnviarMensajeAsynTask;
 import com.example.utilidades.FuncionesUtiles;
 
@@ -70,8 +68,8 @@ public class creacionGrupo extends Activity{
 			}
 			SharedPreferences misPreferencias = getSharedPreferences(FuncionesUtiles.getPreferencias(), MODE_PRIVATE);
 			String miUsuario = misPreferencias.getString(FuncionesUtiles.getUsuario(), "");
-			miembrosGrupo = miembrosGrupo + "/" + miUsuario;
-			//Log.d("USERS", miembrosGrupo);
+			//miembrosGrupo = miembrosGrupo + "/" + miUsuario;
+			//Log.d("Usuarios", miembrosGrupo);
 			String mensaje = "NuevoGrupo";
 			EnviarMensajeAsynTask enviarMensaje = new EnviarMensajeAsynTask();
 			enviarMensaje.inicilizarValores(miembrosGrupo, mensaje, this, false);

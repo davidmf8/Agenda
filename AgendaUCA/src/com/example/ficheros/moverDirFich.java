@@ -4,8 +4,6 @@ import java.io.File;
 
 import com.example.agendauca.MenuInicial;
 import com.example.agendauca.R;
-import com.example.agendauca.R.id;
-import com.example.agendauca.R.layout;
 import com.example.utilidades.FuncionesUtiles;
 
 

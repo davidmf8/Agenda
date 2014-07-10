@@ -38,6 +38,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 //Lista los ficheros que hay dentro de los directorios principales
 public class ListarFicheros extends Activity{
+	private static final int TAG_OK = 1;
 	static int dirPrincipal = 0;
 	ListView miListaFicheros;
 	String[] datosFicheros;
@@ -112,7 +113,7 @@ public class ListarFicheros extends Activity{
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		  if (requestCode == 0){
+		  if (requestCode == TAG_OK){
 			  Intent refrescar_lista = new Intent();
 			  refrescar_lista.putExtra("Subdirectorio", rutaSubDirectorio);
       		  refrescar_lista.setClass(getApplicationContext(), ListarFicheros.class);
@@ -164,11 +165,6 @@ public class ListarFicheros extends Activity{
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		System.out.println(keyCode);
-		if(keyCode == KeyEvent.KEYCODE_NOTIFICATION){
-			Log.d("Entra","entra");
-			finish();
-		}
 		if(keyCode == KeyEvent.KEYCODE_BACK){
 			int pos = rutaSubDirectorio.lastIndexOf("/");
 			String rutaAnterior = rutaSubDirectorio.substring(0, pos);

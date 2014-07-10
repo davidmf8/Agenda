@@ -1,18 +1,13 @@
 package com.example.chat;
 
-import java.util.List;
-
 import com.example.agendauca.MenuInicial;
 import com.example.persistencia.BDAcceso;
 import com.example.utilidades.FuncionesUtiles;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
-import android.app.ActivityManager;
-import android.app.ActivityManager.RunningTaskInfo;
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -65,26 +60,6 @@ public class GCMServicioPush extends IntentService{
 		               .setAutoCancel(true);
 		  
 		  String[] datosEvento = datos.split("-");
-		  /*String fechaHora = datosEvento[3] + " " + datosEvento[4];
-		  SimpleDateFormat formateoFechaHora = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		  Date formatoFecha = null;
-		  try {
-			formatoFecha = formateoFechaHora.parse(fechaHora);
-			Log.d("FECHA", formatoFecha.toString());
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		  
-		  ContentResolver contentCalendario = getContentResolver();
-     	  ContentValues parametrosEvento = new ContentValues();
-     	  parametrosEvento.put(Events.TITLE, datosEvento[0]);
-     	  parametrosEvento.put(Events.DESCRIPTION, datosEvento[1]);
-     	  parametrosEvento.put(Events.EVENT_LOCATION, datosEvento[2]);
-     	  parametrosEvento.put(Events.EVENT_TIMEZONE, "GTM-1");
-     	  parametrosEvento.put(Events.DTSTART, formatoFecha.getTime());
-     	  parametrosEvento.put(Events.DTEND, formatoFecha.getTime());
-     	  parametrosEvento.put(Events.CALENDAR_ID, 1);
-     	  Uri uriEvento = contentCalendario.insert(Events.CONTENT_URI, parametrosEvento);*/	
 		 
 		 Intent actividadResultante =  new Intent(this, MenuInicial.class);
 		 actividadResultante.putExtra("datosEvento", datosEvento);
@@ -158,10 +133,7 @@ public class GCMServicioPush extends IntentService{
 	        	BD.BDclose();
 	 
 	        	Intent actividadResultante =  new Intent(this, chatAmigo.class);
-	        	ActivityManager am = (ActivityManager) this.getSystemService(ACTIVITY_SERVICE);
-	        	List<RunningTaskInfo> taskInfo = am.getRunningTasks(1);
-	            if(taskInfo.get(0).topActivity.getClassName().equalsIgnoreCase("com.example.chat.chatAmigo"));
-	        	  actividadResultante.putExtra("cerrarActivity", false);
+	        	//actividadResultante.putExtra("cerrarActivity", false);
 	        	
 	        	if(grupo != null)
 	        		actividadResultante.putExtra("Nombre", grupo);
@@ -170,8 +142,8 @@ public class GCMServicioPush extends IntentService{
 	        	PendingIntent contIntent = PendingIntent.getActivity(this, 0, actividadResultante, PendingIntent.FLAG_UPDATE_CURRENT);
 	 
 	        	notificacion.setContentIntent(contIntent);
-	        	//if(!miUsuario.equalsIgnoreCase(usuario))
-	        	notificador.notify(1, notificacion.build());
+	        	if(!miUsuario.equalsIgnoreCase(usuario))
+	        	  notificador.notify(1, notificacion.build());
 	        	
 	        	sendBroadcast(notificadorChat);
 			 }

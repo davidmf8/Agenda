@@ -6,8 +6,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract.Events;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -78,7 +82,6 @@ public class creacionEvento extends Activity{
 				enviarMensaje.execute();
 	
 			} catch (ParseException e) {
-				Log.d("Fecha u hora incorrecta. Inserte una fecha u hora válida", "ERROR");
 				Toast.makeText(this, "Fecha u hora incorrecta. Inserte una fecha u hora válida", Toast.LENGTH_SHORT).show();
 			}
 			
@@ -88,6 +91,23 @@ public class creacionEvento extends Activity{
 	}
 
 	public void actualizacionEvento() {
+		 SimpleDateFormat formateoFechaHora = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		  Date formatoFecha = null;
+		  try {
+			formatoFecha = formateoFechaHora.parse(fecha + " " + hora);
+			ContentResolver contentCalendario = getContentResolver();
+         	ContentValues parametrosEvento = new ContentValues();
+         	parametrosEvento.put(Events.TITLE, nombre);
+         	parametrosEvento.put(Events.DESCRIPTION, descripcion);
+         	parametrosEvento.put(Events.EVENT_LOCATION, lugar);
+         	parametrosEvento.put(Events.EVENT_TIMEZONE, "GTM-1");
+         	parametrosEvento.put(Events.DTSTART, formatoFecha.getTime());
+         	parametrosEvento.put(Events.DTEND, formatoFecha.getTime());
+         	parametrosEvento.put(Events.CALENDAR_ID, 1);
+         	Uri uriEvento = contentCalendario.insert(Events.CONTENT_URI, parametrosEvento);
+		}catch(ParseException e){
+			Toast.makeText(this, "No se ha podido añadir evento al calendario", Toast.LENGTH_SHORT).show();
+		}
 		Intent cambio_actividad = new Intent();
 		cambio_actividad .putExtra("Nombre", nombreAmigo);
 	    cambio_actividad.setClass(getApplicationContext(), chatAmigo.class);

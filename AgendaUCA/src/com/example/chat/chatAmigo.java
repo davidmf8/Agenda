@@ -29,7 +29,7 @@ public class chatAmigo extends ListActivity{
 	private EditText texto;
 	private BDAcceso BD;
 	private EnviarMensajeAsynTask enviarMensaje;
-	private boolean historialActivo, cerrarActivity;
+	private boolean historialActivo;
 	private BroadcastReceiver broadcastReceiver;
 	
 	@Override
@@ -39,7 +39,7 @@ public class chatAmigo extends ListActivity{
 		
         Bundle datosAmigos = this.getIntent().getExtras();
         nombreAmigo = datosAmigos.getString("Nombre");
-        cerrarActivity= datosAmigos.getBoolean("cerrarActivity");
+        //cerrarActivity= datosAmigos.getBoolean("cerrarActivity");
         grupo = nombreAmigo.split("/");
 		
         historialActivo = false;
@@ -111,11 +111,9 @@ public class chatAmigo extends ListActivity{
 	
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK){
-			if(cerrarActivity){
-			   Intent cambio_actividad = new Intent();
-		       cambio_actividad.setClass(getApplicationContext(), chatPrincipal.class);
-		       startActivity(cambio_actividad);
-			}
+			Intent cambio_actividad = new Intent();
+		    cambio_actividad.setClass(getApplicationContext(), chatPrincipal.class);
+		    startActivity(cambio_actividad);
 			finish();
 		}
 		

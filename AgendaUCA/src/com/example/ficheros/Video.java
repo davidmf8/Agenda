@@ -1,7 +1,6 @@
 package com.example.ficheros;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -16,7 +15,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
+
 import android.widget.Toast;
 
 //Clase para grabar video
@@ -44,6 +43,7 @@ public class Video extends Activity{
 		  fileUri = Uri.fromFile(miVideo);
 		  video.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 		  video.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
+		  video.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 		  startActivityForResult(video, CAPTURA_VIDEO);
 		}
 	}	
@@ -52,18 +52,18 @@ public class Video extends Activity{
 		   Intent cambio_actividad = new Intent();
 		   if (resultCode == RESULT_OK) {
 		        Toast.makeText(this, "Video guardado con éxito", Toast.LENGTH_SHORT).show();
-		        cambio_actividad.setClass(this, Video.class);
+		        /*cambio_actividad.setClass(this, Video.class);
 		        cambio_actividad.putExtra("CarpetaDestino",  ruta);
 			    startActivity(cambio_actividad);
-			    finish();
+			    finish();*/
 		    } 
-		    else if (resultCode == RESULT_CANCELED) {
+		    else if (resultCode != RESULT_CANCELED) {
 		    	Toast.makeText(this, "Cancelado", Toast.LENGTH_SHORT).show();
-		    	cambio_actividad.putExtra("Subdirectorio",  ruta);
-		    	cambio_actividad.setClass(this, ListarFicheros.class);
-		    	startActivity(cambio_actividad);
-		    	finish();
 		    } 
+		    cambio_actividad.putExtra("Subdirectorio",  ruta);
+	    	cambio_actividad.setClass(this, ListarFicheros.class);
+	    	startActivity(cambio_actividad);
+	    	finish();
     }
 	
 	private File ficheroVideo() { //Te crea el fichero de video con respondiente para grabar

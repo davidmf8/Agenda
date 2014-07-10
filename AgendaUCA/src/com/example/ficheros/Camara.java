@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import com.example.agendauca.MenuInicial;
 import com.example.utilidades.FuncionesUtiles;
 
 
@@ -39,6 +38,7 @@ public class Camara extends Activity{
 			Toast.makeText(this, "Memoria externa no disponible", Toast.LENGTH_SHORT).show();
 			Intent cambio_actividad = new Intent();
 			cambio_actividad.putExtra("Subdirectorio",  ruta);
+			cambio_actividad.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             cambio_actividad.setClass(this, ListarFicheros.class);
 	        startActivity(cambio_actividad);
 	        finish();
@@ -47,6 +47,8 @@ public class Camara extends Activity{
 			fileUri = Uri.fromFile(miFoto);
 			//Idicamos al intent de captura donde se guardará la foto en caso de confirmarlo
 		  	camara.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+		  	camara.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+		  	camara.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 		  	startActivityForResult(camara, IMAGEN_CAPTURADA );
 		}
 	}
@@ -57,18 +59,19 @@ public class Camara extends Activity{
 		  if (requestCode == IMAGEN_CAPTURADA) {
 		    if (resultCode == RESULT_OK) {
 		        Toast.makeText(this, "Foto guardada con éxito", Toast.LENGTH_SHORT).show();
-		        cambio_actividad.setClass(this, Camara.class);
+		        /*cambio_actividad.setClass(this, Camara.class);
 		        cambio_actividad.putExtra("CarpetaDestino",  ruta);
 			    startActivity(cambio_actividad);
-			    finish();
+			    finish();*/
 		    } 
 		    else{
-		      Toast.makeText(this, "Cancelado", Toast.LENGTH_SHORT).show();
-		  	  cambio_actividad.putExtra("Subdirectorio",  ruta);
+		      Toast.makeText(this, "No se ha podido almacenar la foto", Toast.LENGTH_SHORT).show();
+		    } 
+		      cambio_actividad.putExtra("Subdirectorio",  ruta);
               cambio_actividad.setClass(this, ListarFicheros.class);
+              cambio_actividad.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		      startActivity(cambio_actividad);
 		      finish();
-		    } 
 		  }
 	}
 	

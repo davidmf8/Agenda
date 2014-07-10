@@ -4,10 +4,9 @@ import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.chat.chatAmigo;
+import com.example.persistencia.BDAcceso;
 import com.example.utilidades.FuncionesUtiles;
 
 import android.content.Context;
@@ -61,7 +60,13 @@ public class EnviarMensajeAsynTask extends AsyncTask<Void,Boolean,Boolean>{
 		return resultado;
 	}
 	
-	protected void onPostExecute(String result){
+	protected void onPostExecute(Boolean result){
+		if(mensaje.equalsIgnoreCase("NuevoGrupo")){
+			 BDAcceso BD = new BDAcceso(context);
+		     BD = BD.BDopen();
+			 BD.insertarUsuario(usuario);
+			 BD.BDclose();
+		}
 		if(!resultado)
 			Toast.makeText(context, "Servidor no disponible", Toast.LENGTH_SHORT).show();
 	}

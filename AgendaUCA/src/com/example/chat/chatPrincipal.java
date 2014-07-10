@@ -59,7 +59,7 @@ public class chatPrincipal extends Activity{
          	    String amigo = usuarioChat.replace(", ", "/");
          	    Log.d("Prueba", amigo);
 				cambio_actividad.putExtra("Nombre", amigo);
-				cambio_actividad.putExtra("cerrarActivity", true);
+				//cambio_actividad.putExtra("cerrarActivity", true);
 				cambio_actividad.setClass(getApplicationContext(), chatAmigo.class);
 				startActivity(cambio_actividad);
 				finish();

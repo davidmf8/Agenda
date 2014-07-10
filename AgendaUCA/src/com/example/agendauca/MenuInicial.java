@@ -26,6 +26,7 @@ import android.view.KeyEvent;
 import android.view.View; 
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class MenuInicial extends Activity implements OnClickListener{
 	private ImageButton gestion_archivo;
@@ -69,21 +70,22 @@ public class MenuInicial extends Activity implements OnClickListener{
 	         		  Date formatoFecha = null;
 	         		  try {
 	         			formatoFecha = formateoFechaHora.parse(fechaHora);
+	         			ContentResolver contentCalendario = getContentResolver();
+		              	ContentValues parametrosEvento = new ContentValues();
+		              	parametrosEvento.put(Events.TITLE, datosEvento[0]);
+		              	parametrosEvento.put(Events.DESCRIPTION, datosEvento[1]);
+		              	parametrosEvento.put(Events.EVENT_LOCATION, datosEvento[2]);
+		              	parametrosEvento.put(Events.EVENT_TIMEZONE, "GTM-1");
+		              	parametrosEvento.put(Events.DTSTART, formatoFecha.getTime());
+		              	parametrosEvento.put(Events.DTEND, formatoFecha.getTime());
+		              	parametrosEvento.put(Events.CALENDAR_ID, 1);
+		              	Uri uriEvento = contentCalendario.insert(Events.CONTENT_URI, parametrosEvento);
 	         			Log.d("FECHA", formatoFecha.toString());
 	         		} catch (ParseException e) {
-	         			e.printStackTrace();
+	         			//Toast.makeText(this, "Datos de evento incompleto", Toast.LENGTH_SHORT).show();
 	         		}
 	         		  
-	         		  ContentResolver contentCalendario = getContentResolver();
-	              	  ContentValues parametrosEvento = new ContentValues();
-	              	  parametrosEvento.put(Events.TITLE, datosEvento[0]);
-	              	  parametrosEvento.put(Events.DESCRIPTION, datosEvento[1]);
-	              	  parametrosEvento.put(Events.EVENT_LOCATION, datosEvento[2]);
-	              	  parametrosEvento.put(Events.EVENT_TIMEZONE, "GTM-1");
-	              	  parametrosEvento.put(Events.DTSTART, formatoFecha.getTime());
-	              	  parametrosEvento.put(Events.DTEND, formatoFecha.getTime());
-	              	  parametrosEvento.put(Events.CALENDAR_ID, 1);
-	              	  Uri uriEvento = contentCalendario.insert(Events.CONTENT_URI, parametrosEvento);
+	         		  
 	              }
 	         })
 	        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
