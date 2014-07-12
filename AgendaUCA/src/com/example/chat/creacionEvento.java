@@ -66,20 +66,26 @@ public class creacionEvento extends Activity{
 			  Date formatoFecha = null;
 			  try {
 				formatoFecha = formateoFechaHora.parse(fecha + " " + hora);
+				Date fechaActual = formateoFechaHora.parse(new Date().toLocaleString());
+				Log.d("AHORA",fechaActual.toString());
 				Log.d("FECHA", formatoFecha.toString());
-				enviarMensaje = new CrearEventoAsynTask();
-				ArrayList<String> datosEvento = new ArrayList<String>();
-				datosEvento.add(nombre);
-				datosEvento.add(descripcion);
-				datosEvento.add(lugar);
-				datosEvento.add(fecha);
-				datosEvento.add(hora);
-				if(nombreAmigo.split("/").length == 1)
-				    enviarMensaje.inicilizarValores(nombreAmigo, datosEvento, this, true);
-				else{
-					enviarMensaje.inicilizarValores(nombreAmigo, datosEvento, this, false);
+				if(formatoFecha.after(fechaActual)){
+				    enviarMensaje = new CrearEventoAsynTask();
+				    ArrayList<String> datosEvento = new ArrayList<String>();
+				    datosEvento.add(nombre);
+				    datosEvento.add(descripcion);
+				    datosEvento.add(lugar);
+				    datosEvento.add(fecha);
+				    datosEvento.add(hora);
+				    if(nombreAmigo.split("/").length == 1)
+				        enviarMensaje.inicilizarValores(nombreAmigo, datosEvento, this, true);
+				    else{
+				    	enviarMensaje.inicilizarValores(nombreAmigo, datosEvento, this, false);
+				    }
+				    enviarMensaje.execute();
 				}
-				enviarMensaje.execute();
+				else
+					Toast.makeText(this, "Fecha de evento ya pasada", Toast.LENGTH_SHORT).show();
 	
 			} catch (ParseException e) {
 				Toast.makeText(this, "Fecha u hora incorrecta. Inserte una fecha u hora válida", Toast.LENGTH_SHORT).show();
