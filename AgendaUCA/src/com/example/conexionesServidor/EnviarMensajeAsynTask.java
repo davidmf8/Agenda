@@ -6,10 +6,13 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
+import com.example.chat.chatPrincipal;
 import com.example.persistencia.BDAcceso;
 import com.example.utilidades.FuncionesUtiles;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.widget.Toast;
@@ -21,6 +24,7 @@ public class EnviarMensajeAsynTask extends AsyncTask<Void,Boolean,Boolean>{
 	private boolean resultado, tag;
 	private Context context;
 	private SharedPreferences misPreferencias;
+	private ProgressDialog dialogCarga;
 	
 	//Inicializa las variables necesarias antes de ejecutar el hilo
 	public void inicilizarValores(String usuario, String mensaje, Context context, boolean tag){
@@ -28,6 +32,14 @@ public class EnviarMensajeAsynTask extends AsyncTask<Void,Boolean,Boolean>{
 		this.mensaje = mensaje;
 		this.context = context;
 		this.tag = tag;
+		if(mensaje.equalsIgnoreCase("NuevoGrupo")){
+			dialogCarga = new ProgressDialog(this.context);
+	        dialogCarga.setMessage("Cargando...");
+	        dialogCarga.setIndeterminate(false);
+	        dialogCarga.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+	        dialogCarga.setCancelable(true);
+	        dialogCarga.show();
+		}
 	}
 
 	//Ejecución del hilo. Se envia la petición al servidor y comprobamos, con JSONObject, si
@@ -61,13 +73,18 @@ public class EnviarMensajeAsynTask extends AsyncTask<Void,Boolean,Boolean>{
 	}
 	
 	protected void onPostExecute(Boolean result){
-		if(mensaje.equalsIgnoreCase("NuevoGrupo")){
+		if(resultado){
+		  if(mensaje.equalsIgnoreCase("NuevoGrupo")){
 			 BDAcceso BD = new BDAcceso(context);
 		     BD = BD.BDopen();
 			 BD.insertarUsuario(usuario);
 			 BD.BDclose();
+			 dialogCarga.dismiss();
+			 Toast.makeText(context, "Grupo creado correctamente", Toast.LENGTH_SHORT).show();
+			 context.startActivity(new Intent(context, chatPrincipal.class));
+		  }
 		}
-		if(!resultado)
+		  else
 			Toast.makeText(context, "Servidor no disponible", Toast.LENGTH_SHORT).show();
 	}
 
