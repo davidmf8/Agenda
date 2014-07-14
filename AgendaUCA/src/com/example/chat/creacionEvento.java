@@ -67,8 +67,8 @@ public class creacionEvento extends Activity{
 			  try {
 				formatoFecha = formateoFechaHora.parse(fecha + " " + hora);
 				Date fechaActual = formateoFechaHora.parse(new Date().toLocaleString());
-				Log.d("AHORA",fechaActual.toString());
-				Log.d("FECHA", formatoFecha.toString());
+				//Log.d("AHORA",fechaActual.toString());
+				//Log.d("FECHA", formatoFecha.toString());
 				if(formatoFecha.after(fechaActual)){
 				    enviarMensaje = new CrearEventoAsynTask();
 				    ArrayList<String> datosEvento = new ArrayList<String>();

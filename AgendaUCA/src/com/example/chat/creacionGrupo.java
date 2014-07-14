@@ -9,7 +9,6 @@ import com.example.utilidades.FuncionesUtiles;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -85,7 +84,7 @@ public class creacionGrupo extends Activity{
 			}
 			SharedPreferences misPreferencias = getSharedPreferences(FuncionesUtiles.getPreferencias(), MODE_PRIVATE);
 			String miUsuario = misPreferencias.getString(FuncionesUtiles.getUsuario(), "");
-			//miembrosGrupo = miembrosGrupo + "/" + miUsuario;
+			miembrosGrupo = miembrosGrupo + "/" + miUsuario;
 			//Log.d("Usuarios", miembrosGrupo);
 			String mensaje = "NuevoGrupo";
 			EnviarMensajeAsynTask enviarMensaje = new EnviarMensajeAsynTask();

@@ -111,8 +111,9 @@ public class GCMServicioPush extends IntentService{
 			     PendingIntent contIntent = PendingIntent.getActivity(this, 0, actividadResultante, PendingIntent.FLAG_UPDATE_CURRENT);
 			 
 			     notificacion.setContentIntent(contIntent);
-			 
-			     notificador.notify(1, notificacion.build());
+			     
+			     if(!miUsuario.equalsIgnoreCase(usuario))
+			        notificador.notify(1, notificacion.build());
 			 }
 			 else{
 				 NotificationCompat.Builder notificacion =

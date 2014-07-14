@@ -8,6 +8,7 @@ import com.example.persistencia.BDAcceso;
 import com.example.utilidades.Mensaje;
 
 import android.app.ListActivity;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -162,18 +163,23 @@ public class chatAmigo extends ListActivity{
 			   String origenGrupo = extras.getString("addGroup");
 			  
 			   if(origenGrupo == null){
-			     if(origen.equalsIgnoreCase(nombreAmigo))// || (origenGrupo != null && origenGrupo.equalsIgnoreCase(nombreAmigo))){
+			     if(origen.equalsIgnoreCase(nombreAmigo)){// || (origenGrupo != null && origenGrupo.equalsIgnoreCase(nombreAmigo))){
 	                actualizarLista();
+	                NotificationManager notificacionesActuales = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+	                notificacionesActuales.cancel(1);
+			     }
 			  }
 			   else{
 				   Log.d("GRUPO",origenGrupo);
 				   Log.d("GRUPOMIO",nombreAmigo);
 				   if(origenGrupo.equalsIgnoreCase(nombreAmigo)){
 					   actualizarLista();
-					   Log.d("SI ENTRA",nombreAmigo);
+					   NotificationManager notificacionesActuales = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		               notificacionesActuales.cancel(1);
+					   //Log.d("SI ENTRA",nombreAmigo);
 				   }
-				   else
-					   Log.d("NO ENTRA",nombreAmigo);
+				  // else
+					   //Log.d("NO ENTRA",nombreAmigo);
 			   }
 		}
 		

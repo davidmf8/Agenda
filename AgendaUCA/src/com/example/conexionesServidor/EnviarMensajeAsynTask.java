@@ -87,6 +87,4 @@ public class EnviarMensajeAsynTask extends AsyncTask<Void,Boolean,Boolean>{
 		  else
 			Toast.makeText(context, "Servidor no disponible", Toast.LENGTH_SHORT).show();
 	}
-
-
 }
