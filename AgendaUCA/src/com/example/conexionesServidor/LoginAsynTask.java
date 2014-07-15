@@ -53,8 +53,8 @@ public class LoginAsynTask extends AsyncTask<Void,Boolean,Boolean>{
 			  } catch (IOException e) {}
         }
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-        nameValuePairs.add(new BasicNameValuePair("tag","registrarUsuario"));
-        nameValuePairs.add(new BasicNameValuePair("username", usuario));
+        nameValuePairs.add(new BasicNameValuePair(FuncionesUtiles.TAG,"registrarUsuario"));
+        nameValuePairs.add(new BasicNameValuePair(FuncionesUtiles.USERNAME, usuario));
         nameValuePairs.add(new BasicNameValuePair("gcmcode", gcmcode));
         JSONObject jdata = peticionPostServidor.getserverdata(nameValuePairs, FuncionesUtiles.getIPServer());
         if (jdata != null && jdata.length() > 0){

@@ -52,10 +52,10 @@ public class EnviarMensajeAsynTask extends AsyncTask<Void,Boolean,Boolean>{
         else
         	nameValuePairs.add(new BasicNameValuePair(FuncionesUtiles.TAG,"notificacionPushGrupo"));
         nameValuePairs.add(new BasicNameValuePair(FuncionesUtiles.USERNAME, usuario));
-        nameValuePairs.add(new BasicNameValuePair("message", mensaje));
+        nameValuePairs.add(new BasicNameValuePair(FuncionesUtiles.MENSAJE, mensaje));
         misPreferencias = context.getSharedPreferences(FuncionesUtiles.getPreferencias(), context.MODE_PRIVATE);
-		String user = misPreferencias.getString(FuncionesUtiles.getUsuario(), "");
-        nameValuePairs.add(new BasicNameValuePair("usersend", user));
+		String miUsuario = misPreferencias.getString(FuncionesUtiles.getUsuario(), "");
+        nameValuePairs.add(new BasicNameValuePair(FuncionesUtiles.AUTOR, miUsuario));
         JSONObject jdata;
         
         do{

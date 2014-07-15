@@ -47,7 +47,7 @@ public class InsertarUsuarioAsynTask  extends AsyncTask<Void,Void,String>{
         nameValuePairs.add(new BasicNameValuePair(FuncionesUtiles.USERNAME, usuario));
         misPreferencias = activity.getSharedPreferences(FuncionesUtiles.getPreferencias(), activity.MODE_PRIVATE);
         String miUsuario = misPreferencias.getString(FuncionesUtiles.getUsuario(), "");
-        nameValuePairs.add(new BasicNameValuePair("myUser", miUsuario));
+        nameValuePairs.add(new BasicNameValuePair("miUsuario", miUsuario));
         JSONObject jdata = peticionPostServidor.getserverdata(nameValuePairs, FuncionesUtiles.getIPServer());
         if (jdata != null && jdata.length() > 0){
 			try {

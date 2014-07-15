@@ -160,7 +160,7 @@ public class chatAmigo extends ListActivity{
 		public void onReceive(Context context, Intent intent) {
 			   Bundle extras = intent.getExtras();
 			   String origen =  extras.getString("user");
-			   String origenGrupo = extras.getString("addGroup");
+			   String origenGrupo = extras.getString("grupo");
 			  
 			   if(origenGrupo == null){
 			     if(origen.equalsIgnoreCase(nombreAmigo)){// || (origenGrupo != null && origenGrupo.equalsIgnoreCase(nombreAmigo))){
@@ -170,8 +170,8 @@ public class chatAmigo extends ListActivity{
 			     }
 			  }
 			   else{
-				   Log.d("GRUPO",origenGrupo);
-				   Log.d("GRUPOMIO",nombreAmigo);
+				   //Log.d("GRUPO",origenGrupo);
+				   //Log.d("GRUPOMIO",nombreAmigo);
 				   if(origenGrupo.equalsIgnoreCase(nombreAmigo)){
 					   actualizarLista();
 					   NotificationManager notificacionesActuales = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

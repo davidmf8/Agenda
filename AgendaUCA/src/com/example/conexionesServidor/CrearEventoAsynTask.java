@@ -51,8 +51,8 @@ public class CrearEventoAsynTask extends AsyncTask<Void,Void,Boolean>{
         else
         	nameValuePairs.add(new BasicNameValuePair(FuncionesUtiles.TAG,"notificacionPushGrupo"));
         nameValuePairs.add(new BasicNameValuePair(FuncionesUtiles.USERNAME, usuario));
-        nameValuePairs.add(new BasicNameValuePair("message", mensaje));
-        nameValuePairs.add(new BasicNameValuePair("usersend", "CrearEvento"));
+        nameValuePairs.add(new BasicNameValuePair(FuncionesUtiles.MENSAJE, mensaje));
+        nameValuePairs.add(new BasicNameValuePair(FuncionesUtiles.AUTOR, "CrearEvento"));
         JSONObject jdata;
         
         do{

@@ -12,8 +12,10 @@ public class FuncionesUtiles {
    private static String usuario = "usuario";
    private static String gcm = "gcm";
    public static final String TAG = "tag";
-   public static final String USERNAME = "username";
+   public static final String MENSAJE = "mensaje";
+   public static final String USERNAME = "nombreUsuario";
    public static final String GCM = "gcm";
+   public static final String AUTOR = "autorUsuario";
 
    public static boolean estadoEscritura(){ //Funcion que devuelve si la memoria está preparada para escritura
 	   String estado = Environment.getExternalStorageState();

@@ -37,13 +37,13 @@ public class GCMServicioPush extends IntentService{
         if (!extras.isEmpty()){
                 if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(tipoMensaje)){
                 	notificadorChat = new Intent("ActualizarLista");
-                	notificadorChat.putExtra("message", extras.getString("message"));
+                	//notificadorChat.putExtra("message", extras.getString("mensaje"));
                 	notificadorChat.putExtra("user", extras.getString("user"));
-                	notificadorChat.putExtra("addGroup", extras.getString("addGroup"));
+                	notificadorChat.putExtra("grupo", extras.getString("nuevoGrupo"));
                 	if(extras.getString("user").equalsIgnoreCase("CrearEvento"))
-                	  notificacionEvento(extras.getString("message"));
+                	  notificacionEvento(extras.getString("mensaje"));
                 	else
-                      mostrarNotificacion(extras.getString("message"), extras.getString("user"), extras.getString("addGroup"));
+                      mostrarNotificacion(extras.getString("mensaje"), extras.getString("user"), extras.getString("nuevoGrupo"));
                 }
         }
 
