@@ -87,7 +87,7 @@ public class GCMServicioPush extends IntentService{
 			 BD.insertarUsuario(usuario);
 			 BD.BDclose();
 			 Intent actividadResultante =  new Intent(this, chatPrincipal.class);
-		     PendingIntent contIntent = PendingIntent.getActivity(this, 0, actividadResultante, PendingIntent.FLAG_UPDATE_CURRENT);
+		     PendingIntent contIntent = PendingIntent.getActivity(this, 0, actividadResultante, Intent.FLAG_ACTIVITY_NEW_TASK);
 		 
 		     notificacion.setContentIntent(contIntent);
 		 
@@ -108,7 +108,7 @@ public class GCMServicioPush extends IntentService{
 				 BD.BDclose();
 				 
 				 Intent actividadResultante =  new Intent(this, chatPrincipal.class);
-			     PendingIntent contIntent = PendingIntent.getActivity(this, 0, actividadResultante, PendingIntent.FLAG_UPDATE_CURRENT);
+			     PendingIntent contIntent = PendingIntent.getActivity(this, 0, actividadResultante, Intent.FLAG_ACTIVITY_NEW_TASK);
 			 
 			     notificacion.setContentIntent(contIntent);
 			     
@@ -126,11 +126,15 @@ public class GCMServicioPush extends IntentService{
 	        	BD = new BDAcceso(this.getApplicationContext());
 	        	BD.BDopen();
 	        	if(grupo != null){
-					if(!miUsuario.equalsIgnoreCase(usuario))
+					if(!miUsuario.equalsIgnoreCase(usuario)){
 	        		    BD.insertarMensaje(mensaje, grupo, 0, usuario);
+	        		    BD.setNuevoMensaje(true, grupo);
+					}
 	        	}
-	        	else	
+	        	else{	
 	        	    BD.insertarMensaje(mensaje, usuario, 0, "");
+	        	    BD.setNuevoMensaje(true, usuario);
+	        	}
 	        	BD.BDclose();
 	 
 	        	Intent actividadResultante =  new Intent(this, chatAmigo.class);
@@ -140,7 +144,7 @@ public class GCMServicioPush extends IntentService{
 	        		actividadResultante.putExtra("Nombre", grupo);
 	        	else	
 	        	    actividadResultante.putExtra("Nombre", usuario);   
-	        	PendingIntent contIntent = PendingIntent.getActivity(this, 0, actividadResultante, PendingIntent.FLAG_UPDATE_CURRENT);
+	        	PendingIntent contIntent = PendingIntent.getActivity(this, 0, actividadResultante, Intent.FLAG_ACTIVITY_NEW_TASK);
 	 
 	        	notificacion.setContentIntent(contIntent);
 	        	if(!miUsuario.equalsIgnoreCase(usuario))

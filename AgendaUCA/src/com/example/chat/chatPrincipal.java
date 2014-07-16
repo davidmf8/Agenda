@@ -31,6 +31,7 @@ public class chatPrincipal extends Activity{
 	private ArrayList<String> amigos;
 	private ListView miListaAmigos;
 	private EditText nuevoAmigo;
+	private listaAmigosAdapter adapterLista;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,9 @@ public class chatPrincipal extends Activity{
 		
 		listadoAmigos();
 		miListaAmigos = (ListView)findViewById(R.id.ListaAmigos);
-        miListaAmigos.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, amigos));
+		adapterLista = new listaAmigosAdapter(this);
+		miListaAmigos.setAdapter(adapterLista);
+        //miListaAmigos.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, amigos));
         //Para borrar un usuario
         miListaAmigos.setOnItemLongClickListener(new OnItemLongClickListener(){
 			public boolean onItemLongClick(AdapterView<?> adapter, View view,

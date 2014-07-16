@@ -10,7 +10,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
-import android.util.Log;
 
 //BDAcceso se encarga de eliminaciones, consultas e inserciones en la base de datos
 public class BDAcceso {
@@ -22,6 +21,7 @@ public class BDAcceso {
 	private static String BASE_DATOS_MENSAJE = "MENSAJES";
 	private static String BASE_DATOS_USUARIO = "AMIGOS";
 	private static String NOMBRE_BD = "Amigos";
+	private static String KEY_NUEVO_MENSAJE = "nuevoMensaje";
 	private static int version = 1;
 	private Context context;
 	private SQLiteDatabase database;
@@ -44,8 +44,34 @@ public class BDAcceso {
 	public long insertarUsuario(String nombre){ //Inserta un nuevo usuario en la base de datos
 		ContentValues datosUsuario = new ContentValues();
 		datosUsuario.put(KEY_NOMBRE, nombre);
+		datosUsuario.put(KEY_NUEVO_MENSAJE, 0);
 		long resultado = database.insert(BASE_DATOS_USUARIO, null, datosUsuario);
 		return resultado;
+	}
+	
+	public boolean isNuevoMensaje(String nombre){
+		String sql = "SELECT * FROM AMIGOS WHERE nombre='"+nombre+"'";
+		Cursor cursor = database.rawQuery(sql, null);
+		if(cursor.moveToFirst()){
+			if(cursor.getInt(1) == 0)
+				return false;
+			else
+				return true;
+		}
+		return false;
+	}
+	
+	public void setNuevoMensaje(boolean nuevoMensaje, String nombre){
+		int actualizarNuevoMensaje;
+		if(nuevoMensaje)
+			actualizarNuevoMensaje = 1;
+		else
+			actualizarNuevoMensaje = 0;
+		
+		/*ContentValues actualizarDatos = new ContentValues();
+		actualizarDatos.put(KEY_NUEVO_MENSAJE, actualizarNuevoMensaje);
+		database.update(BASE_DATOS_USUARIO, actualizarDatos, "nombre="+nombre, null);*/
+		database.execSQL("UPDATE AMIGOS SET nuevoMensaje="+actualizarNuevoMensaje + " WHERE nombre='"+nombre+"'");
 	}
 	
 	public void insertarMensaje(String mensaje, String nombre, int tipo, String grupo){
@@ -66,6 +92,7 @@ public class BDAcceso {
 		if(cursor.moveToFirst()){
 			do {
 		          usuarios.add(cursor.getString(0));
+		          System.out.println(cursor.getString(0) + cursor.getInt(1));
 		     } while(cursor.moveToNext());
 		}
 		return usuarios;

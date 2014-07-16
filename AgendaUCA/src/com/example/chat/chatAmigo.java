@@ -46,17 +46,18 @@ public class chatAmigo extends ListActivity{
         historialActivo = false;
 		texto = (EditText)this.findViewById(R.id.conversacion);
 		
-		if(grupo.length > 1){
-			this.setTitle("Grupo: " + nombreAmigo.replace("/", ", "));
-		}
-		else
-		    this.setTitle(nombreAmigo);
-		
 		mensajesChat = new ArrayList<Mensaje>();
 		BD = new BDAcceso(this);
 		BD.BDopen();
 		mensajesChat = BD.getMensajesUsuarioFechaActual(nombreAmigo);
+		BD.setNuevoMensaje(false, nombreAmigo);
 		BD.BDclose();
+		
+		if(grupo.length > 1){
+			this.setTitle("Grupo: " + nombreAmigo.replace("/", ", "));
+		}
+		else
+		    this.setTitle(nombreAmigo);	
 		
 		adapterLista = new mensajeAdapter(this, mensajesChat, grupo.length);
 		this.setListAdapter(adapterLista);
