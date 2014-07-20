@@ -36,7 +36,7 @@ public class MenuInicial extends Activity implements OnClickListener{
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		//Primera pantalla y los botones están a la escucha de una acción
+		//Carga del menu principal con las opciones principales: ficheros, chat, calendario y examenes
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		Bundle datosExtras = this.getIntent().getExtras();
@@ -60,6 +60,7 @@ public class MenuInicial extends Activity implements OnClickListener{
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	}
 	
+	//Si llega un evento, se abrirá el menú principal, con un dialog para aceptar o rechazar el evento.
 	private void alertaEvento(final String[] datosEvento) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("¿Deseas asistir a este nuevo evento?").setTitle("Nuevo evento:" + datosEvento[0])
@@ -113,7 +114,7 @@ public class MenuInicial extends Activity implements OnClickListener{
 
 	@Override
 	public void onClick(View v) {
-		//Dependiendo del boton que se pulse, nos llevará a una funcionalidad u otra: ver directorios, eventos, calificaciones y notificaciones
+		//Dependiendo del boton que se pulse, nos llevará a una funcionalidad u otra: ver directorios, calendario, examenes y notificaciones
 		Intent cambio_actividad = new Intent();
 		switch(v.getId()){
 		   case R.id.Directorios:
@@ -169,6 +170,8 @@ public class MenuInicial extends Activity implements OnClickListener{
 	  return false;
 	 }*/
 	
+	
+	//Boton atrás
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK){

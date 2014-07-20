@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+//Adapter para la lista de amigos. Cuando existan mensajes nuevos sin leer, se pondrá en negrita
 public class listaAmigosAdapter extends BaseAdapter{
 	private Context context;
 	private ArrayList<String> amigos;

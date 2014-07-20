@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
+//Recibe los Broadcast y lo sderiva al servicio GCMServicioPush para su tratamiento.
 public class GCMBroadcastReceiver extends WakefulBroadcastReceiver{
 
 	@Override

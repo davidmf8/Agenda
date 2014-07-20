@@ -156,6 +156,7 @@ public class chatAmigo extends ListActivity{
 		}	
 	}
 	
+	//Broadcast receiber para mantener actualizada la consersacion en caso de que el usuario este en ella.
 	public class recibirNotificacion extends BroadcastReceiver{
 		@Override
 		public void onReceive(Context context, Intent intent) {

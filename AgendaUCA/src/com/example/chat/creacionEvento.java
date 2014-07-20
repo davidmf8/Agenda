@@ -22,6 +22,8 @@ import android.widget.Toast;
 import com.example.agendauca.R;
 import com.example.conexionesServidor.CrearEventoAsynTask;
 
+
+//Activity con formulario para crear un evento: nombre, descripcion, lugar, fecha y hora.
 public class creacionEvento extends Activity{
     EditText nombreEvento, descripcionEvento, lugarEvento, fechaEvento, horaEvento;
 	String nombreAmigo, nombre, descripcion, lugar, fecha, hora;
@@ -43,6 +45,7 @@ public class creacionEvento extends Activity{
 		
 	}
 	
+	//Boton atras
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK){
 			Intent cambio_actividad = new Intent();
@@ -54,17 +57,19 @@ public class creacionEvento extends Activity{
 		return super.onKeyDown(keyCode, event);
 	}
 	
+	//Se envia el evento al usuario o usuarios del chat elegido.
 	public void onClick(View v){
 		nombre = nombreEvento.getText().toString();
 		descripcion = descripcionEvento.getText().toString();
 		lugar = lugarEvento.getText().toString();
 		fecha = fechaEvento.getText().toString();
 		hora = horaEvento.getText().toString();
+		//Ningun campo debe quedar vacio
 		if(nombre.length() != 0 && descripcion.length() != 0 && lugar.length() != 0 && fecha.length() != 0 && hora.length() != 0){
 			  SimpleDateFormat formateoFechaHora = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 			  formateoFechaHora.setLenient(false);
 			  Date formatoFecha = null;
-			  try {
+			  try { //se controla el formato de fecha y hora, así como si es válida.
 				formatoFecha = formateoFechaHora.parse(fecha + " " + hora);
 				Date fechaActual = formateoFechaHora.parse(new Date().toLocaleString());
 				//Log.d("AHORA",fechaActual.toString());
@@ -97,6 +102,7 @@ public class creacionEvento extends Activity{
 	}
 
 	public void actualizacionEvento() {
+		//Al terrminar de enviar el evento, se actualiza el dispositivo con el nuevo evento creado
 		 SimpleDateFormat formateoFechaHora = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		  Date formatoFecha = null;
 		  try {

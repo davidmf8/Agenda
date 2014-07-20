@@ -17,6 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
 
+//Adapter para la visualizacion de los mensajes: fecha hora y autor.
 public class mensajeAdapter extends BaseAdapter{
 	private Context contextChat;
 	private ArrayList<Mensaje> mensajesAMostrar;
@@ -50,17 +51,17 @@ public class mensajeAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Mensaje mensaje = mensajesAMostrar.get(position);
-		ViewHolder holder; 
+		ViewMensaje holder; 
 		if(convertView == null)
 		{
-			holder = new ViewHolder();
+			holder = new ViewMensaje();
 			convertView = LayoutInflater.from(contextChat).inflate(R.layout.sms_row, parent, false);
 			holder.mensaje = (TextView) convertView.findViewById(R.id.texto_mensaje);
 			holder.hora = (TextView) convertView.findViewById(R.id.text2);
 			convertView.setTag(holder);
 		}
 		else
-			holder = (ViewHolder) convertView.getTag();
+			holder = (ViewMensaje) convertView.getTag();
 		
 		String fechaMensaje = esFechaActual(mensaje.getFecha());
 		if(tipoChat > 1 && !mensaje.getAutor().equalsIgnoreCase(""))
@@ -102,11 +103,12 @@ public class mensajeAdapter extends BaseAdapter{
 		}
 	}
 	
-	private static class ViewHolder{
+	private static class ViewMensaje{
 		TextView mensaje;
 		TextView hora;
 	}
 	
+	//Si esta activada la opcion de historial, se mostraran todos los mensajes.
 	public void mostrarHistorial(String nombreAmigo){
 		BDAcceso BD = new BDAcceso(contextChat);
 		BD.BDopen();
@@ -114,6 +116,7 @@ public class mensajeAdapter extends BaseAdapter{
 		BD.BDclose();
 	}
 	
+	//Actualiza los mensajes con los nuevos enviados y/o recibidos
 	public void actualizarAdapter(String nombreAmigo){
 		BDAcceso BD = new BDAcceso(contextChat);
 		BD.BDopen();

@@ -44,6 +44,8 @@ public class MainActivity extends Activity implements OnClickListener{
 		}
 	}
 	
+	//Ver si el usuario ya esta registrado, almacenado en preferencias de laaplicación.
+	//Si lo esta, carga el menu principal
 	private void comprobarPreferencias() {
 		misPreferencias = getSharedPreferences(FuncionesUtiles.getPreferencias(), MODE_PRIVATE);
 		String user = misPreferencias.getString(FuncionesUtiles.getUsuario(), "");
@@ -54,10 +56,12 @@ public class MainActivity extends Activity implements OnClickListener{
 		    finish();
 		}
 	}
+	
+	
 
 	@Override
 	public void onClick(View v) {
-		if(v.getId() == R.id.Login){ //Lanzo un asyncTask con la peticion de registro.
+		if(v.getId() == R.id.Login){ //Lanzo un asyncTask con la peticion de registro al pulsar el boton.
 			name = usuario.getText().toString();
 			
 			if(!name.equals("")){
@@ -75,6 +79,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		}	
 	}
 	
+	//Comprobar servidoresde google, para su posterior registro
 	public boolean comprobarServiciosGoogle(){
 		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
         if (resultCode != ConnectionResult.SUCCESS) {

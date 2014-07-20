@@ -25,7 +25,9 @@ public class creacionGrupo extends Activity{
 	private String miembrosGrupo;
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) { 
+		//Activity que muestra una lista con los usuarios que se pueden seleccionar
+		//para crear un grupo de personas
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_seleccion_grupo);
 		
@@ -54,6 +56,7 @@ public class creacionGrupo extends Activity{
 	   });
 	}
 	
+	//Se descartan los grupos, para que no puedan ser seleccionados
 	private void eliminarGrupos() {
 		String amigoActual;
 		for(int i = 0; i < amigos.size(); i++){
@@ -66,6 +69,7 @@ public class creacionGrupo extends Activity{
 		}
 	}
 
+	//Boton atras
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK){
 			Intent cambio_actividad = new Intent();
@@ -76,6 +80,7 @@ public class creacionGrupo extends Activity{
 		return super.onKeyDown(keyCode, event);
 	}
 	
+	//Envia a los demás usuario  que se ha añadido a un nuevo grupo
 	public void onClick(View v){
 		if(amigosSeleccionados.size() > 1){
 			miembrosGrupo = amigosSeleccionados.get(0);
@@ -84,7 +89,7 @@ public class creacionGrupo extends Activity{
 			}
 			SharedPreferences misPreferencias = getSharedPreferences(FuncionesUtiles.getPreferencias(), MODE_PRIVATE);
 			String miUsuario = misPreferencias.getString(FuncionesUtiles.getUsuario(), "");
-			miembrosGrupo = miembrosGrupo + "/" + miUsuario;
+			miembrosGrupo = miembrosGrupo + "/" + miUsuario; //Añadimos nuestro propio usuario para completar el grupo
 			//Log.d("Usuarios", miembrosGrupo);
 			String mensaje = "NuevoGrupo";
 			EnviarMensajeAsynTask enviarMensaje = new EnviarMensajeAsynTask();
@@ -95,6 +100,7 @@ public class creacionGrupo extends Activity{
 			Toast.makeText(this, "Seleccione 2 o más usuarios", Toast.LENGTH_SHORT).show();
 	}
 	
+	//Devuelve si un elemento de la listadeamigos ha sido seleccionado o no
 	private boolean isSeleccionado(String nombreSeleccionado) {
 		return amigosSeleccionados.contains(nombreSeleccionado);
 	}
