@@ -2,55 +2,66 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/fondoprincipal"
+    android:background="@drawable/menu"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingRight="@dimen/activity_vertical_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MenuInicial" >
 
-    <ImageButton
-        android:id="@+id/Notificacion"
-        style="?android:attr/borderlessButtonStyle"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="21dp"
-        android:layout_toRightOf="@+id/Directorios"
-        android:onClick="onClick"
-        android:src="@drawable/miniamiguetes" />
-
-    <ImageButton
-        android:id="@+id/Evento"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Notificacion"
-        android:layout_marginTop="70dp"
-        android:layout_toLeftOf="@+id/Notificacion"
-        android:onClick="onClick"
-        android:src="@drawable/minicalendar" />
-
-    <ImageButton
-        android:id="@+id/Directorios"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/Notificacion"
-        android:layout_marginBottom="68dp"
-        android:layout_marginLeft="20dp"
-        android:layout_toRightOf="@+id/Calificaciones"
-        android:onClick="onClick"
-        android:src="@drawable/minicarpeta" />
-
-    <ImageButton
-        android:id="@+id/Calificaciones"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/Evento"
+        android:layout_above="@+id/linearLayout1"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="22dp"
-        android:onClick="onClick"
-        android:src="@drawable/miniexams" />
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/Directorios"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:onClick="onClick"
+            android:src="@drawable/archivos" />
+
+        <ImageButton
+            android:id="@+id/Evento"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:onClick="onClick"
+            android:src="@drawable/calendario" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="112dp"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/Notificacion"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="onClick"
+            android:src="@drawable/contactos" />
+
+        <ImageButton
+            android:id="@+id/Calificaciones"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:onClick="onClick"
+            android:src="@drawable/examen" />
+    </LinearLayout>
 
 </RelativeLayout>

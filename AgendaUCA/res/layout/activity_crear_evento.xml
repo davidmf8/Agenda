@@ -1,121 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="Nombre del evento:" />
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+       android:id="@+id/scrollView1"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content" >
 
-        <EditText
-            android:id="@+id/nombreEvento"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.75"
-            android:ems="10"
-            android:hint="Nombre" />
+	<LinearLayout 
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="vertical" >
 
-    </LinearLayout>
+    	<LinearLayout
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="vertical" >
+
+        	<TextView
+           		android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:text="Nombre del evento:" />
+
+        	<EditText
+            	android:id="@+id/nombreEvento"
+            	android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:ems="10"
+            	android:hint="Nombre" >
+        	</EditText>
+    	</LinearLayout>
     
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+    	<LinearLayout
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="vertical" >
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="Descripción del evento:" />
+        	<TextView
+            	android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:text="Descripción del evento:" />
 
-        <EditText
-            android:id="@+id/descripcionEvento"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.54"
-            android:ems="10"
-            android:hint="Descripción" />
+        	<EditText
+            	android:id="@+id/descripcionEvento"
+            	android:layout_height="wrap_content"
+            	android:layout_width="wrap_content"
+            	android:ems="10"
+            	android:hint="Descripción" />
 
-    </LinearLayout>
+    	</LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+    	<LinearLayout
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="vertical" >
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.60"
-            android:text="Lugar del evento:" />
+        	<TextView
+            	android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:text="Lugar del evento:" />
 
-        <EditText
-            android:id="@+id/lugarEvento"
-            android:layout_width="196dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Lugar" />
+        	<EditText
+            	android:id="@+id/lugarEvento"
+            	android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:ems="10"
+            	android:hint="Lugar" />
 
-    </LinearLayout>
+    	</LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+    	<LinearLayout
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="vertical" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fecha del evento:" />
+        	<TextView
+            	android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:text="Fecha del evento:" />
 
-        <EditText
-            android:id="@+id/fechaEvento"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="1/1/2000"
-            android:inputType="date" >
+        	<EditText
+            	android:id="@+id/fechaEvento"
+            	android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:ems="10"
+            	android:hint="1/1/2000"
+            	android:inputType="date" />
 
-        </EditText>
+    	</LinearLayout>
 
-    </LinearLayout>
+    	<LinearLayout
+        	android:layout_width="fill_parent"
+        	android:layout_height="71dp"
+        	android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        	<TextView
+            	android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:text="Hora del evento:" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.25"
-            android:text="Hora del evento:" />
+        	<EditText
+            	android:id="@+id/horaEvento"
+            	android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:ems="10"
+            	android:hint="0:00"
+            	android:inputType="time" />
 
-        <EditText
-            android:id="@+id/horaEvento"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="0:00"
-            android:inputType="time" />
+    	</LinearLayout>
 
-    </LinearLayout>
+    	<Button
+        	android:id="@+id/crearEvento"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_gravity="center_horizontal"
+        	android:text="Crear evento" 
+        	android:onClick="onClick"/>
 
-    <Button
-        android:id="@+id/crearEvento"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Crear evento" 
-        android:onClick="onClick"/>
-
-</LinearLayout>
+	</LinearLayout>
+</ScrollView>
