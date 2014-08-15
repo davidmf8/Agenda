@@ -29,7 +29,7 @@
     
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/icono"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         
@@ -49,7 +49,8 @@
              <category android:name="com.example.agendauca" />
           </intent-filter>
         </receiver>
-  
+        
+        <service android:name="com.example.conexionesServidor.descargaFicheroService"/>
         <service android:name="com.example.chat.GCMServicioPush" />  
         
         <meta-data android:name="com.google.android.gms.version"
@@ -70,6 +71,11 @@
         <activity 
           android:name="com.example.ficheros.ListarFicheros"
           android:label="@string/app_name">
+        </activity>
+        <activity 
+          android:name="com.example.ficheros.compartirFicheroAmigo"
+          android:label="@string/app_name"
+          android:noHistory="true">
         </activity>
         <activity 
           android:name="com.example.ficheros.BlocNotas"

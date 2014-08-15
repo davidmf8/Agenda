@@ -48,12 +48,17 @@ public class BlocNotas extends Activity{
 	}
 	
 	public void onClick(View v) { //Cuando se pulsa guardar
-		guardarNota(); //Se guarda la nota y se carga el menu inicial
-		Intent cambio_actividad = new Intent();
-		cambio_actividad.putExtra("Subdirectorio",  ruta);
-        cambio_actividad.setClass(this, ListarFicheros.class);
-        startActivity(cambio_actividad);
-        finish();
+		String text = texto.getText().toString();
+		if(text.length() > 0){
+		  guardarNota(); //Se guarda la nota y se carga el menu inicial
+		  Intent cambio_actividad = new Intent();
+		  cambio_actividad.putExtra("Subdirectorio",  ruta);
+          cambio_actividad.setClass(this, ListarFicheros.class);
+          startActivity(cambio_actividad);
+          finish();
+		}
+		else
+			Toast.makeText(this, "Nota vacía", Toast.LENGTH_SHORT).show();
 	}
 	
 	private void guardarNota(){

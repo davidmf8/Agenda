@@ -62,10 +62,10 @@ public class ListarFicheros extends Activity{
 		  registerForContextMenu(miListaFicheros);
 		  miListaFicheros.setOnItemClickListener(new OnItemClickListener(){
 				public void onItemClick(AdapterView<?> adapter, View view, int posicion, long id) {
-					if(datosFicheros[posicion] == "Crear directorio..."){ //Si se ha elegido crear directorio, se muestra un editText para introducir su nombre
+					/*if(datosFicheros[posicion] == "Crear directorio..."){ //Si se ha elegido crear directorio, se muestra un editText para introducir su nombre
 						crearCarpeta();
 					}
-					else{
+					else{*/
 					  if(ficheros[posicion].isDirectory()){
 						  Intent cambio_actividad = new Intent();
 						  cambio_actividad.putExtra("Subdirectorio", ficheros[posicion].getAbsolutePath());
@@ -98,7 +98,7 @@ public class ListarFicheros extends Activity{
 							startActivity(mostrarTipoFichero);
 						}
 					  }
-					}
+					//}
 
 				}
 		   });
@@ -155,6 +155,9 @@ public class ListarFicheros extends Activity{
 	        	 cambio_actividad.putExtra("CarpetaDestino",  rutaSubDirectorio);
 				 startActivity(cambio_actividad);
 	        	 break;
+	         case R.id.NuevaCarpeta:
+	        	 crearCarpeta();
+	        	 break;
 	     } 
 	  return false;
 	 }
@@ -189,11 +192,11 @@ public class ListarFicheros extends Activity{
 	
 	private void ficherosDir(File dir) {
 		  ficheros = dir.listFiles();
-		  datosFicheros = new String[ficheros.length+1];
+		  datosFicheros = new String[ficheros.length];
 		  for(int i = 0; i < ficheros.length; i++){
 			  datosFicheros[i] = ficheros[i].getName();
 		  }
-		  datosFicheros[ficheros.length] = "Crear directorio...";
+		  //datosFicheros[ficheros.length] = "Crear directorio...";
 	}
 
 	@Override
@@ -243,6 +246,14 @@ public class ListarFicheros extends Activity{
 	        	return true;
 	        case R.id.AgregarCal:
                 mostrarDialogFecha(info.position, this);
+	        	return true;
+	        case R.id.Compartir:
+	        	Intent compartirActivity = new Intent();
+	        	compartirActivity.putExtra("Fichero", ficheros[info.position].getAbsolutePath());
+	        	compartirActivity.putExtra("Subdirectorio", rutaSubDirectorio);
+	        	compartirActivity.setClass(getApplicationContext(), compartirFicheroAmigo.class);
+				startActivity(compartirActivity);
+				finish();
 	        	return true;
 	        default:
 	            return super.onContextItemSelected(item);

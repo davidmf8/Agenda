@@ -21,19 +21,6 @@
         android:background="@drawable/titulo_bar"
         android:gravity="center" >
 
-       <!--   <EditText
-            android:id="@+id/nombreGrupo"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_margin="5sp"
-            android:layout_weight="1"
-            android:background="@drawable/estilo_edittext"
-            android:hint="Nombre del grupo..."
-            android:padding="5sp"
-            android:textColor="@color/textFieldColor" >
-
-        </EditText> -->
-
         <Button
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"

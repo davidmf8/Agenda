@@ -8,4 +8,6 @@
           android:title="Mover" />
     <item android:id="@+id/AgregarCal"
           android:title="Agregar al calendario" />
+    <item android:id="@+id/Compartir"
+          android:title="Compartir" />
 </menu>

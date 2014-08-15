@@ -1,6 +1,7 @@
 package com.example.chat;
 
 import com.example.agendauca.MenuInicial;
+import com.example.conexionesServidor.descargaFicheroService;
 import com.example.persistencia.BDAcceso;
 import com.example.utilidades.FuncionesUtiles;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -19,7 +20,7 @@ import android.util.Log;
 public class GCMServicioPush extends IntentService{
 	private BDAcceso BD;
 	private Intent notificadorChat;
-	String miUsuario;
+	private String miUsuario;
 
 	public GCMServicioPush() {
 		super("GCMServicioPush");
@@ -43,11 +44,30 @@ public class GCMServicioPush extends IntentService{
                 	if(extras.getString("user").equalsIgnoreCase("CrearEvento"))
                 	  notificacionEvento(extras.getString("mensaje"));
                 	else
-                      mostrarNotificacion(extras.getString("mensaje"), extras.getString("user"), extras.getString("nuevoGrupo"));
+                		if(extras.getString("mensaje").contains("http://prubauca.esy.es/descargas"))
+                				notificacionFichero(extras.getString("mensaje"));
+                		else	
+                           mostrarNotificacion(extras.getString("mensaje"), extras.getString("user"), extras.getString("nuevoGrupo"));
                 }
         }
 
         GCMBroadcastReceiver.completeWakefulIntent(intent);
+	}
+
+	private void notificacionFichero(String mensajeDescarga) {
+		 NotificationManager notificador = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		 NotificationCompat.Builder notificacion =
+		            new NotificationCompat.Builder(this)
+		               .setSmallIcon(android.R.drawable.ic_dialog_email)
+		               .setContentTitle("Nuevo fichero recibido")
+		               .setVibrate(new long[] {100, 250, 100, 500})
+		               .setAutoCancel(true);
+		 
+		 Intent intent = new Intent(this, descargaFicheroService.class);
+		 intent.putExtra("ruta", mensajeDescarga);
+		 startService(intent);
+	 
+	     notificador.notify(1, notificacion.build());
 	}
 
 	private void notificacionEvento(String datos) {

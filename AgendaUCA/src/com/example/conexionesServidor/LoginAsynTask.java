@@ -36,7 +36,7 @@ public class LoginAsynTask extends AsyncTask<Void,Boolean,Boolean>{
         dialogCarga.setMessage("Cargando...");
         dialogCarga.setIndeterminate(false);
         dialogCarga.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialogCarga.setCancelable(true);
+        dialogCarga.setCancelable(false);
         dialogCarga.show();
 	}
 
@@ -51,28 +51,29 @@ public class LoginAsynTask extends AsyncTask<Void,Boolean,Boolean>{
 				gcmcode = serverGCM.register(FuncionesUtiles.getSenderID());
 				Log.d("GCM", gcmcode);
 			  } catch (IOException e) {}
-        }
-        ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-        nameValuePairs.add(new BasicNameValuePair(FuncionesUtiles.TAG,"registrarUsuario"));
-        nameValuePairs.add(new BasicNameValuePair(FuncionesUtiles.USERNAME, usuario));
-        nameValuePairs.add(new BasicNameValuePair("gcmcode", gcmcode));
-        JSONObject jdata = peticionPostServidor.getserverdata(nameValuePairs, FuncionesUtiles.getIPServer());
-        if (jdata != null && jdata.length() > 0){
-			try {
-				int comprobacion = jdata.getInt("success"); //Accedemos al valor 
-				if(comprobacion == 1)
-					resultado = true;			
-				else
-					resultado = false;
-
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}		
-        }
-        dialogCarga.dismiss();
-        mainActivity.validacion(resultado);
         
-		return resultado;
+			  ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+			  nameValuePairs.add(new BasicNameValuePair(FuncionesUtiles.TAG,"registrarUsuario"));
+			  nameValuePairs.add(new BasicNameValuePair(FuncionesUtiles.USERNAME, usuario));
+			  nameValuePairs.add(new BasicNameValuePair("gcmcode", gcmcode));
+			  JSONObject jdata = peticionPostServidor.getserverdata(nameValuePairs, FuncionesUtiles.getIPServer());
+			  if (jdata != null && jdata.length() > 0){
+				  try {
+					  int comprobacion = jdata.getInt("success"); //Accedemos al valor 
+					  if(comprobacion == 1)
+						  resultado = true;			
+					  else
+						  resultado = false;
+
+				  } catch (JSONException e) {}		
+			  }
+			  dialogCarga.dismiss();
+			  mainActivity.validacion(resultado);
+        
+			  return resultado;
+        }
+        else
+        	return false;
 	}
 	
 	

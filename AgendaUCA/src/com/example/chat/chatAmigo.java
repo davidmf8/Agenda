@@ -134,7 +134,6 @@ public class chatAmigo extends ListActivity{
 			if(grupo.length == 1)
 			    enviarMensaje.inicilizarValores(nombreAmigo, mensaje, this, true);
 			else{
-				//Grupo = nombreAmigo.replace(miUsuario, "");
 				Log.d("GRUPO", nombreAmigo);
 				enviarMensaje.inicilizarValores(nombreAmigo, mensaje, this, false);
 			}

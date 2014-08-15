@@ -31,7 +31,7 @@ public class descargarExamenesAsynTask extends AsyncTask<Void, Void, Boolean>{
         dialogCarga.setMessage("Cargando...");
         dialogCarga.setIndeterminate(false);
         dialogCarga.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialogCarga.setCancelable(true);
+        dialogCarga.setCancelable(false);
         dialogCarga.show();
 	}
 

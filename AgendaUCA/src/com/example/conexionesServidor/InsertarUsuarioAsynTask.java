@@ -34,7 +34,7 @@ public class InsertarUsuarioAsynTask  extends AsyncTask<Void,Void,String>{
         dialogCarga.setMessage("Cargando...");
         dialogCarga.setIndeterminate(false);
         dialogCarga.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialogCarga.setCancelable(true);
+        dialogCarga.setCancelable(false);
         dialogCarga.show();
 	}
 
