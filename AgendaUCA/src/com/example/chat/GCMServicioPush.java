@@ -2,6 +2,7 @@ package com.example.chat;
 
 import com.example.agendauca.MenuInicial;
 import com.example.conexionesServidor.descargaFicheroService;
+import com.example.ficheros.ListarFicheros;
 import com.example.persistencia.BDAcceso;
 import com.example.utilidades.FuncionesUtiles;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -66,6 +67,12 @@ public class GCMServicioPush extends IntentService{
 		 Intent intent = new Intent(this, descargaFicheroService.class);
 		 intent.putExtra("ruta", mensajeDescarga);
 		 startService(intent);
+		   
+		 Intent actividadResultante =  new Intent(this, ListarFicheros.class);
+	     actividadResultante.putExtra("Subdirectorio", getExternalFilesDir(null).getAbsolutePath());
+		 PendingIntent contIntent = PendingIntent.getActivity(this, 0, actividadResultante, PendingIntent.FLAG_UPDATE_CURRENT);
+		 
+		 notificacion.setContentIntent(contIntent);
 	 
 	     notificador.notify(1, notificacion.build());
 	}

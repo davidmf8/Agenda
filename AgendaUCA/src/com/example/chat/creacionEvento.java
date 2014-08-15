@@ -3,9 +3,14 @@ package com.example.chat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -15,7 +20,10 @@ import android.provider.CalendarContract.Events;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 
@@ -28,6 +36,9 @@ public class creacionEvento extends Activity{
     EditText nombreEvento, descripcionEvento, lugarEvento, fechaEvento, horaEvento;
 	String nombreAmigo, nombre, descripcion, lugar, fecha, hora;
 	CrearEventoAsynTask enviarMensaje;
+	DatePickerDialog.OnDateSetListener fechaPicker;
+	Calendar calendarioActual;
+	OnTimeSetListener horaPicker;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +54,61 @@ public class creacionEvento extends Activity{
 		fechaEvento = (EditText)this.findViewById(R.id.fechaEvento);
 		horaEvento = (EditText)this.findViewById(R.id.horaEvento);
 		
+		calendarioActual = Calendar.getInstance();
+		
+		horaPicker = new TimePickerDialog.OnTimeSetListener() {
+			@Override
+			public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+				 calendarioActual.set(hourOfDay, Calendar.HOUR);
+	             calendarioActual.set(minute, Calendar.MINUTE);
+	             actualizarEditTextHora();
+			}
+
+			private void actualizarEditTextHora() {
+				String formato = "HH:mm";
+			    SimpleDateFormat formatoFinal = new SimpleDateFormat(formato);
+			    horaEvento.setText(formatoFinal.format(calendarioActual.getTime()));
+			}
+ 
+         };
+         
+         horaEvento.setOnClickListener(new OnClickListener() {
+ 	        public void onClick(View v) {
+ 	        	Calendar calendarioActual = Calendar.getInstance();
+ 				new TimePickerDialog(creacionEvento.this, horaPicker, calendarioActual.get(Calendar.HOUR_OF_DAY),
+ 	                    calendarioActual.get(Calendar.MINUTE), true).show();
+ 	        }
+ 	    });
+		
+		fechaPicker = new DatePickerDialog.OnDateSetListener() {
+		    @Override
+		    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+		    	calendarioActual.set(Calendar.YEAR, year);
+		    	calendarioActual.set(Calendar.MONTH, monthOfYear);
+		    	calendarioActual.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+		    	actualizarEditTextFecha();
+		    }
+
+			private void actualizarEditTextFecha() {
+				String formato = "dd/MM/yyyy";
+			    SimpleDateFormat formatoFinal = new SimpleDateFormat(formato);
+			    fechaEvento.setText(formatoFinal.format(calendarioActual.getTime()));
+			}
+
+
+		};
+		
+		fechaEvento.setOnClickListener(new OnClickListener() {
+	        public void onClick(View v) {
+	        	Calendar calendarioActual = Calendar.getInstance();
+				new DatePickerDialog(creacionEvento.this, fechaPicker, calendarioActual.get(Calendar.YEAR),
+						calendarioActual.get(Calendar.MONTH),
+	                    calendarioActual.get(Calendar.DAY_OF_MONTH)).show();
+	        }
+	    });
+		
 	}
+
 	
 	//Boton atras
 	public boolean onKeyDown(int keyCode, KeyEvent event) {

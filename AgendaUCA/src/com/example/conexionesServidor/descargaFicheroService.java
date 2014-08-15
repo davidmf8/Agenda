@@ -30,18 +30,15 @@ public class descargaFicheroService extends IntentService {
 			conexion.connect();
 
 			if(FuncionesUtiles.estadoEscritura()){
-				File dir = new File(getExternalFilesDir(null).getAbsolutePath() + "/DescargasAgenda");
-			    if(!dir.exists())
-			    	dir.mkdir();
+				File dir = new File(getExternalFilesDir(null).getAbsolutePath());
 			
-			    String ruta = dir.getAbsolutePath() + "/" + tipoFichero;
-			    fichero = new File(ruta);
+			    fichero = new File(dir, tipoFichero);
 
 			    FileOutputStream outputStream = new FileOutputStream(fichero);
 			    InputStream inputStream = conexion.getInputStream();
 			    byte[] buffer = new byte[1024];
 			    int longitudBuffer = 0; 
-			    while((longitudBuffer = inputStream.read(buffer)) > 0 )
+			    while((longitudBuffer = inputStream.read(buffer)) > 0)
 				   outputStream.write(buffer, 0, longitudBuffer);
 			    outputStream.close();
 			}
