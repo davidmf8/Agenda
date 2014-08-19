@@ -82,7 +82,7 @@ public class Audio extends Activity {
 	}
 
 	private String ficheroAudio() {
-		  //Creamos directorio AgendaAudio si no está creado, y se crea el archivo que almacenará el audio
+		 //Creamos directorio AgendaAudio si no está creado, y se crea el archivo que almacenará el audio
 		if(FuncionesUtiles.estadoEscritura()){
 			File dir;
 			if(ruta.equalsIgnoreCase(getExternalFilesDir(null).getAbsolutePath())){

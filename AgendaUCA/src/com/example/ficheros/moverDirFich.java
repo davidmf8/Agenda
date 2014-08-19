@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
+//Clase para mover un fichero o directorio
 public class moverDirFich extends Activity{
 	static int profundidadDir = 0;
 	String rutaSubDirectorio;

@@ -42,7 +42,7 @@ public class CrearEventoAsynTask extends AsyncTask<Void,Void,Boolean>{
 	}
 
 	//Ejecución del hilo. Se envia la petición al servidor y comprobamos, con JSONObject, si
-	//se ha realizado el registro correctamente
+	//se ha enviado correctamente el evento
 	@Override
 	protected Boolean doInBackground(Void... params) { 
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();

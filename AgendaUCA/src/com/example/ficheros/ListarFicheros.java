@@ -111,7 +111,7 @@ public class ListarFicheros extends Activity{
 	        finish();
 		}
 	}
-	
+	//Obtiene el resultado de visualizar una imagen, video o audio
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		  if (requestCode == TAG_OK){
 			  Intent refrescar_lista = new Intent();
@@ -133,7 +133,7 @@ public class ListarFicheros extends Activity{
 	@Override
 	 public boolean onOptionsItemSelected(MenuItem item) {
 		Intent cambio_actividad = new Intent();
-		//Para los botones de crear un archivo: foto, video, grabación, nota.
+		//Para los botones de crear un archivo: foto, video, grabación, nota, nueva carpeta.
 	     switch (item.getItemId()) {
 	         case R.id.foto:
 	        	 cambio_actividad.setClass(this, Camara.class);
@@ -166,6 +166,7 @@ public class ListarFicheros extends Activity{
 		super.onPause();
 	}
 	
+	//Botón atrás
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK){
@@ -190,6 +191,7 @@ public class ListarFicheros extends Activity{
 		return super.onKeyDown(keyCode, event);
 	}
 	
+	//Obtiene los ficheros y/o directorios de un directorio
 	private void ficherosDir(File dir) {
 		  ficheros = dir.listFiles();
 		  datosFicheros = new String[ficheros.length];
@@ -207,7 +209,7 @@ public class ListarFicheros extends Activity{
 	}
 	
 	@Override
-	public boolean onContextItemSelected(MenuItem item) {
+	public boolean onContextItemSelected(MenuItem item) { //opciones aplicables a un fichero o directorio
 		 AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		 Intent refrescar_lista = new Intent();
 	     switch (item.getItemId()) {
@@ -265,7 +267,7 @@ public class ListarFicheros extends Activity{
 	}
 	
 	
-	
+	//Muestra un datepicker para elegir lafecha para incluir en el calendario
 	private void mostrarDialogFecha(final int posicionFichero, final Context context) {
 		Calendar calendarioActual = Calendar.getInstance();
 		int dia, mes, anio;
@@ -305,6 +307,7 @@ public class ListarFicheros extends Activity{
 		eleccionFecha.show();
 	}
 
+	//Borra un fichero o directorio
 	private void borrarDirectorio(File directorioABorrar) {
 		File[] ficherosDir = directorioABorrar.listFiles();
 		for(int i = 0; i < ficherosDir.length; i++){
@@ -317,6 +320,7 @@ public class ListarFicheros extends Activity{
 		directorioABorrar.delete();
 	}
 
+	//Renombra un fichero o directorio
 	private void renombrar(final int posicionFichero){
         AlertDialog.Builder dialogo = new Builder(this);
         renombrar = new EditText(this);
@@ -369,6 +373,7 @@ public class ListarFicheros extends Activity{
 
 	}
 	
+	//Crea un nuevo directorio
 	private void crearCarpeta(){
         AlertDialog.Builder dialogo = new Builder(this);
         final EditText et = new EditText(this);

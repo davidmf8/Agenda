@@ -6,8 +6,8 @@ import android.net.NetworkInfo;
 import android.os.Environment;
 
 public class FuncionesUtiles {
-   private static String IPServer = "http://prubauca.esy.es/index.php";
-   private static String Sender_ID = "907123173880";
+   private static String IPServer = "http://prubauca.esy.es/index.php"; //Servidor de la aplicación
+   private static String Sender_ID = "907123173880"; //ID del servidor de google.
    private static String preferencias = "MisPreferencias";
    private static String usuario = "usuario";
    private static String gcm = "gcm";
@@ -34,7 +34,7 @@ public class FuncionesUtiles {
 	   return false;
    }
    
-   public static String getUrlActas() {
+   public static String getUrlActas() { //Devuelve la url del campus de la universidad de Cádiz
 		return urlActas;
 	}
    

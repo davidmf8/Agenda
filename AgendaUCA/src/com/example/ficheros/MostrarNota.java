@@ -27,7 +27,7 @@ public class MostrarNota extends Activity{
 		Bundle datosIntent = this.getIntent().getExtras();
 		rutaNota = datosIntent.getString("LecturaNota");
 		File nota = new File(rutaNota);
-		try{//Se lee el fichero, se vuelva a un vector, que se transforma a String para mostrarlo por un textView
+		try{//Se lee el fichero, se vuelca a un vector, que se transforma a String para mostrarlo por un textView
 			InputStreamReader fin = new InputStreamReader(new FileInputStream(nota));
 			char[] texto = new char[1000];
 			fin.read(texto);

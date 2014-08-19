@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,14 +14,13 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.example.agendauca.R;
-import com.example.chat.listaAmigosAdapter;
 import com.example.conexionesServidor.subirFicheroAsyntask;
 import com.example.persistencia.BDAcceso;
 
+//Clase para compartir un fichero. Elige a un usuario y se enviará el fichero a dicho usuario
 public class compartirFicheroAmigo extends Activity{
 	private ArrayList<String> amigos;
 	private ListView miListaAmigos;
-	private listaAmigosAdapter adapterLista;
 	private String rutaSubDirectorio, nombreFichero;
 	private Context contexto;
 	
@@ -64,6 +62,7 @@ public class compartirFicheroAmigo extends Activity{
 		return super.onKeyDown(keyCode, event);
 	}
 	
+	//Recupera los usuarios agregados de la base de datos, eliminando los grupos
 	private void listadoAmigos() {
 		BDAcceso BDAmigos = new BDAcceso(getApplicationContext());
 		BDAmigos = BDAmigos.BDopen();

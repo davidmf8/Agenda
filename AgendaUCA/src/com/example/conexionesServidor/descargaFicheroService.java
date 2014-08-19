@@ -11,6 +11,7 @@ import com.example.utilidades.FuncionesUtiles;
 import android.app.IntentService;
 import android.content.Intent;
 
+//Servicio para descargar un fichero
 public class descargaFicheroService extends IntentService {
 
 	public descargaFicheroService() {
@@ -44,7 +45,8 @@ public class descargaFicheroService extends IntentService {
 			}
 		}catch(Exception e){}
 	}
-
+    
+	//Obtiene el nombre del fichero
 	private String isNombreFichero(String tipo) {
 		String[] splitNombre = tipo.split("/");
 		int tam = splitNombre.length;

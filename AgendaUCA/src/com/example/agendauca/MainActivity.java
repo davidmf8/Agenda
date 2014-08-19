@@ -44,7 +44,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		}
 	}
 	
-	//Ver si el usuario ya esta registrado, almacenado en preferencias de laaplicación.
+	//Ver si el usuario ya esta registrado, almacenado en preferencias de la aplicación.
 	//Si lo esta, carga el menu principal
 	private void comprobarPreferencias() {
 		misPreferencias = getSharedPreferences(FuncionesUtiles.getPreferencias(), MODE_PRIVATE);
@@ -79,7 +79,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		}	
 	}
 	
-	//Comprobar servidoresde google, para su posterior registro
+	//Comprobar servidores de google, para su posterior registro
 	public boolean comprobarServiciosGoogle(){
 		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
         if (resultCode != ConnectionResult.SUCCESS) {
@@ -95,7 +95,8 @@ public class MainActivity extends Activity implements OnClickListener{
 		
 	}
 	
-	//Validar el resultado cuando el hilo termina su ejecución.
+	//Validar el resultado cuando el hilo termina su ejecución. Si el usuario ya esta en uso, volvemos a pedir otro 
+	//nombre de usuario
 	public void validacion(boolean result){
 		Intent cambio_actividad = new Intent();
 		if(result == false){

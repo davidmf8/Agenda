@@ -27,6 +27,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.example.agendauca.R;
 import com.example.utilidades.Asignatura;
 
+//Muestra los exaémenes de un grado
 public class listaExamenes extends Activity{
 	private ListView listaExamenes;
 	private String[] examenes;
@@ -56,6 +57,7 @@ public class listaExamenes extends Activity{
 		}
 	}
 	
+	//Agrega un examen al calendario
 	private void agregarExamen(final int posicion, final Context context) {
 		 AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("¿Desea agregar este examen a tu calendario?").setTitle("Agregar examen")

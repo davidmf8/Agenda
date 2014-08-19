@@ -42,7 +42,7 @@ public class EnviarMensajeAsynTask extends AsyncTask<Void,Boolean,Boolean>{
 		}
 	}
 
-	//Ejecución del hilo. Se envia la petición al servidor y comprobamos, con JSONObject, si
+	//Ejecución del hilo. Se envia la petición al servidor y comprobamos, con JSON, si
 	//se ha realizado el registro correctamente
 	@Override
 	protected Boolean doInBackground(Void... params) { 

@@ -21,7 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
+//Activity que muestra la conversación con un usuario o grupo
 public class chatAmigo extends ListActivity{
 	private String nombreAmigo, mensaje;
 	private String[] grupo;
@@ -70,7 +70,6 @@ public class chatAmigo extends ListActivity{
         return true;
     }
 	
-	
 	public void onResume(){
 		super.onResume();
 		broadcastReceiver = new recibirNotificacion();
@@ -85,6 +84,7 @@ public class chatAmigo extends ListActivity{
 		super.onPause();
 	}
 	
+	//Opciones del chat
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	     switch (item.getItemId()) {
@@ -109,8 +109,8 @@ public class chatAmigo extends ListActivity{
             	 break;
 	     } 
 	     return false;
-	 }
-	
+	}
+	//Boton atras
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK){
 			Intent cambio_actividad = new Intent();
@@ -122,6 +122,7 @@ public class chatAmigo extends ListActivity{
 		return super.onKeyDown(keyCode, event);
 	}
 	
+	//Envia el mensaje al pulsar el botón enviar
 	public void onClick(View v){
 		mensaje = texto.getText().toString();
 		if(mensaje.length() > 0){
@@ -142,6 +143,7 @@ public class chatAmigo extends ListActivity{
 		texto.setText("");
 	}
 	
+	//Actualiza el chat con el nuevo mensaje
 	public void actualizarLista(){
 		if(historialActivo){
 			adapterLista.mostrarHistorial(nombreAmigo);
@@ -155,7 +157,7 @@ public class chatAmigo extends ListActivity{
 		}	
 	}
 	
-	//Broadcast receiber para mantener actualizada la consersacion en caso de que el usuario este en ella.
+	//Broadcast receiver para mantener actualizada la conversacion en caso de que el usuario este en ella.
 	public class recibirNotificacion extends BroadcastReceiver{
 		@Override
 		public void onReceive(Context context, Intent intent) {
@@ -172,15 +174,13 @@ public class chatAmigo extends ListActivity{
 			  }
 			   else{
 				   //Log.d("GRUPO",origenGrupo);
-				   //Log.d("GRUPOMIO",nombreAmigo);
+				   //Log.d("NOMBREAMIGO",nombreAmigo);
 				   if(origenGrupo.equalsIgnoreCase(nombreAmigo)){
 					   actualizarLista();
 					   NotificationManager notificacionesActuales = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		               notificacionesActuales.cancel(1);
-					   //Log.d("SI ENTRA",nombreAmigo);
+					   //Log.d("CHAT ABIERTO",nombreAmigo);
 				   }
-				  // else
-					   //Log.d("NO ENTRA",nombreAmigo);
 			   }
 		}
 		

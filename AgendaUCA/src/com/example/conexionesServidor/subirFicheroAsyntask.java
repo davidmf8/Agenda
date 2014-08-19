@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+//Sube un fichero al servidor
 public class subirFicheroAsyntask extends AsyncTask<Void, Void, Boolean>{
     private String archivoADescargar, usuarioDestino;
     private File ficheroAEnviar;
@@ -57,13 +58,13 @@ public class subirFicheroAsyntask extends AsyncTask<Void, Void, Boolean>{
 			streamFichero.writeBytes("Content-Disposition: form-data; name=\"fichero\";filename=\"" + archivoADescargar + "\"" + patron1);
 			streamFichero.writeBytes(patron1);
 
-			// create a buffer of  maximum size
+			//buffer de tamaño maximo
 			int tamDisponible = ficheroStream.available();
 
 			int tamBuffer = Math.min(tamDisponible, tamMaxBuffer);
 			buffer = new byte[tamBuffer];
 
-			// read file and write it into form...
+			//leerá y escribirá en intervalos, indicado por el tamaño de lectura posible
 			int lecturaTam = ficheroStream.read(buffer, 0, tamBuffer); 
            
 			while (lecturaTam > 0){
@@ -71,13 +72,10 @@ public class subirFicheroAsyntask extends AsyncTask<Void, Void, Boolean>{
 				tamDisponible = ficheroStream.available();
 				tamBuffer = Math.min(tamDisponible, tamMaxBuffer);
 				lecturaTam = ficheroStream.read(buffer, 0, tamBuffer);  
-           }
+            }
 
-			// send multipart form data necesssary after file data...
 			streamFichero.writeBytes(patron1);
 			streamFichero.writeBytes(patron2 + patron3 + patron2 + patron1);
-         
-			//close the streams //
 			ficheroStream.close();
 			streamFichero.flush();
 			streamFichero.close(); 
@@ -95,7 +93,7 @@ public class subirFicheroAsyntask extends AsyncTask<Void, Void, Boolean>{
 		return true;
 	}
 	
-	protected void onPostExecute(Boolean result){
+	protected void onPostExecute(Boolean result){ //Una vez subido el fichero, se envia una notificación aldestino
 		if(result){
 			String ruta = "http://prubauca.esy.es/descargas/" + ficheroAEnviar.getName();
 			EnviarMensajeAsynTask enviarMensaje = new EnviarMensajeAsynTask();

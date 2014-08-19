@@ -40,19 +40,14 @@ public class HttpJsonObject {
 			//Parametros para la conexion http
 		 	final HttpParams httpParams = new BasicHttpParams();
 		 	HttpConnectionParams.setConnectionTimeout(httpParams, 60000);
-		 	
 	        HttpClient httpclient = new DefaultHttpClient(httpParams);
-	        
 	        HttpPost httppost = new HttpPost(urlwebserver);
-	        
 	        httppost.setEntity(new UrlEncodedFormEntity(parametros));
-	        
 	        //Ejecutamos la tarea con elcliente http. Se espera que se devuelva un mensaje JSON
 	        //Para saber si se ha realizado con éxito la petición.
 	        HttpResponse response = httpclient.execute(httppost); 
 	        HttpEntity entity = response.getEntity();
-	        stream = entity.getContent();
-	        
+	        stream = entity.getContent();	        
 	    }catch(Exception e){}
 	}
 	

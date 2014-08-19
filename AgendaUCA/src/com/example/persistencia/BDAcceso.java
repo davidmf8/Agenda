@@ -49,7 +49,7 @@ public class BDAcceso {
 		return resultado;
 	}
 	
-	public boolean isNuevoMensaje(String nombre){
+	public boolean isNuevoMensaje(String nombre){ //Comprueba si un usuario tiene nuevos mensajes sin leer
 		String sql = "SELECT * FROM AMIGOS WHERE nombre='"+nombre+"'";
 		Cursor cursor = database.rawQuery(sql, null);
 		if(cursor.moveToFirst()){
@@ -61,7 +61,7 @@ public class BDAcceso {
 		return false;
 	}
 	
-	public void setNuevoMensaje(boolean nuevoMensaje, String nombre){
+	public void setNuevoMensaje(boolean nuevoMensaje, String nombre){ //Agrega a un usuario si tienes mensajes sin leer o si ya han sido leidos
 		int actualizarNuevoMensaje;
 		if(nuevoMensaje)
 			actualizarNuevoMensaje = 1;
@@ -74,7 +74,7 @@ public class BDAcceso {
 		database.execSQL("UPDATE AMIGOS SET nuevoMensaje="+actualizarNuevoMensaje + " WHERE nombre='"+nombre+"'");
 	}
 	
-	public void insertarMensaje(String mensaje, String nombre, int tipo, String grupo){
+	public void insertarMensaje(String mensaje, String nombre, int tipo, String grupo){ //Inserta un mensaje en la base de datos
 		ContentValues datosMensaje = new ContentValues();
 		datosMensaje.put(KEY_MENSAJE, mensaje);
 		datosMensaje.put(KEY_NOMBRE, nombre);
@@ -98,7 +98,7 @@ public class BDAcceso {
 		return usuarios;
 	}
 	
-	public ArrayList<Mensaje> getMensajesUsuarioFechaActual(String nombre){
+	public ArrayList<Mensaje> getMensajesUsuarioFechaActual(String nombre){ //Obtiene todos los mensajes de un usuario que coincidan con la fecha actual
 		String mensaje, fecha, autor;
 		int tipo;
 		Mensaje mensajes;
@@ -129,7 +129,7 @@ public class BDAcceso {
 		return mensajesUsuario;
 	}
 	
-	public ArrayList<Mensaje> getMensajesUsuario (String nombre){
+	public ArrayList<Mensaje> getMensajesUsuario (String nombre){ //Obtiene todos los mensajes de un usuario
 		String mensaje, fecha, autor;
 		int tipo;
 		Mensaje mensajes;
@@ -155,7 +155,7 @@ public class BDAcceso {
 		database.execSQL(sql);
 	}
 	
-	public void eliminarMensajesUsuario(String nombre){
+	public void eliminarMensajesUsuario(String nombre){ //Elimina los mensajes de un usuario de la base de datos
 		String sql = "DELETE FROM MENSAJES WHERE nombre='"+nombre+"'";
 		database.execSQL(sql);
 	}

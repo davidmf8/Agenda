@@ -17,6 +17,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
+//Descarga un fichero excel del servidor y lo lee
 public class descargarExamenesAsynTask extends AsyncTask<Void, Void, Boolean>{
     private String archivoADescargar, asignatura, fecha, lugar;
     private listaGrados context;
@@ -44,6 +45,7 @@ public class descargarExamenesAsynTask extends AsyncTask<Void, Void, Boolean>{
 		   conexion.setDoOutput(true);
 		   conexion.connect();
 
+		   //Se crea un fichero temporal, ya que obtenemos los datos y el fichero no se leerá más.
 		   File file = File.createTempFile("excel", ".xls");
 		   FileOutputStream outputStream = new FileOutputStream(file);
 		   InputStream inputStream = conexion.getInputStream();
@@ -61,16 +63,11 @@ public class descargarExamenesAsynTask extends AsyncTask<Void, Void, Boolean>{
 		  Log.d("RUTA", file.getAbsolutePath());
 		  
           Workbook excel = Workbook.getWorkbook(file);
-
           Sheet hojaExcel = excel.getSheet(0);
-
-          System.out.println(hojaExcel.getColumns());
-          System.out.println(hojaExcel.getRows());
           
           for(int i=0; i<hojaExcel.getRows(); i++){
                 asignatura = hojaExcel.getCell(0,i).getContents();
                 fecha = hojaExcel.getCell(1,i).getContents();
-                System.out.println(fecha);
                 lugar = hojaExcel.getCell(2,i).getContents();
                 Asignatura auxAsignatura = new Asignatura(asignatura, fecha, lugar);
                 asignaturas.add(auxAsignatura);

@@ -17,7 +17,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-
+//Clase que trata las notificaciones recibidas
 public class GCMServicioPush extends IntentService{
 	private BDAcceso BD;
 	private Intent notificadorChat;
@@ -36,25 +36,26 @@ public class GCMServicioPush extends IntentService{
 		String tipoMensaje = serverGCM.getMessageType(intent);
         Bundle extras = intent.getExtras();
 
-        if (!extras.isEmpty()){
+        if (!extras.isEmpty()){//Si hay mensajes
                 if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(tipoMensaje)){
                 	notificadorChat = new Intent("ActualizarLista");
                 	//notificadorChat.putExtra("message", extras.getString("mensaje"));
                 	notificadorChat.putExtra("user", extras.getString("user"));
                 	notificadorChat.putExtra("grupo", extras.getString("nuevoGrupo"));
-                	if(extras.getString("user").equalsIgnoreCase("CrearEvento"))
+                	if(extras.getString("user").equalsIgnoreCase("CrearEvento")) 
                 	  notificacionEvento(extras.getString("mensaje"));
                 	else
                 		if(extras.getString("mensaje").contains("http://prubauca.esy.es/descargas"))
-                				notificacionFichero(extras.getString("mensaje"));
+                		    notificacionFichero(extras.getString("mensaje"));
                 		else	
-                           mostrarNotificacion(extras.getString("mensaje"), extras.getString("user"), extras.getString("nuevoGrupo"));
+                            mostrarNotificacion(extras.getString("mensaje"), extras.getString("user"), extras.getString("nuevoGrupo"));
                 }
         }
 
         GCMBroadcastReceiver.completeWakefulIntent(intent);
 	}
 
+	//Trata la recepción de un fichero
 	private void notificacionFichero(String mensajeDescarga) {
 		 NotificationManager notificador = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		 NotificationCompat.Builder notificacion =
@@ -77,6 +78,7 @@ public class GCMServicioPush extends IntentService{
 	     notificador.notify(1, notificacion.build());
 	}
 
+	//Trata larecepción de un evento
 	private void notificacionEvento(String datos) {
 		 NotificationManager notificador = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		 NotificationCompat.Builder notificacion =
@@ -98,6 +100,7 @@ public class GCMServicioPush extends IntentService{
 		
 	}
 
+	//Trata la recepción de un mensaje: ha sido agregado por un amigo, añadido a un grupo o ha recibido un mensaje de unusuario o grupo
 	private void mostrarNotificacion(String mensaje, String usuario, String grupo) {
 	   NotificationManager notificador = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
        if(mensaje != null){

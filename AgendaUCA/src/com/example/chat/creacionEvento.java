@@ -54,7 +54,7 @@ public class creacionEvento extends Activity{
 		horaEvento = (EditText)this.findViewById(R.id.horaEvento);
 		
 		calendarioActual = Calendar.getInstance();
-		
+		//Ventana para escoger una hora
 		horaPicker = new TimePickerDialog.OnTimeSetListener() {
 			@Override
 			public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -78,7 +78,7 @@ public class creacionEvento extends Activity{
  	                    calendarioActual.get(Calendar.MINUTE), true).show();
  	        }
  	    });
-		
+       //Ventana para escoger una fecha
 		fechaPicker = new DatePickerDialog.OnDateSetListener() {
 		    @Override
 		    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -166,7 +166,7 @@ public class creacionEvento extends Activity{
 	}
 
 	public void actualizacionEvento() {
-		//Al terrminar de enviar el evento, se actualiza el dispositivo con el nuevo evento creado
+		//Al terminar de enviar el evento, se actualiza el dispositivo con el nuevo evento creado
 		 SimpleDateFormat formateoFechaHora = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		  Date formatoFecha = null;
 		  try {

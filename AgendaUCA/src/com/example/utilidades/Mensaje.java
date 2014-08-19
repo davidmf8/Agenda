@@ -1,5 +1,6 @@
 package com.example.utilidades;
 
+//Clase que representa un mensaje del chat
 public class Mensaje {
     String mensaje, fecha, autor;
     int tipo;

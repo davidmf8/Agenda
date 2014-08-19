@@ -80,7 +80,7 @@ public class creacionGrupo extends Activity{
 		return super.onKeyDown(keyCode, event);
 	}
 	
-	//Envia a los demás usuario  que se ha añadido a un nuevo grupo
+	//Envia a los demás usuarios  que se ha añadido a un nuevo grupo
 	public void onClick(View v){
 		if(amigosSeleccionados.size() > 1){
 			miembrosGrupo = amigosSeleccionados.get(0);
@@ -100,7 +100,7 @@ public class creacionGrupo extends Activity{
 			Toast.makeText(this, "Seleccione 2 o más usuarios", Toast.LENGTH_SHORT).show();
 	}
 	
-	//Devuelve si un elemento de la listadeamigos ha sido seleccionado o no
+	//Devuelve si un elemento de la lista de amigos ha sido seleccionado o no
 	private boolean isSeleccionado(String nombreSeleccionado) {
 		return amigosSeleccionados.contains(nombreSeleccionado);
 	}

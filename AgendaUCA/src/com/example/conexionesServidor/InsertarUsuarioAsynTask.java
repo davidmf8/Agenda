@@ -16,6 +16,7 @@ import com.example.chat.chatPrincipal;
 import com.example.persistencia.BDAcceso;
 import com.example.utilidades.FuncionesUtiles;
 
+//Busca un usuario en el servidor, para ser agregado
 public class InsertarUsuarioAsynTask  extends AsyncTask<Void,Void,String>{
 	private final static String ERROR = "Error";
 	private HttpJsonObject peticionPostServidor = new HttpJsonObject();

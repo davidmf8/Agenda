@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 import com.example.agendauca.MenuInicial;
 import com.example.agendauca.R;
-import com.example.chat.creacionEvento;
 import com.example.conexionesServidor.descargarExamenesAsynTask;
-import com.example.persistencia.BDAcceso;
 import com.example.utilidades.Asignatura;
 import com.example.utilidades.FuncionesUtiles;
 
@@ -24,6 +22,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
+//Muestra las distintas titulaciones de ingeniería.
 public class listaGrados extends Activity{
 	private ListView listaGrados;
 	private listaGrados referencia;
@@ -67,6 +66,7 @@ public class listaGrados extends Activity{
 	     return false;
 	 }
 	
+	//Valida si un excel ha sido leido correctamente o no
 	public void validarExcel(boolean resultado, ArrayList<Asignatura> asignaturas){
 		if(resultado){
 		  Intent cambio_actividad = new Intent();
