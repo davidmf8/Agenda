@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -59,15 +58,15 @@ public class creacionEvento extends Activity{
 		horaPicker = new TimePickerDialog.OnTimeSetListener() {
 			@Override
 			public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-				 calendarioActual.set(hourOfDay, Calendar.HOUR);
-	             calendarioActual.set(minute, Calendar.MINUTE);
-	             actualizarEditTextHora();
+				 /*calendarioActual.set(hourOfDay, Calendar.HOUR);
+	             calendarioActual.set(minute, Calendar.MINUTE);*/
+	             actualizarEditTextHora(hourOfDay, minute);
 			}
 
-			private void actualizarEditTextHora() {
+			private void actualizarEditTextHora(int hourOfDay, int minute) {
 				String formato = "HH:mm";
 			    SimpleDateFormat formatoFinal = new SimpleDateFormat(formato);
-			    horaEvento.setText(formatoFinal.format(calendarioActual.getTime()));
+			    horaEvento.setText(hourOfDay + ":" + minute);
 			}
  
          };

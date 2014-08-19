@@ -248,12 +248,16 @@ public class ListarFicheros extends Activity{
                 mostrarDialogFecha(info.position, this);
 	        	return true;
 	        case R.id.Compartir:
-	        	Intent compartirActivity = new Intent();
-	        	compartirActivity.putExtra("Fichero", ficheros[info.position].getAbsolutePath());
-	        	compartirActivity.putExtra("Subdirectorio", rutaSubDirectorio);
-	        	compartirActivity.setClass(getApplicationContext(), compartirFicheroAmigo.class);
-				startActivity(compartirActivity);
-				finish();
+	        	if(!ficheros[info.position].isDirectory()){
+	        		Intent compartirActivity = new Intent();
+	        		compartirActivity.putExtra("Fichero", ficheros[info.position].getAbsolutePath());
+	        		compartirActivity.putExtra("Subdirectorio", rutaSubDirectorio);
+	        		compartirActivity.setClass(getApplicationContext(), compartirFicheroAmigo.class);
+	        		startActivity(compartirActivity);
+	        		finish();
+	        	}
+	        	else
+	        		Toast.makeText(this, "No se pueden compartir directorios", Toast.LENGTH_SHORT).show();
 	        	return true;
 	        default:
 	            return super.onContextItemSelected(item);

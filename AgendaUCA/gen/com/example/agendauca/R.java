@@ -277,6 +277,7 @@ containing a value of this type.
         public static final int Video=0x7f05002b;
         public static final int bar=0x7f05000e;
         public static final int blocNotas=0x7f050008;
+        public static final int consultarActas=0x7f050036;
         public static final int conversacion=0x7f05000f;
         public static final int crearEvento=0x7f050016;
         public static final int descripcionEvento=0x7f050012;
@@ -323,6 +324,7 @@ containing a value of this type.
         public static final int main=0x7f0a0001;
         public static final int menu_amigos=0x7f0a0002;
         public static final int menu_opciones_listas=0x7f0a0003;
+        public static final int opcion_grados=0x7f0a0004;
     }
     public static final class string {
         public static final int action_settings=0x7f06001b;

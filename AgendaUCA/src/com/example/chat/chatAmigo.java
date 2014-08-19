@@ -86,7 +86,7 @@ public class chatAmigo extends ListActivity{
 	}
 	
 	@Override
-	 public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 	     switch (item.getItemId()) {
 	         case R.id.EliminarHistorial:
 	    	     BD = new BDAcceso(this);

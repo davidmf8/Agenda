@@ -4,13 +4,19 @@ import java.util.ArrayList;
 
 import com.example.agendauca.MenuInicial;
 import com.example.agendauca.R;
+import com.example.chat.creacionEvento;
 import com.example.conexionesServidor.descargarExamenesAsynTask;
+import com.example.persistencia.BDAcceso;
 import com.example.utilidades.Asignatura;
+import com.example.utilidades.FuncionesUtiles;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -43,6 +49,23 @@ public class listaGrados extends Activity{
 			}
 		});
 	}
+	
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.opcion_grados, menu);
+        return true;
+    }
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	     switch (item.getItemId()) {
+	         case R.id.consultarActas:
+	        	 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(FuncionesUtiles.getUrlActas()));
+	        	 startActivity(browserIntent);
+                 break;
+	     } 
+	     return false;
+	 }
 	
 	public void validarExcel(boolean resultado, ArrayList<Asignatura> asignaturas){
 		if(resultado){

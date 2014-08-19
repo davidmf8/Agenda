@@ -11,6 +11,7 @@ public class FuncionesUtiles {
    private static String preferencias = "MisPreferencias";
    private static String usuario = "usuario";
    private static String gcm = "gcm";
+   private static String urlActas = "https://campusvirtual.uca.es/";
    public static final String TAG = "tag";
    public static final String MENSAJE = "mensaje";
    public static final String USERNAME = "nombreUsuario";
@@ -32,6 +33,10 @@ public class FuncionesUtiles {
 	   }
 	   return false;
    }
+   
+   public static String getUrlActas() {
+		return urlActas;
+	}
    
    public static String getIPServer(){ //Devuelve la IP del servidor de usuarios registrados en la app
 	   return IPServer;
