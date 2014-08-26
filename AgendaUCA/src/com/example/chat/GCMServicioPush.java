@@ -45,9 +45,10 @@ public class GCMServicioPush extends IntentService{
                 	if(extras.getString("user").equalsIgnoreCase("CrearEvento")) 
                 	  notificacionEvento(extras.getString("mensaje"));
                 	else
-                		if(extras.getString("mensaje").contains("http://prubauca.esy.es/descargas"))
+                		if(extras.getString("mensaje") != null)
+                		  if(extras.getString("mensaje").contains("http://prubauca.esy.es/descargas"))
                 		    notificacionFichero(extras.getString("mensaje"));
-                		else	
+                		  else	
                             mostrarNotificacion(extras.getString("mensaje"), extras.getString("user"), extras.getString("nuevoGrupo"));
                 }
         }

@@ -12,6 +12,7 @@ import com.example.utilidades.FuncionesUtiles;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -40,6 +41,8 @@ public class Audio extends Activity {
 		parar = (Button) findViewById(R.id.Parar);
 		parar.setEnabled(false);
 		//Obtenemos los botones para habilitar/deshabilitar alguno de ellos mientras el otro está en uso
+		
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	}
 
 	public void grabar(View v) { //Grabar audio

@@ -59,6 +59,9 @@ public class chatAmigo extends ListActivity{
 		else
 		    this.setTitle(nombreAmigo);	
 		
+		NotificationManager notificacionesActuales = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificacionesActuales.cancel(1);
+		
 		adapterLista = new mensajeAdapter(this, mensajesChat, grupo.length);
 		this.setListAdapter(adapterLista);
 		this.setSelection(adapterLista.getCount()-1);
@@ -155,6 +158,10 @@ public class chatAmigo extends ListActivity{
 		    adapterLista.notifyDataSetChanged();
 		    this.setSelection(adapterLista.getCount()-1);
 		}	
+		BD = new BDAcceso(this);
+		BD.BDopen();
+		BD.setNuevoMensaje(false, nombreAmigo);
+		BD.BDclose();
 	}
 	
 	//Broadcast receiver para mantener actualizada la conversacion en caso de que el usuario este en ella.

@@ -42,7 +42,7 @@ public class Video extends Activity{
 		else{ //Se graba
 		  fileUri = Uri.fromFile(miVideo);
 		  video.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-		  video.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
+		  video.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
 		  video.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 		  startActivityForResult(video, CAPTURA_VIDEO);
 		}

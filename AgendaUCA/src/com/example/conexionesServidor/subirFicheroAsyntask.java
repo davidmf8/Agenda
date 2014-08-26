@@ -52,6 +52,8 @@ public class subirFicheroAsyntask extends AsyncTask<Void, Void, Boolean>{
 			conexion.setRequestProperty("ENCTYPE", "multipart/form-data");
 			conexion.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + patron3);
 			conexion.setRequestProperty("fichero", archivoADescargar);
+			conexion.setConnectTimeout (90000);
+			conexion.setReadTimeout(90000);
          
 			DataOutputStream streamFichero = new DataOutputStream(conexion.getOutputStream());
 			streamFichero.writeBytes(patron2 + patron3 + patron1);
