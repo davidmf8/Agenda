@@ -87,7 +87,7 @@ public class chatAmigo extends ListActivity{
 		super.onPause();
 	}
 	
-	//Opciones del chat
+	//Opciones de chat
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	     switch (item.getItemId()) {
