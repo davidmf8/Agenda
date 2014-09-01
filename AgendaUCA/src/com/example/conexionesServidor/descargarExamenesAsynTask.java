@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import jxl.Sheet;
 import jxl.Workbook;
+import jxl.WorkbookSettings;
 
 import com.example.examenes.listaGrados;
 import com.example.utilidades.Asignatura;
@@ -62,7 +63,9 @@ public class descargarExamenesAsynTask extends AsyncTask<Void, Void, Boolean>{
 		  outputStream.close();	
 		  Log.d("RUTA", file.getAbsolutePath());
 		  
-          Workbook excel = Workbook.getWorkbook(file);
+		  WorkbookSettings opciones= new WorkbookSettings();
+		  opciones.setEncoding("iso-8859-1");
+          Workbook excel = Workbook.getWorkbook(file, opciones);
           Sheet hojaExcel = excel.getSheet(0);
           
           for(int i=0; i<hojaExcel.getRows(); i++){
