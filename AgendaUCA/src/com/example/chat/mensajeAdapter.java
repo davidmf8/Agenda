@@ -52,8 +52,7 @@ public class mensajeAdapter extends BaseAdapter{
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Mensaje mensaje = mensajesAMostrar.get(position);
 		ViewMensaje holder; 
-		if(convertView == null)
-		{
+		if(convertView == null){
 			holder = new ViewMensaje();
 			convertView = LayoutInflater.from(contextChat).inflate(R.layout.sms_row, parent, false);
 			holder.mensaje = (TextView) convertView.findViewById(R.id.texto_mensaje);
