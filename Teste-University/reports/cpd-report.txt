@@ -1,0 +1,16 @@
+Found a 12 line (42 tokens) duplication in the following files: 
+Starting at line 15 of C:\Users\David\Desktop\Workspace\AgendaUCAtest\src\com\test\testPrincipal.java
+Starting at line 16 of C:\Users\David\Desktop\Workspace\AgendaUCAtest\src\com\test\testContenidos.java
+
+		super(MainActivity.class);
+	}
+	
+	public void setUp() throws Exception {
+	    solo = new Solo(getInstrumentation(), getActivity());
+	}
+	
+	public void tearDown() throws Exception {
+		solo.finishOpenedActivities();
+	}
+	
+	public void testRegistro() throws Exception {
